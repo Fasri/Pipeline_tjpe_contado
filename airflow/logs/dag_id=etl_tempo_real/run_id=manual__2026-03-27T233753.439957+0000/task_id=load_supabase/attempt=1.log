@@ -1,0 +1,44 @@
+[2026-03-27T23:41:49.960+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-03-27T23:41:50.154+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_tempo_real.load_supabase manual__2026-03-27T23:37:53.439957+00:00 [queued]>
+[2026-03-27T23:41:50.170+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_tempo_real.load_supabase manual__2026-03-27T23:37:53.439957+00:00 [queued]>
+[2026-03-27T23:41:50.172+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-03-27T23:41:50.195+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): load_supabase> on 2026-03-27 23:37:53.439957+00:00
+[2026-03-27T23:41:50.206+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=1840) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-03-27T23:41:50.209+0000] {standard_task_runner.py:72} INFO - Started process 1846 to run task
+[2026-03-27T23:41:50.209+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_tempo_real', 'load_supabase', 'manual__2026-03-27T23:37:53.439957+00:00', '--job-id', '138', '--raw', '--subdir', 'DAGS_FOLDER/etl_tempo_real.py', '--cfg-path', '/tmp/tmpw8m5lk6v']
+[2026-03-27T23:41:50.211+0000] {standard_task_runner.py:105} INFO - Job 138: Subtask load_supabase
+[2026-03-27T23:41:50.305+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_tempo_real.load_supabase manual__2026-03-27T23:37:53.439957+00:00 [running]> on host 25278ba1f35a
+[2026-03-27T23:41:50.449+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_tempo_real' AIRFLOW_CTX_TASK_ID='load_supabase' AIRFLOW_CTX_EXECUTION_DATE='2026-03-27T23:37:53.439957+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-27T23:37:53.439957+00:00'
+[2026-03-27T23:41:50.453+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-03-27T23:41:50.456+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-03-27T23:41:50.457+0000] {logging_mixin.py:190} INFO - Current task name:load_supabase state:running start_date:2026-03-27 23:41:50.155574+00:00
+[2026-03-27T23:41:50.458+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real and current dag run status:running
+[2026-03-27T23:41:50.459+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-03-27T23:41:54.668+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_1a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:41:55.481+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_1a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:41:56.152+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_2a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:41:56.954+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_2a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:41:57.713+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_3a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:41:58.257+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_3a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:41:58.646+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_4a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:41:59.033+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_4a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:42:00.048+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_5a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:42:00.516+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_5a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:42:01.178+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_6a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:42:01.783+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_6a_CCJ.csv enviado para o Supabase Storage
+[2026-03-27T23:42:02.540+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_7a_CC.csv enviado para o Supabase Storage
+[2026-03-27T23:42:03.180+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_PARTIDOR.csv enviado para o Supabase Storage
+[2026-03-27T23:42:03.907+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_QUANTIDADE.csv enviado para o Supabase Storage
+[2026-03-27T23:42:04.673+0000] {logging_mixin.py:190} INFO - Arquivo tempo_real_2026-03-27_CONSOLIDADO.csv enviado para o Supabase Storage
+[2026-03-27T23:42:04.677+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-03-27T23:42:04.692+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-03-27T23:42:04.693+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=etl_tempo_real, task_id=load_supabase, run_id=manual__2026-03-27T23:37:53.439957+00:00, execution_date=20260327T233753, start_date=20260327T234150, end_date=20260327T234204
+[2026-03-27T23:42:04.733+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-03-27T23:42:04.734+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-03-27T23:42:04.736+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real queued_at:2026-03-27 23:37:53.739097+00:00
+[2026-03-27T23:42:04.737+0000] {logging_mixin.py:190} INFO - Task hostname:25278ba1f35a operator:PythonOperator
+[2026-03-27T23:42:04.790+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-03-27T23:42:04.808+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-27T23:42:04.812+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

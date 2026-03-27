@@ -1,9 +1,13 @@
 def extract_report_tempo_real(totp_secret: str | None = None):
     import os
-    from dotenv import load_dotenv
+    import shutil
+    import glob
     import time
+    from pathlib import Path
+    from dotenv import load_dotenv
     
-    load_dotenv()
+    BASE_DIR = Path(__file__).parent.parent
+    load_dotenv(BASE_DIR / ".env")
     
     from selenium import webdriver
     from webdriver_manager.firefox import GeckoDriverManager
@@ -17,6 +21,8 @@ def extract_report_tempo_real(totp_secret: str | None = None):
     senha = os.getenv("TJPE_SENHA") or ""
     totp_secret = totp_secret or os.getenv("TJPE_TOTP_SECRET") or ""
     download_path = os.getenv("DOWNLOAD_PATH")
+    if download_path and not Path(download_path).is_absolute():
+        download_path = str(BASE_DIR / download_path)
     
     if not download_path:
         raise ValueError("DOWNLOAD_PATH deve ser definido no arquivo .env")
@@ -24,6 +30,7 @@ def extract_report_tempo_real(totp_secret: str | None = None):
     if not cpf or not senha:
         raise ValueError("TJPE_CPF e TJPE_SENHA devem ser definidos no arquivo .env")
     
+    print(f"Iniciando extração - Download path: {download_path}")
     os.makedirs(download_path, exist_ok=True)
     
     fp = Options()
@@ -39,18 +46,21 @@ def extract_report_tempo_real(totp_secret: str | None = None):
     fp.set_preference("browser.download.manager.showWhenStarting", False)
     fp.set_preference("browser.download.dir", download_path)
     fp.set_preference("browser.download.manager.useWindow", False)
-    fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/octet-stream")
     fp.set_preference("browser.helperApps.alwaysAsk.force", False)
     fp.set_preference("browser.download.manager.focusWhenStarting", False)
+    fp.set_preference("pdfjs.disabled", True)
 
     servico = Service(GeckoDriverManager().install())
 
     navegador = webdriver.Firefox(options=fp, service=servico)
     navegador.set_page_load_timeout(60)
+    navegador.delete_all_cookies()
     wait = WebDriverWait(navegador, 30)
 
     navegador.get("https://www.tjpe.jus.br/tjpereports/xhtml/login.xhtml")
     print(f"Página carregada: {navegador.current_url}")
+    print(f"Download path: {download_path}")
 
     wait.until(EC.presence_of_element_located((By.ID, "username")))
 
@@ -123,20 +133,46 @@ def extract_report_tempo_real(totp_secret: str | None = None):
     time.sleep(4)
 
     navegador.find_element('xpath', '//*[@id="filtroRelatorioForm:btnExportarXlsx"]').click()
+    print("Botão Exportar XLSX clicado")
 
     print(f"Aguardando download na pasta: {download_path}")
     
-    time.sleep(15)
+    max_wait = 180
+    check_interval = 5
+    arquivos_antes = set(os.listdir(download_path))
     
-    arquivos_antes = os.listdir(download_path)
-    print(f"Arquivos antes: {arquivos_antes}")
+    for i in range(0, max_wait, check_interval):
+        time.sleep(check_interval)
+        arquivos_atuais = set(os.listdir(download_path))
+        novos = arquivos_atuais - arquivos_antes
+        xlsx_files = [f for f in novos if f.endswith('.xlsx')]
+        if xlsx_files:
+            print(f"Download detectado: {xlsx_files}")
+            break
+        
+        for check_dir in ["/home/airflow/Downloads", "/tmp", "/downloads"]:
+            if os.path.exists(check_dir):
+                extra_files = glob.glob(f"{check_dir}/*.xlsx")
+                if extra_files:
+                    print(f"Arquivo encontrado em {check_dir}: {extra_files}")
+                    for f in extra_files:
+                        dest = os.path.join(download_path, os.path.basename(f))
+                        shutil.move(f, dest)
+                        print(f"Movido para {download_path}")
+                    break
+    else:
+        print("Timeout esperando download")
+        arquivos_atuais = os.listdir(download_path)
+        print(f"Arquivos na pasta: {arquivos_atuais}")
+        
+        for check_dir in ["/home/airflow/Downloads", "/tmp", "/downloads", os.path.expanduser("~/Downloads")]:
+            if os.path.exists(check_dir):
+                extra_files = glob.glob(f"{check_dir}/*.xlsx")
+                if extra_files:
+                    print(f"Arquivos xlsx encontrados em {check_dir}: {extra_files}")
     
-    time.sleep(90)
-    
-    arquivos_depois = os.listdir(download_path)
-    print(f"Arquivos depois: {arquivos_depois}")
-    
-    novos_arquivos = [f for f in arquivos_depois if f not in arquivos_antes and f.endswith('.xlsx')]
+    arquivos_finais = set(os.listdir(download_path))
+    novos_arquivos = [f for f in (arquivos_finais - arquivos_antes) if f.endswith('.xlsx')]
     print(f"Novos arquivos xlsx: {novos_arquivos}")
     
     if not novos_arquivos:
@@ -145,15 +181,27 @@ def extract_report_tempo_real(totp_secret: str | None = None):
         print(f"Arquivos xlsx na pasta: {xlsx_files}")
 
     print("Fechando navegador...")
-    try:
-        navegador.quit()
-    except Exception as e:
-        print(f"Erro ao fechar navegador: {e}")
+    
+    import threading
+    
+    def close_browser():
         try:
-            navegador.close()
+            navegador.quit()
         except:
-            pass
-    print("Navegador fechado")
+            try:
+                navegador.close()
+            except:
+                pass
+    
+    close_thread = threading.Thread(target=close_browser)
+    close_thread.daemon = True
+    close_thread.start()
+    close_thread.join(timeout=15)
+    
+    if close_thread.is_alive():
+        print("Timeout ao fechar navegador, continuando...")
+    else:
+        print("Navegador fechado")
     
     if novos_arquivos:
         print(f"Download concluído: {novos_arquivos}")

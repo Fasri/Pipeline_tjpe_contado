@@ -3,10 +3,26 @@ def transform_tempo_real():
     import glob
     import shutil
     import os
+    from pathlib import Path
     from datetime import datetime
+    from dotenv import load_dotenv
 
-    list_of_files = glob.glob('data_tempo_real/*.xlsx')
+    BASE_DIR = Path(__file__).parent.parent
+    load_dotenv(BASE_DIR / ".env")
+    
+    download_path_str = os.getenv("DOWNLOAD_PATH", "data_tempo_real")
+    download_path = Path(download_path_str)
+    if not download_path.is_absolute():
+        download_path = BASE_DIR / download_path
+    
+    list_of_files = glob.glob(str(download_path / '*.xlsx'))
+    
+    if not list_of_files:
+        raise FileNotFoundError(f"Nenhum arquivo xlsx encontrado em {download_path}")
+    
+    print(f"Arquivos encontrados: {list_of_files}")
     file_path = max(list_of_files, key=os.path.getctime)
+    print(f"Arquivo mais recente: {file_path}")
 
     df = pd.read_excel(file_path)
 
@@ -86,20 +102,21 @@ def transform_tempo_real():
     quantidade_processos['data'] = datetime.now().strftime('%d/%m/%Y')
     quantidade_processos = quantidade_processos[['data', 'nucleo','quantidade']]
     
-    quantidade_processos.to_excel('data_transform/quantidade_processos.xlsx', index=False)
+    data_transform_dir = BASE_DIR / "data_transform"
+    os.makedirs(data_transform_dir, exist_ok=True)
+    
+    quantidade_processos.to_excel(data_transform_dir / 'quantidade_processos.xlsx', index=False)
     
     consolidado = df_selected
 
-    divided_file_path = 'final_tempo_real.xlsx'
-    destination_folder = 'data_transform'
-    destination_path = f"{destination_folder}\\{divided_file_path}"
+    divided_file_path = data_transform_dir / 'final_tempo_real.xlsx'
 
-    file_path_xlsx = 'data_transform/Consolidado.xlsx'
-    file_path_csv = 'data_transform/Consolidado.csv'
-    destination_xlsx = 'contadoria/data_transform'
-    destination_csv = 'contadoria/data_transform'
+    file_path_xlsx = data_transform_dir / 'Consolidado.xlsx'
+    file_path_csv = data_transform_dir / 'Consolidado.csv'
+    destination_xlsx = BASE_DIR / 'contadoria' / 'data_transform'
+    destination_csv = BASE_DIR / 'contadoria' / 'data_transform'
 
-    os.makedirs(os.path.dirname(destination_xlsx), exist_ok=True)
+    os.makedirs(destination_xlsx, exist_ok=True)
 
     with pd.ExcelWriter(file_path_xlsx) as writer:
         consolidado.to_excel(writer, sheet_name='CONSOLIDADO', index=False)
@@ -122,7 +139,7 @@ def transform_tempo_real():
     
     os.remove(file_path)
 
-    shutil.move(divided_file_path, destination_path)
+    shutil.move(str(divided_file_path), str(divided_file_path))
 
     print(f"A tabela modificada foi salva como {divided_file_path}")
 

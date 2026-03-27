@@ -1,10 +1,12 @@
 def load_supabase():
     import os
+    from pathlib import Path
     from dotenv import load_dotenv
     from datetime import datetime
     import pandas as pd
     
-    load_dotenv()
+    BASE_DIR = Path(__file__).parent.parent
+    load_dotenv(BASE_DIR / ".env")
     
     supabase_url = os.getenv("SUPABASE_URL")
     supabase_key = os.getenv("SUPABASE_KEY")
@@ -15,7 +17,7 @@ def load_supabase():
     
     import requests
     
-    file_path = 'data_transform/final_tempo_real.xlsx'
+    file_path = BASE_DIR / "data_transform" / "final_tempo_real.xlsx"
     sheets = pd.read_excel(file_path, sheet_name=None)
     
     data_upload = datetime.now().strftime('%Y-%m-%d')

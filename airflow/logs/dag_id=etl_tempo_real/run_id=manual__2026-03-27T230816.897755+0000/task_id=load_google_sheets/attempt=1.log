@@ -1,0 +1,45 @@
+[2026-03-27T23:12:24.735+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-03-27T23:12:24.939+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_tempo_real.load_google_sheets manual__2026-03-27T23:08:16.897755+00:00 [queued]>
+[2026-03-27T23:12:24.956+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_tempo_real.load_google_sheets manual__2026-03-27T23:08:16.897755+00:00 [queued]>
+[2026-03-27T23:12:24.960+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-03-27T23:12:24.983+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): load_google_sheets> on 2026-03-27 23:08:16.897755+00:00
+[2026-03-27T23:12:24.995+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=1312) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-03-27T23:12:24.998+0000] {standard_task_runner.py:72} INFO - Started process 1317 to run task
+[2026-03-27T23:12:24.999+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_tempo_real', 'load_google_sheets', 'manual__2026-03-27T23:08:16.897755+00:00', '--job-id', '133', '--raw', '--subdir', 'DAGS_FOLDER/etl_tempo_real.py', '--cfg-path', '/tmp/tmp8l6iexns']
+[2026-03-27T23:12:25.002+0000] {standard_task_runner.py:105} INFO - Job 133: Subtask load_google_sheets
+[2026-03-27T23:12:25.082+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_tempo_real.load_google_sheets manual__2026-03-27T23:08:16.897755+00:00 [running]> on host 25278ba1f35a
+[2026-03-27T23:12:25.210+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_tempo_real' AIRFLOW_CTX_TASK_ID='load_google_sheets' AIRFLOW_CTX_EXECUTION_DATE='2026-03-27T23:08:16.897755+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-27T23:08:16.897755+00:00'
+[2026-03-27T23:12:25.212+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-03-27T23:12:25.214+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-03-27T23:12:25.215+0000] {logging_mixin.py:190} INFO - Current task name:load_google_sheets state:running start_date:2026-03-27 23:12:24.940140+00:00
+[2026-03-27T23:12:25.216+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real and current dag run status:running
+[2026-03-27T23:12:25.216+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-03-27T23:12:25.714+0000] {__init__.py:49} INFO - file_cache is only supported with oauth2client<4.0.0
+[2026-03-27T23:12:30.460+0000] {logging_mixin.py:190} INFO - 2880 células atualizadas na aba 1ª CC.
+[2026-03-27T23:12:31.186+0000] {logging_mixin.py:190} INFO - 1410 células atualizadas na aba 1ª CCJ.
+[2026-03-27T23:12:31.835+0000] {logging_mixin.py:190} INFO - 1182 células atualizadas na aba 2ª CC.
+[2026-03-27T23:12:32.466+0000] {logging_mixin.py:190} INFO - 1374 células atualizadas na aba 2ª CCJ.
+[2026-03-27T23:12:33.193+0000] {logging_mixin.py:190} INFO - 2628 células atualizadas na aba 3ª CC.
+[2026-03-27T23:12:33.816+0000] {logging_mixin.py:190} INFO - 1194 células atualizadas na aba 3ª CCJ.
+[2026-03-27T23:12:34.487+0000] {logging_mixin.py:190} INFO - 2088 células atualizadas na aba 4ª CC.
+[2026-03-27T23:12:35.113+0000] {logging_mixin.py:190} INFO - 1362 células atualizadas na aba 4ª CCJ.
+[2026-03-27T23:12:35.897+0000] {logging_mixin.py:190} INFO - 4218 células atualizadas na aba 5ª CC.
+[2026-03-27T23:12:36.524+0000] {logging_mixin.py:190} INFO - 1440 células atualizadas na aba 5ª CCJ.
+[2026-03-27T23:12:37.279+0000] {logging_mixin.py:190} INFO - 2808 células atualizadas na aba 6ª CC.
+[2026-03-27T23:12:38.027+0000] {logging_mixin.py:190} INFO - 1554 células atualizadas na aba 6ª CCJ.
+[2026-03-27T23:12:38.745+0000] {logging_mixin.py:190} INFO - 1500 células atualizadas na aba 7ª CC.
+[2026-03-27T23:12:39.340+0000] {logging_mixin.py:190} INFO - 48 células atualizadas na aba PARTIDOR.
+[2026-03-27T23:12:39.917+0000] {logging_mixin.py:190} INFO - 45 células atualizadas na aba QUANTIDADE.
+[2026-03-27T23:12:41.498+0000] {logging_mixin.py:190} INFO - 25608 células atualizadas na aba CONSOLIDADO.
+[2026-03-27T23:12:41.501+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-03-27T23:12:41.516+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-03-27T23:12:41.518+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=etl_tempo_real, task_id=load_google_sheets, run_id=manual__2026-03-27T23:08:16.897755+00:00, execution_date=20260327T230816, start_date=20260327T231224, end_date=20260327T231241
+[2026-03-27T23:12:41.561+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-03-27T23:12:41.562+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-03-27T23:12:41.563+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real queued_at:2026-03-27 23:08:17.256061+00:00
+[2026-03-27T23:12:41.564+0000] {logging_mixin.py:190} INFO - Task hostname:25278ba1f35a operator:PythonOperator
+[2026-03-27T23:12:41.608+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-03-27T23:12:41.642+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-27T23:12:41.646+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

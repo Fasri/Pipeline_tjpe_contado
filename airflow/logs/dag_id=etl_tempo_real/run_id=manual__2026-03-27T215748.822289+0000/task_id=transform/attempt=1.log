@@ -1,0 +1,111 @@
+[2026-03-27T22:01:35.153+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-03-27T22:01:35.347+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_tempo_real.transform manual__2026-03-27T21:57:48.822289+00:00 [queued]>
+[2026-03-27T22:01:35.363+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_tempo_real.transform manual__2026-03-27T21:57:48.822289+00:00 [queued]>
+[2026-03-27T22:01:35.365+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-03-27T22:01:35.388+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): transform> on 2026-03-27 21:57:48.822289+00:00
+[2026-03-27T22:01:35.400+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=1004) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-03-27T22:01:35.403+0000] {standard_task_runner.py:72} INFO - Started process 1007 to run task
+[2026-03-27T22:01:35.405+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_tempo_real', 'transform', 'manual__2026-03-27T21:57:48.822289+00:00', '--job-id', '119', '--raw', '--subdir', 'DAGS_FOLDER/etl_tempo_real.py', '--cfg-path', '/tmp/tmpn9vpryf8']
+[2026-03-27T22:01:35.407+0000] {standard_task_runner.py:105} INFO - Job 119: Subtask transform
+[2026-03-27T22:01:35.481+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_tempo_real.transform manual__2026-03-27T21:57:48.822289+00:00 [running]> on host 1abfc21eb0a8
+[2026-03-27T22:01:35.608+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_tempo_real' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2026-03-27T21:57:48.822289+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-27T21:57:48.822289+00:00'
+[2026-03-27T22:01:35.610+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-03-27T22:01:35.611+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-03-27T22:01:35.612+0000] {logging_mixin.py:190} INFO - Current task name:transform state:running start_date:2026-03-27 22:01:35.348760+00:00
+[2026-03-27T22:01:35.612+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real and current dag run status:running
+[2026-03-27T22:01:35.613+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-03-27T22:01:35.633+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/src/transform_tempo_real.py", line 21, in transform_tempo_real
+    raise FileNotFoundError(f"Nenhum arquivo xlsx encontrado em {download_path}")
+FileNotFoundError: Nenhum arquivo xlsx encontrado em /data_tempo_real
+[2026-03-27T22:01:35.659+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2026-03-27T22:01:35.660+0000] {logging_mixin.py:190} INFO - Task start:2026-03-27 22:01:35.348760+00:00 end:2026-03-27 22:01:35.658482+00:00 duration:0.309722
+[2026-03-27T22:01:35.661+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): transform> dag:<DAG: etl_tempo_real> dagrun:<DagRun etl_tempo_real @ 2026-03-27 21:57:48.822289+00:00: manual__2026-03-27T21:57:48.822289+00:00, state:running, queued_at: 2026-03-27 21:57:48.971912+00:00. externally triggered: True>
+[2026-03-27T22:01:35.661+0000] {logging_mixin.py:190} INFO - Failure caused by Nenhum arquivo xlsx encontrado em /data_tempo_real
+[2026-03-27T22:01:35.662+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=etl_tempo_real, task_id=transform, run_id=manual__2026-03-27T21:57:48.822289+00:00, execution_date=20260327T215748, start_date=20260327T220135, end_date=20260327T220135
+[2026-03-27T22:01:35.711+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-03-27T22:01:35.713+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 119 for task transform (Nenhum arquivo xlsx encontrado em /data_tempo_real; 1007)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/src/transform_tempo_real.py", line 21, in transform_tempo_real
+    raise FileNotFoundError(f"Nenhum arquivo xlsx encontrado em {download_path}")
+FileNotFoundError: Nenhum arquivo xlsx encontrado em /data_tempo_real
+[2026-03-27T22:01:35.741+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-03-27T22:01:35.774+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-27T22:01:35.778+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

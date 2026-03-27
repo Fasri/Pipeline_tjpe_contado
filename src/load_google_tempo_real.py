@@ -1,5 +1,6 @@
 def load_tempo_real():
-    import os.path
+    import os
+    from pathlib import Path
 
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
@@ -8,29 +9,32 @@ def load_tempo_real():
     from googleapiclient.errors import HttpError
     import pandas as pd
 
+    BASE_DIR = Path(__file__).parent.parent
+    CREDENTIALS_FILE = BASE_DIR / "credentials.json"
+    TOKEN_FILE = BASE_DIR / "token.json"
+    DATA_FILE = BASE_DIR / "data_transform" / "final_tempo_real.xlsx"
+
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = 'credentials.json'
 
     creds = None
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if TOKEN_FILE.exists():
+        creds = Credentials.from_authorized_user_file(str(TOKEN_FILE), SCOPES)
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-            "credentials.json", SCOPES
+            str(CREDENTIALS_FILE), SCOPES
         )
             creds = flow.run_local_server(port=0)
-        with open("token.json", "w") as token:
+        with open(TOKEN_FILE, "w") as token:
             token.write(creds.to_json())
 
     service = build('sheets', 'v4', credentials=creds)
 
     SPREADSHEET_ID = '1-hXLDTxGmDlPgbr_jIq73o49divD75c1jJ6Tbsw61iU'
 
-    file_path = 'data_transform/final_tempo_real.xlsx'
-    sheets = pd.read_excel(file_path, sheet_name=None)
+    sheets = pd.read_excel(DATA_FILE, sheet_name=None)
 
     for sheet_name, df in sheets.items():
         df = df.fillna("")

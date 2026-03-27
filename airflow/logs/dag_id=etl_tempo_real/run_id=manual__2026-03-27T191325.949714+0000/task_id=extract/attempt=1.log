@@ -1,0 +1,52 @@
+[2026-03-27T19:13:32.186+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-03-27T19:13:32.403+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_tempo_real.extract manual__2026-03-27T19:13:25.949714+00:00 [queued]>
+[2026-03-27T19:13:32.416+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_tempo_real.extract manual__2026-03-27T19:13:25.949714+00:00 [queued]>
+[2026-03-27T19:13:32.418+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 3
+[2026-03-27T19:13:32.438+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): extract> on 2026-03-27 19:13:25.949714+00:00
+[2026-03-27T19:13:32.447+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=73) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-03-27T19:13:32.453+0000] {standard_task_runner.py:72} INFO - Started process 76 to run task
+[2026-03-27T19:13:32.453+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_tempo_real', 'extract', 'manual__2026-03-27T19:13:25.949714+00:00', '--job-id', '91', '--raw', '--subdir', 'DAGS_FOLDER/etl_tempo_real.py', '--cfg-path', '/tmp/tmp999orwzk']
+[2026-03-27T19:13:32.455+0000] {standard_task_runner.py:105} INFO - Job 91: Subtask extract
+[2026-03-27T19:13:32.529+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_tempo_real.extract manual__2026-03-27T19:13:25.949714+00:00 [running]> on host 1abfc21eb0a8
+[2026-03-27T19:13:32.630+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_tempo_real' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2026-03-27T19:13:25.949714+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-27T19:13:25.949714+00:00'
+[2026-03-27T19:13:32.632+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-03-27T19:13:32.633+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-03-27T19:13:32.634+0000] {logging_mixin.py:190} INFO - Current task name:extract state:running start_date:2026-03-27 19:13:32.404855+00:00
+[2026-03-27T19:13:32.635+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real and current dag run status:running
+[2026-03-27T19:13:32.636+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-03-27T19:13:32.711+0000] {logger.py:11} INFO - ====== WebDriver manager ======
+[2026-03-27T19:13:32.949+0000] {logger.py:11} INFO - Get LATEST geckodriver version for 140.9 firefox
+[2026-03-27T19:13:33.162+0000] {logger.py:11} INFO - Get LATEST geckodriver version for 140.9 firefox
+[2026-03-27T19:13:33.297+0000] {logger.py:11} INFO - There is no [linux64] geckodriver "v0.36.0" for browser firefox "140.9" in cache
+[2026-03-27T19:13:33.299+0000] {logger.py:11} INFO - Get LATEST geckodriver version for 140.9 firefox
+[2026-03-27T19:13:33.428+0000] {logger.py:11} INFO - Getting latest mozilla release info for v0.36.0
+[2026-03-27T19:13:33.771+0000] {logger.py:11} INFO - About to download new driver from https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz
+[2026-03-27T19:13:34.269+0000] {logger.py:11} INFO - Driver downloading response is 200
+[2026-03-27T19:13:34.550+0000] {logger.py:11} INFO - Get LATEST geckodriver version for 140.9 firefox
+[2026-03-27T19:13:34.790+0000] {logger.py:11} INFO - Driver has been saved in cache [/home/***/.wdm/drivers/geckodriver/linux64/v0.36.0]
+[2026-03-27T19:13:43.253+0000] {logging_mixin.py:190} INFO - Página carregada: https://www.tjpe.jus.br/rhsso/realms/tjpeconnect/protocol/openid-connect/auth?response_type=code&client_id=tjpereports&redirect_uri=https%3A%2F%2Fwww.tjpe.jus.br%2Ftjpereports%2Fxhtml%2Flogin.xhtml&state=ea631b21-c358-48d9-bd34-574a47ed76fc&login=true&scope=openid
+[2026-03-27T19:13:48.633+0000] {logging_mixin.py:190} INFO - URL após submit: https://www.tjpe.jus.br/rhsso/realms/tjpeconnect/login-actions/authenticate?execution=86865601-c9df-4b14-9337-25a121f00aca&client_id=tjpereports&tab_id=QhRutKAFls0
+[2026-03-27T19:13:50.644+0000] {logging_mixin.py:190} INFO - Código TOTP gerado: 968737
+[2026-03-27T19:13:53.651+0000] {logging_mixin.py:190} INFO - Campo OTP encontrado
+[2026-03-27T19:13:53.680+0000] {logging_mixin.py:190} INFO - Código TOTP inserido
+[2026-03-27T19:13:55.733+0000] {logging_mixin.py:190} INFO - Formulário TOTP enviado
+[2026-03-27T19:14:06.817+0000] {logging_mixin.py:190} INFO - URL atual: https://www.tjpe.jus.br/tjpereports/xhtml/manterRelatorio/executarRelatorio.xhtml
+[2026-03-27T19:14:53.976+0000] {logging_mixin.py:190} INFO - Aguardando download na pasta: /data_tempo_real
+[2026-03-27T19:15:08.984+0000] {logging_mixin.py:190} INFO - Arquivos antes: []
+[2026-03-27T19:16:38.984+0000] {logging_mixin.py:190} INFO - Arquivos depois: ['20260327161448_TJPEReports.xlsx']
+[2026-03-27T19:16:38.985+0000] {logging_mixin.py:190} INFO - Novos arquivos xlsx: ['20260327161448_TJPEReports.xlsx']
+[2026-03-27T19:16:38.986+0000] {logging_mixin.py:190} INFO - Fechando navegador...
+[2026-03-27T19:16:39.652+0000] {logging_mixin.py:190} INFO - Navegador fechado
+[2026-03-27T19:16:39.653+0000] {logging_mixin.py:190} INFO - Download concluído: ['20260327161448_TJPEReports.xlsx']
+[2026-03-27T19:16:39.654+0000] {python.py:240} INFO - Done. Returned value was: True
+[2026-03-27T19:16:39.686+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-03-27T19:16:39.687+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=etl_tempo_real, task_id=extract, run_id=manual__2026-03-27T19:13:25.949714+00:00, execution_date=20260327T191325, start_date=20260327T191332, end_date=20260327T191639
+[2026-03-27T19:16:39.720+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2026-03-27T19:16:39.721+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2026-03-27T19:16:39.722+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real queued_at:2026-03-27 19:13:25.982197+00:00
+[2026-03-27T19:16:39.723+0000] {logging_mixin.py:190} INFO - Task hostname:1abfc21eb0a8 operator:PythonOperator
+[2026-03-27T19:16:39.766+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-03-27T19:16:39.801+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-03-27T19:16:39.806+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
