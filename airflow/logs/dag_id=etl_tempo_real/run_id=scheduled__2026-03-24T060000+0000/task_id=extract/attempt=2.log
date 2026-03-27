@@ -1,0 +1,175 @@
+[2026-03-26T01:50:28.221+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-03-26T01:50:28.260+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_tempo_real.extract scheduled__2026-03-24T06:00:00+00:00 [queued]>
+[2026-03-26T01:50:28.287+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_tempo_real.extract scheduled__2026-03-24T06:00:00+00:00 [queued]>
+[2026-03-26T01:50:28.289+0000] {taskinstance.py:2867} INFO - Starting attempt 2 of 3
+[2026-03-26T01:50:28.323+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): extract> on 2026-03-24 06:00:00+00:00
+[2026-03-26T01:50:28.340+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=59) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-03-26T01:50:28.346+0000] {standard_task_runner.py:72} INFO - Started process 64 to run task
+[2026-03-26T01:50:28.346+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'etl_tempo_real', 'extract', 'scheduled__2026-03-24T06:00:00+00:00', '--job-id', '19', '--raw', '--subdir', 'DAGS_FOLDER/etl_tempo_real.py', '--cfg-path', '/tmp/tmp4xbxvelh']
+[2026-03-26T01:50:28.351+0000] {standard_task_runner.py:105} INFO - Job 19: Subtask extract
+[2026-03-26T01:50:28.488+0000] {task_command.py:467} INFO - Running <TaskInstance: etl_tempo_real.extract scheduled__2026-03-24T06:00:00+00:00 [running]> on host c2520d6c2ed2
+[2026-03-26T01:50:28.732+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_tempo_real' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2026-03-24T06:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-24T06:00:00+00:00'
+[2026-03-26T01:50:28.736+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2026-03-26T01:50:28.737+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2026-03-26T01:50:28.739+0000] {logging_mixin.py:190} INFO - Current task name:extract state:running start_date:2026-03-26 01:50:28.262148+00:00
+[2026-03-26T01:50:28.740+0000] {logging_mixin.py:190} INFO - Dag name:etl_tempo_real and current dag run status:running
+[2026-03-26T01:50:28.742+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-03-26T01:50:28.906+0000] {logger.py:11} INFO - ====== WebDriver manager ======
+[2026-03-26T01:50:28.948+0000] {logger.py:11} INFO - Get LATEST geckodriver version for None firefox
+[2026-03-26T01:50:29.842+0000] {logger.py:11} INFO - Getting latest mozilla release info for v0.36.0
+[2026-03-26T01:50:30.210+0000] {logger.py:11} INFO - About to download new driver from https://github.com/mozilla/geckodriver/releases/download/v0.36.0/geckodriver-v0.36.0-linux64.tar.gz
+[2026-03-26T01:50:31.205+0000] {logger.py:11} INFO - Driver downloading response is 200
+[2026-03-26T01:50:35.074+0000] {logger.py:11} INFO - Get LATEST geckodriver version for None firefox
+[2026-03-26T01:50:35.365+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/src/extract_tempo_real.py", line 39, in extract_report_tempo_real
+    servico = Service(GeckoDriverManager().install())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/firefox.py", line 39, in install
+    driver_path = self._get_driver_binary_path(self.driver)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/manager.py", line 41, in _get_driver_binary_path
+    binary_path = self._cache_manager.save_file_to_cache(driver, file)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/driver_cache.py", line 54, in save_file_to_cache
+    files = self.unpack_archive(archive, path)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/driver_cache.py", line 49, in unpack_archive
+    return self._file_manager.unpack_archive(archive, path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/file_manager.py", line 59, in unpack_archive
+    return self.__extract_tar_file(archive_file, target_dir)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/file_manager.py", line 92, in __extract_tar_file
+    tar.extractall(to_directory)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2302, in extractall
+    self._extract_one(tarinfo, path, set_attrs=not tarinfo.isdir(),
+  File "/usr/local/lib/python3.12/tarfile.py", line 2369, in _extract_one
+    self._handle_fatal_error(e)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2365, in _extract_one
+    self._extract_member(tarinfo, os.path.join(path, tarinfo.name),
+  File "/usr/local/lib/python3.12/tarfile.py", line 2448, in _extract_member
+    self.makefile(tarinfo, targetpath)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2494, in makefile
+    with bltn_open(targetpath, "wb") as target:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 26] Text file busy: '/home/airflow/.wdm/drivers/geckodriver/linux64/v0.36.0/geckodriver'
+[2026-03-26T01:50:35.420+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2026-03-26T01:50:35.423+0000] {logging_mixin.py:190} INFO - Task start:2026-03-26 01:50:28.262148+00:00 end:2026-03-26 01:50:35.418859+00:00 duration:7.156711
+[2026-03-26T01:50:35.425+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): extract> dag:<DAG: etl_tempo_real> dagrun:<DagRun etl_tempo_real @ 2026-03-24 06:00:00+00:00: scheduled__2026-03-24T06:00:00+00:00, state:running, queued_at: 2026-03-26 01:44:13.312251+00:00. externally triggered: False>
+[2026-03-26T01:50:35.427+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 26] Text file busy: '/home/***/.wdm/drivers/geckodriver/linux64/v0.36.0/geckodriver'
+[2026-03-26T01:50:35.429+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=etl_tempo_real, task_id=extract, run_id=scheduled__2026-03-24T06:00:00+00:00, execution_date=20260324T060000, start_date=20260326T015028, end_date=20260326T015035
+[2026-03-26T01:50:35.523+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-03-26T01:50:35.526+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 19 for task extract ([Errno 26] Text file busy: '/home/airflow/.wdm/drivers/geckodriver/linux64/v0.36.0/geckodriver'; 64)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/src/extract_tempo_real.py", line 39, in extract_report_tempo_real
+    servico = Service(GeckoDriverManager().install())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/firefox.py", line 39, in install
+    driver_path = self._get_driver_binary_path(self.driver)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/manager.py", line 41, in _get_driver_binary_path
+    binary_path = self._cache_manager.save_file_to_cache(driver, file)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/driver_cache.py", line 54, in save_file_to_cache
+    files = self.unpack_archive(archive, path)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/driver_cache.py", line 49, in unpack_archive
+    return self._file_manager.unpack_archive(archive, path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/file_manager.py", line 59, in unpack_archive
+    return self.__extract_tar_file(archive_file, target_dir)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/webdriver_manager/core/file_manager.py", line 92, in __extract_tar_file
+    tar.extractall(to_directory)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2302, in extractall
+    self._extract_one(tarinfo, path, set_attrs=not tarinfo.isdir(),
+  File "/usr/local/lib/python3.12/tarfile.py", line 2369, in _extract_one
+    self._handle_fatal_error(e)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2365, in _extract_one
+    self._extract_member(tarinfo, os.path.join(path, tarinfo.name),
+  File "/usr/local/lib/python3.12/tarfile.py", line 2448, in _extract_member
+    self.makefile(tarinfo, targetpath)
+  File "/usr/local/lib/python3.12/tarfile.py", line 2494, in makefile
+    with bltn_open(targetpath, "wb") as target:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 26] Text file busy: '/home/airflow/.wdm/drivers/geckodriver/linux64/v0.36.0/geckodriver'
+[2026-03-26T01:50:35.600+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-03-26T01:50:35.677+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-26T01:50:35.695+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
