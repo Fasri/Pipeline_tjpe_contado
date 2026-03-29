@@ -4898,3 +4898,66 @@
 [2026-03-27T23:51:07.923+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:51:07.922+0000] {dag.py:3239} INFO - Sync 1 DAGs
 [2026-03-27T23:51:07.965+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:51:07.965+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
 [2026-03-27T23:51:07.998+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.264 seconds
+[2026-03-27T23:51:40.293+0000] {processor.py:186} INFO - Started process (PID=7619) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:51:40.305+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:51:40.316+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:51:40.315+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:51:40.563+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:51:40.650+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:51:40.649+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:51:40.740+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:51:40.739+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:51:40.798+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.546 seconds
+[2026-03-27T23:52:11.371+0000] {processor.py:186} INFO - Started process (PID=7678) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:11.373+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:52:11.376+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:11.376+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:11.489+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:11.655+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:11.654+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:52:11.718+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:11.717+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:52:11.753+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.395 seconds
+[2026-03-27T23:52:41.995+0000] {processor.py:186} INFO - Started process (PID=7738) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:41.997+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:52:42.001+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:42.000+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:42.123+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:52:42.162+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:42.161+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:52:42.217+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:52:42.216+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:52:42.255+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.274 seconds
+[2026-03-27T23:53:12.394+0000] {processor.py:186} INFO - Started process (PID=7788) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:12.396+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:53:12.403+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:12.402+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:12.539+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:12.576+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:12.576+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:53:12.629+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:12.628+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:53:12.666+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.287 seconds
+[2026-03-27T23:53:45.090+0000] {processor.py:186} INFO - Started process (PID=7847) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:45.135+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:53:45.154+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:45.153+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:45.651+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:53:45.695+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:45.694+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:53:45.737+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:53:45.737+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:53:45.773+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.764 seconds
+[2026-03-27T23:54:16.066+0000] {processor.py:186} INFO - Started process (PID=7906) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:16.068+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:54:16.073+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:16.072+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:16.177+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:16.211+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:16.210+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:54:16.255+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:16.255+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:54:16.290+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.238 seconds
+[2026-03-27T23:54:46.745+0000] {processor.py:186} INFO - Started process (PID=7962) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:46.747+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:54:46.752+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:46.751+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:46.856+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:54:46.884+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:46.884+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:54:46.920+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:54:46.919+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:54:47.251+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.519 seconds
+[2026-03-27T23:55:17.342+0000] {processor.py:186} INFO - Started process (PID=8021) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:17.343+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:55:17.347+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:17.347+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:17.447+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:17.480+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:17.479+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:55:17.525+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:17.524+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:55:17.558+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.229 seconds
+[2026-03-27T23:55:48.015+0000] {processor.py:186} INFO - Started process (PID=8080) to work on /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:48.024+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/etl_tempo_real.py for tasks to queue
+[2026-03-27T23:55:48.030+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:48.029+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:48.448+0000] {processor.py:925} INFO - DAG(s) 'etl_tempo_real' retrieved from /opt/airflow/dags/etl_tempo_real.py
+[2026-03-27T23:55:48.542+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:48.541+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-03-27T23:55:48.659+0000] {logging_mixin.py:190} INFO - [2026-03-27T23:55:48.659+0000] {dag.py:4180} INFO - Setting next_dagrun for etl_tempo_real to 2026-03-27 06:00:00+00:00, run_after=2026-03-28 06:00:00+00:00
+[2026-03-27T23:55:48.740+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/etl_tempo_real.py took 0.756 seconds

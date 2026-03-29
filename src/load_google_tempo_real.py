@@ -21,12 +21,16 @@ def load_tempo_real():
         creds = Credentials.from_authorized_user_file(str(TOKEN_FILE), SCOPES)
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
+            try:
+                creds.refresh(Request())
+            except Exception as e:
+                print(f"Erro ao atualizar token: {e}")
+                creds = None
+        if not creds:
             flow = InstalledAppFlow.from_client_secrets_file(
-            str(CREDENTIALS_FILE), SCOPES
-        )
-            creds = flow.run_local_server(port=0)
+                str(CREDENTIALS_FILE), SCOPES
+            )
+            creds = flow.run_local_server(port=0, access_type='offline', prompt='consent')
         with open(TOKEN_FILE, "w") as token:
             token.write(creds.to_json())
 
