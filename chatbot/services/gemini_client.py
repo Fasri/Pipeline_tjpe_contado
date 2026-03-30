@@ -1,8 +1,10 @@
-from groq import Groq
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 SYSTEM_PROMPT = """Você é um assistente especializado em análise de dados de processos jurídicos do Tribunal de Justiça de Pernambuco (TJPE).
 
@@ -30,20 +32,15 @@ Se não souber a resposta com base nos dados, diga que não tem informação suf
 
 
 def chat(messages: list, context: str):
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    model = genai.GenerativeModel('gemini-2.0-flash')
     
-    system_message = {
-        "role": "system",
-        "content": f"{SYSTEM_PROMPT}\n\nContexto dos dados:\n{context}"
-    }
+    history_text = ""
+    for msg in messages:
+        role = "Usuário" if msg["role"] == "user" else "Assistente"
+        history_text += f"{role}: {msg['content']}\n"
     
-    full_messages = [system_message] + messages
+    full_prompt = f"{SYSTEM_PROMPT}\n\nContexto dos dados:\n{context}\n\nConversa:\n{history_text}"
     
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=full_messages,
-        temperature=0.7,
-        max_tokens=1024,
-    )
+    response = model.generate_content(full_prompt)
     
-    return response.choices[0].message.content
+    return response.text
