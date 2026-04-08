@@ -14,7 +14,7 @@ from src.load_supabase_tempo_real import load_supabase
 with DAG(
     dag_id="etl_tempo_real",
     start_date=datetime(2026, 1, 1),
-    schedule_interval="0 6 * * *",
+    schedule_interval="0 6 * * *", 
     catchup=False,
     default_args={
         "retries": 2,

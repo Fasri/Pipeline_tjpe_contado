@@ -1,6 +1,6 @@
 # ETL TJPE Contadoria
 
-Projeto de ETL para extração e tratamento de dados de processos jurídicos do Tribunal de Justiça de Pernambuco (TJPE), com chatbot integrado para consulta de informações.
+Projeto de ETL para extração e tratamento de dados de processos destinados a contadoria remota do Tribunal de Justiça de Pernambuco (TJPE), com chatbot integrado para consulta de informações.
 
 ## Funcionalidades
 
@@ -18,7 +18,7 @@ Projeto de ETL para extração e tratamento de dados de processos jurídicos do 
   - Localização de processos específicos
   - Processos com prioridade legal
   - Processos mais antigos
-- Dados atualizados em tempo real
+- Dados atualizados diariamente as 6h
 
 ## Stacks Utilizadas
 

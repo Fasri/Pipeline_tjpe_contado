@@ -113,15 +113,23 @@ def transform_tempo_real():
 
     file_path_xlsx = data_transform_dir / 'Consolidado.xlsx'
     file_path_csv = data_transform_dir / 'Consolidado.csv'
+    file_path_csv_supabase = data_transform_dir / 'Consolidado_supabase.csv'
+    supabase_dir = BASE_DIR / 'supabase'
+    supabase_file_path_csv = supabase_dir / 'Consolidado_supabase.csv'
     destination_xlsx = BASE_DIR / 'contadoria' / 'data_transform'
     destination_csv = BASE_DIR / 'contadoria' / 'data_transform'
 
     os.makedirs(destination_xlsx, exist_ok=True)
+    os.makedirs(supabase_dir, exist_ok=True)
 
     with pd.ExcelWriter(file_path_xlsx) as writer:
         consolidado.to_excel(writer, sheet_name='CONSOLIDADO', index=False)
 
     consolidado.to_csv(file_path_csv, index=False, encoding='utf-8')
+
+    consolidado_supabase = consolidado[['processo', 'data', 'vara', 'nucleo', 'prioridades']]
+    consolidado_supabase.to_csv(file_path_csv_supabase, index=False, encoding='utf-8')
+    consolidado_supabase.to_csv(supabase_file_path_csv, index=False, encoding='utf-8')
 
     print(f'Arquivos copiados para {destination_xlsx} e {destination_csv}') 
 
