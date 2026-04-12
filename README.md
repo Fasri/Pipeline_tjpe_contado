@@ -5,7 +5,7 @@ Projeto de ETL para extração e tratamento de dados de processos destinados à 
 ## 🚀 Funcionalidades
 
 ### 📊 Dashboard Analítico (Streamlit)
-- **Visualização em Tempo Real**: Conexão direta com o Supabase Storage.
+- **Visualização**: Conexão direta com o Supabase Storage.
 - **KPIs Estratégicos**: 
     - Total de processos pendentes.
     - Monitoramento de processos com mais de 30 dias de atraso.

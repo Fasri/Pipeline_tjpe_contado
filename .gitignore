@@ -13,3 +13,4 @@ wheels/
 credentials.json
 token.json
 .env
+atualizar_bd_contadoria\.env
