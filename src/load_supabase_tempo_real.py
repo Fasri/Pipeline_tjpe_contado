@@ -45,6 +45,27 @@ def load_supabase():
         else:
             print(f"Erro ao enviar {file_name}: {response.status_code} - {response.text}")
 
+    # Enviar também o arquivo Consolidado_supabase.csv da pasta supabase
+    consolidado_path = BASE_DIR / "supabase" / "Consolidado_supabase.csv"
+    if consolidado_path.exists():
+        with open(consolidado_path, 'rb') as f:
+            csv_content_consolidado = f.read()
+            
+        file_name_consolidado = "tempo_real_Consolidado_supabase.csv"
+        url_consolidado = f"{supabase_url}/storage/v1/object/relatorios/{file_name_consolidado}"
+        
+        # Deletar arquivo se existir no storage conforme solicitado
+        auth_headers = {"apikey": supabase_key, "Authorization": f"Bearer {supabase_key}"}
+        requests.delete(url_consolidado, headers=auth_headers)
+        
+        response_consolidado = requests.put(url_consolidado, headers=headers, data=csv_content_consolidado)
+        if response_consolidado.status_code in [200, 201]:
+            print(f"Arquivo {file_name_consolidado} enviado para o Supabase Storage (nova cópia)")
+        else:
+            print(f"Erro ao enviar {file_name_consolidado}: {response_consolidado.status_code} - {response_consolidado.text}")
+    else:
+        print(f"Aviso: Arquivo {consolidado_path} não encontrado para upload.")
+
 
 if __name__ == "__main__":
     load_supabase()

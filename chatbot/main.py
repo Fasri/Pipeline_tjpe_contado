@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from chatbot.services import google_sheets, gemini_client
+from chatbot.services import google_sheets, groq_client as ai_client, supabase_loader
 
 load_dotenv()
 
@@ -30,13 +30,17 @@ class ChatRequest(BaseModel):
 def get_data_context():
     global DATA_CONTEXT
     if DATA_CONTEXT is None:
-        print("Carregando dados das planilhas...")
+        print("Carregando dados das planilhas e Supabase...")
         try:
-            DATA_CONTEXT = google_sheets.get_context_for_llm()
+            # Pegar dados de múltiplas fontes
+            sheets_context = google_sheets.get_context_for_llm()
+            supabase_context = supabase_loader.get_context_for_llm()
+            
+            DATA_CONTEXT = f"{sheets_context}\n\n{supabase_context}"
             print("Dados carregados com sucesso!")
         except Exception as e:
             print(f"Erro ao carregar dados: {e}")
-            DATA_CONTEXT = "Dados não disponíveis"
+            DATA_CONTEXT = "Dados não disponíveis no momento."
     return DATA_CONTEXT
 
 
@@ -53,7 +57,7 @@ async def chat(request: ChatRequest):
         history = request.history
         history.append({"role": "user", "content": request.message})
         
-        response = gemini_client.chat(history, context)
+        response = ai_client.chat(history, context)
         
         history.append({"role": "assistant", "content": response})
         

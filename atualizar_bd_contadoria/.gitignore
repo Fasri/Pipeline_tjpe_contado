@@ -1,0 +1,15 @@
+# Ambiente Virtual
+venv/
+.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VS Code
+.vscode/
+
+# Arquivos temporários do projeto
+temp_import.csv
+*.csv

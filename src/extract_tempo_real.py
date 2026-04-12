@@ -34,7 +34,7 @@ def extract_report_tempo_real(totp_secret: str | None = None):
     os.makedirs(download_path, exist_ok=True)
     
     fp = Options()
-    fp.binary_location = "/usr/bin/firefox-esr"
+    # Não definimos binary_location para que o Selenium resolva o local padrão no Windows.
     fp.set_capability("pageLoadStrategy", "normal")
 
     fp.add_argument("--headless")

@@ -1,142 +1,101 @@
 # ETL TJPE Contadoria
 
-Projeto de ETL para extração e tratamento de dados de processos destinados a contadoria remota do Tribunal de Justiça de Pernambuco (TJPE), com chatbot integrado para consulta de informações.
+Projeto de ETL para extração e tratamento de dados de processos destinados à contadoria remota do Tribunal de Justiça de Pernambuco (TJPE), com dashboard analítico e chatbot inteligente integrados.
 
-## Funcionalidades
+## 🚀 Funcionalidades
 
-### ETL (Extract, Transform, Load)
-- **Extração**: Download automático de dados de processos via site do TJPE
-- **Transformação**: Processamento e limpeza dos dados
-- **Carregamento**: Envio para Google Sheets e banco de dados Supabase
-- **Automação**: Agendamento via Apache Airflow
+### 📊 Dashboard Analítico (Streamlit)
+- **Visualização em Tempo Real**: Conexão direta com o Supabase Storage.
+- **KPIs Estratégicos**: 
+    - Total de processos pendentes.
+    - Monitoramento de processos com mais de 30 dias de atraso.
+    - Identificação de **Superprioridades** e **Prioridades Legais**.
+- **Análise de Gargalos**: Gráficos de barras evidenciando as varas com maior acúmulo.
+- **Produtividade por Núcleo**: Distribuição de volume e atrasos por equipe.
+- **Design Premium**: Interface moderna em Modo Escuro (Dark Professional).
 
-### Chatbot
-- Interface web para consulta de processos
-- Responde perguntas sobre:
-  - Quantidade de processos por contadoria
-  - Contadoria com mais/menos processos
-  - Localização de processos específicos
-  - Processos com prioridade legal
-  - Processos mais antigos
-- Dados atualizados diariamente as 6h
+### 🤖 Chatbot Inteligente (Streamlit + Groq)
+- **Interface Conversacional**: Nova interface Streamlit para interação fluida.
+- **IA de Alta Performance**: Integrado ao **Groq (Llama 3)** para respostas ultra-rápidas.
+- **Consciência de Contexto**: Analisa simultaneamente dados do Google Sheets e arquivos consolidados do Supabase.
+- **Consultas complexas**: Responde sobre pendências, núcleos sobrecarregados e varas críticas.
 
-## Stacks Utilizadas
+### ⚙️ ETL (Extract, Transform, Load)
+- **Extração**: Download automático de dados de processos via site do TJPE.
+- **Transformação**: Processamento, limpeza de encoding e tratamento de acentuação.
+- **Carregamento**: Envio sincronizado para Google Sheets e Supabase Storage (relatórios consolidados).
+- **Automação**: Orquestração via Apache Airflow.
 
-### Backend
-- **Python 3.13**
-- **FastAPI** - API web
-- **Apache Airflow** - Orquestração de tarefas
-- **Pandas** - Manipulação de dados
-- **Google API Python Client** - Integração Google Sheets
-- **Google Generative AI (Gemini)** - Inteligência artificial
+## 🛠️ Stacks Utilizadas
 
-### Banco de Dados
-- **PostgreSQL** (via Supabase)
+- **Linguagem**: Python 3.13
+- **Frontend/Dashboards**: Streamlit
+- **IA/LLM**: Groq (Llama 3) / Google Gemini
+- **Orquestração**: Apache Airflow
+- **Dados**: Pandas, Google Sheets API
+- **Infraestrutura**: Supabase (Storage & DB), Docker
 
-### Infraestrutura
-- **Docker** - Containerização
-- **Git** - Controle de versão
-
-## Como Usar
-
-### Pré-requisitos
-- Python 3.13+
-- Credenciais do Google (credentials.json)
-- Token de API do Gemini (ou Groq)
+## 📖 Como Usar
 
 ### Instalação
 
-1. Clone o repositório:
+1. Clone o repositório e instale as dependências:
 ```bash
-git clone <repositorio>
-cd projeto_etl_contadoria
-```
-
-2. Instale as dependências:
-```bash
-pip install -r requirements.txt
-# ou
 uv sync
+# ou
+pip install -r requirements.txt
 ```
 
-3. Configure as variáveis de ambiente no arquivo `.env`:
+2. Configure o arquivo `.env`:
 ```env
-# Credenciais TJPE
-TJPE_CPF=seu_cpf
-TJPE_SENHA=sua_senha
-TJPE_TOTP_SECRET=seu_secret
-
 # Credenciais Supabase
 SUPABASE_URL=sua_url
 SUPABASE_KEY=sua_key
 
-# API Gemini
-GEMINI_API_KEY=sua_api_key
+# IA
+GROQ_API_KEY=sua_chave_groq
+GEMINI_API_KEY=sua_chave_gemini
 ```
 
-4. Execute a autenticação Google:
+### Executando as Aplicações
+
+#### 📈 Abrir o Dashboard de Gestão
 ```bash
-# O navegador será aberto para autorização
-# O token será salvo em token.json
+streamlit run src/app_dashboard.py
 ```
 
-### Executando o ETL
-
+#### 🤖 Iniciar o Chatbot Assistente
 ```bash
-# Executar manualmente
-python src/extract_tempo_real.py
-python src/transform_tempo_real.py
-python src/load_google_tempo_real.py
+cd chatbot
+streamlit run app.py
 ```
 
-### Executando o Chatbot
-
-```bash
-python chatbot/main.py
-```
-
-O chatbot estará disponível em http://localhost:8000
-
-### Executando com Docker
-
-```bash
-docker-compose up -d
-```
-
-## Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```
 projeto_etl_contadoria/
-├── src/                    # Código fonte do ETL
-│   ├── extract_tempo_real.py
-│   ├── transform_tempo_real.py
-│   ├── load_google_tempo_real.py
-│   └── load_supabase_tempo_real.py
-├── chatbot/                # Chatbot
-│   ├── main.py            # API FastAPI
-│   ├── services/
-│   │   ├── google_sheets.py
-│   │   └── gemini_client.py
-│   └── templates/
-│       └── index.html
-├── airflow/               # Configurações Airflow
-├── data_transform/        # Dados processados
-├── credentials.json        # Credenciais Google
-├── token.json             # Token de acesso Google
-└── docker-compose.yaml    # Orquestração Docker
+├── src/                    # Scripts de ETL e Dashboard
+│   ├── app_dashboard.py    # Painel Streamlit principal
+│   ├── load_supabase_tempo_real.py
+│   └── ...
+├── chatbot/                # Assistente Virtual
+│   ├── app.py             # Interface Streamlit do Chat
+│   ├── main.py            # API FastAPI (Legado)
+│   └── services/          # Conectores IA e Dados
+├── airflow/               # DAGs de Automação
+├── data_transform/        # Cache de transformações
+├── supabase/              # Arquivos locais de referência
+└── .env                   # Configurações sensíveis
 ```
 
-## Variáveis de Ambiente
+## 📝 Variáveis de Ambiente Principais
 
 | Variável | Descrição |
 |----------|-----------|
-| `TJPE_CPF` | CPF para login no TJPE |
-| `TJPE_SENHA` | Senha para login no TJPE |
-| `TJPE_TOTP_SECRET` | Secret do TOTP |
-| `SUPABASE_URL` | URL do banco Supabase |
-| `SUPABASE_KEY` | Chave API do Supabase |
-| `GEMINI_API_KEY` | Chave API do Gemini |
+| `SUPABASE_URL` | URL do projeto no Supabase |
+| `SUPABASE_KEY` | Chave de acesso API/Service |
+| `GROQ_API_KEY` | Chave para IA Groq (Recomendado) |
+| `GEMINI_API_KEY`| Chave reserva Google Gemini |
 
-## Licença
-
+## ⚖️ Licença
 MIT
