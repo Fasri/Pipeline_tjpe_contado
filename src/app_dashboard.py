@@ -90,9 +90,19 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Carregar variáveis de ambiente
-BASE_DIR = Path(__file__).parent.parent
-load_dotenv(BASE_DIR / ".env")
+# Carregar variáveis de ambiente com busca robusta pelo .env
+def load_env_robust():
+    # Tenta encontrar o .env no diretório atual, no pai ou no avô
+    current_path = Path(__file__).resolve().parent
+    for _ in range(3):
+        env_path = current_path / ".env"
+        if env_path.exists():
+            load_dotenv(env_path)
+            return True
+        current_path = current_path.parent
+    return False
+
+load_env_robust()
 
 @st.cache_data(ttl=600)
 def load_data_from_supabase():
@@ -190,11 +200,14 @@ def main():
         col_map, col_bar = st.columns(2)
         
         with col_map:
-            st.markdown("#### 🌳 Mapa de Árvore: Superprioridades por Vara")
+            st.markdown("#### 🌳 Distribuição: Superprioridades por Núcleo")
             df_super = df[df['prioridades'] == 'Super prioridade']
             if not df_super.empty:
-                fig_tree = px.treemap(df_super, path=['nucleo', 'vara'], 
-                                      color_discrete_sequence=px.colors.qualitative.Dark2)
+                # Agrupar por núcleo
+                df_super_counts = df_super.groupby('nucleo').size().reset_index(name='Total')
+                fig_tree = px.treemap(df_super_counts, path=['nucleo'], values='Total',
+                                      color='Total', color_continuous_scale='Reds')
+                fig_tree.update_traces(textinfo="label+value", textfont_size=20)
                 fig_tree.update_layout(margin=dict(t=30, l=10, r=10, b=10), height=400, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
                 st.plotly_chart(fig_tree, use_container_width=True)
             else:

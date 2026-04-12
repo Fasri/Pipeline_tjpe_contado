@@ -3,8 +3,11 @@ name = "projeto-etl-contadoria"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
+    "streamlit>=1.45.1",
+    "plotly>=5.18.0",
+    "requests>=2.31.0",
     "gdown>=5.2.1",
     "google-api-python-client>=2.193.0",
     "google-auth>=2.49.1",
