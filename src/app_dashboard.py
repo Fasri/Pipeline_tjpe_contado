@@ -106,6 +106,10 @@ load_env_robust()
 
 @st.cache_data(ttl=600)
 def load_data_from_supabase():
+    import requests
+    from urllib3.util.retry import Retry
+    from requests.adapters import HTTPAdapter
+
     supabase_url = os.getenv("SUPABASE_URL")
     supabase_key = os.getenv("SUPABASE_KEY")
     
@@ -121,38 +125,38 @@ def load_data_from_supabase():
         "Authorization": f"Bearer {supabase_key}"
     }
     
+    # Configurar Sessão com Retentativas (Robusteza contra falhas temporárias de DNS/Conexão)
+    session = requests.Session()
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "OPTIONS"]
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    
     try:
-        response = requests.get(url, headers=headers)
+        response = session.get(url, headers=headers, timeout=15)
         if response.status_code == 200:
             # Força a interpretação como UTF-8
             csv_text = response.content.decode('utf-8', errors='replace')
             df = pd.read_csv(StringIO(csv_text))
             
-            # Tratamento de limpeza para garantir grafia correta (caso haja dupla codificação)
+            # Tratamento de limpeza para garantir grafia correta
             def clean_encoding_artifacts(text):
                 if pd.isna(text) or not isinstance(text, str):
                     return text
-                # Correções comuns de mojibake (Latin-1 read as UTF-8 or vice versa)
                 replacements = {
-                    'Âª': 'ª',
-                    'Ãª': 'ê',
-                    'Ã¡': 'á',
-                    'Ã©': 'é',
-                    'Ã': 'í', # Pode ser perigoso se for isolado, mas comum em í
-                    'Ã³': 'ó',
-                    'Ãº': 'ú',
-                    'Ã£': 'ã',
-                    'Ãµ': 'õ',
-                    'Ã§': 'ç',
-                    'Ã ': 'à',
-                    'Â°': '°',
-                    'Ã´': 'ô'
+                    'Âª': 'ª', 'Ãª': 'ê', 'Ã¡': 'á', 'Ã©': 'é', 'Ã': 'í', 
+                    'Ã³': 'ó', 'Ãº': 'ú', 'Ã£': 'ã', 'Ãµ': 'õ', 'Ã§': 'ç', 
+                    'Ã ': 'à', 'Â°': '°', 'Ã´': 'ô'
                 }
                 for bad, good in replacements.items():
                     text = text.replace(bad, good)
                 return text
 
-            # Aplicar limpeza em todas as colunas de texto
             for col in df.select_dtypes(include=['object']).columns:
                 df[col] = df[col].apply(clean_encoding_artifacts)
                 
@@ -160,9 +164,13 @@ def load_data_from_supabase():
         else:
             st.error(f"Erro ao buscar dados do Supabase: {response.status_code}")
             return None
-    except Exception as e:
-        st.error(f"Erro de conexão/codificação: {str(e)}")
+    except requests.exceptions.ConnectionError:
+        st.error("Erro de Conexão: Não foi possível resolver o endereço do Supabase. Verifique sua internet ou DNS.")
         return None
+    except Exception as e:
+        st.error(f"Erro inesperado: {str(e)}")
+        return None
+
 
 def main():
     st.markdown("<h1>📊 Dashboard Estratégico da Contadoria</h1>", unsafe_allow_html=True)
