@@ -31,5 +31,5 @@ dependencies = [
     "jinja2>=3.1.5",
 ]
 
-[tool.uv.pip]
-system = true
+[tool.uv]
+managed = true
