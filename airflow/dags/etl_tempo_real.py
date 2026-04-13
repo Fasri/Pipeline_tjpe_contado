@@ -10,6 +10,7 @@ from src.extract_tempo_real import extract_report_tempo_real
 from src.transform_tempo_real import transform_tempo_real
 from src.load_google_tempo_real import load_tempo_real
 from src.load_supabase_tempo_real import load_supabase
+from src.db_sync import sync_database_from_storage
 
 with DAG(
     dag_id="etl_tempo_real",
@@ -37,9 +38,14 @@ with DAG(
         python_callable=load_tempo_real,
     )
 
-    load_supabase = PythonOperator(
-        task_id="load_supabase",
+    load_supabase_storage = PythonOperator(
+        task_id="load_supabase_storage",
         python_callable=load_supabase,
     )
 
-    extract >> transform >> [load_google, load_supabase]
+    sync_db = PythonOperator(
+        task_id="sync_supabase_db",
+        python_callable=sync_database_from_storage,
+    )
+
+    extract >> transform >> [load_google, load_supabase_storage] >> sync_db
