@@ -4,6 +4,7 @@ from datetime import datetime
 from supabase import create_client, Client
 from dotenv import load_dotenv
 from pathlib import Path
+import requests
 
 # Configuração de caminhos
 BASE_DIR = Path(__file__).parent.parent
@@ -23,12 +24,73 @@ def get_val(row, keys, default=""):
             return row[key]
     return default
 
+def backup_database():
+    """
+    Faz o backup completo de todas as tabelas e views expostas no banco (Supabase)
+    antes da sincronização.
+    """
+    print(f"[{datetime.now()}] Iniciando o backup de segurança do banco de dados...")
+    supabase = get_supabase_client()
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_KEY")
+    
+    # Pegar todas as tabelas da API REST do Supabase
+    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    try:
+        resp = requests.get(f"{url}/rest/v1/", headers=headers)
+        data = resp.json()
+        paths = data.get("paths", {})
+        
+        # Filtra paths vazios ou procedimentos armazenados (rpc)
+        tables = [p[1:] for p in paths.keys() if p.startswith("/") and p[1:] and not p[1:].startswith("rpc/")]
+    except Exception as e:
+        print(f"Erro ao buscar lista de tabelas para backup via OpenAPI: {e}")
+        # Lista de fallback das tabelas conhecidas
+        tables = ['processes', 'audit_logs', 'users', 'nucleos', 'status', 'prioridades']
+        
+    backup_dir = BASE_DIR / "data_transform" / "backups" / datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    
+    for table in tables:
+        print(f"  Fazendo backup da tabela/view: {table}...")
+        try:
+            # Paginação para buscar todos os dados (limite do Supabase = 1000 por request)
+            all_data = []
+            page_size = 1000
+            start = 0
+            while True:
+                response = supabase.table(table).select("*").range(start, start + page_size - 1).execute()
+                data = response.data
+                if not data:
+                    break
+                all_data.extend(data)
+                if len(data) < page_size:
+                    break
+                start += page_size
+                
+            if all_data:
+                df = pd.DataFrame(all_data)
+                filepath = backup_dir / f"{table}.csv"
+                df.to_csv(filepath, index=False)
+                print(f"  -> {len(all_data)} registros salvos em {filepath.name}")
+            else:
+                print(f"  -> {table} vazia. Ignorada.")
+                
+        except Exception as e:
+            print(f"  -> Erro ao fazer backup de {table}: {e}")
+            
+    print(f"[{datetime.now()}] Backup concluído. Salvo em {backup_dir}\n")
+
+
 def sync_database_from_storage():
     """
     Baixa o arquivo consolidado do Supabase Storage e sincroniza com a tabela 'processes'.
     Equivalente à última etapa do ETL (atualizar_bd_contadoria).
     """
     print(f"[{datetime.now()}] Iniciando a sincronização do Banco de Dados...")
+    
+    # Executa o backup antes de começar a mexer nos dados
+    backup_database()
     
     BUCKET_NAME = os.getenv("BUCKET_NAME", "relatorios")
     FILE_PATH = "tempo_real_Consolidado_supabase.csv"
