@@ -191,7 +191,7 @@ def main():
         total_processos = len(df)
         total_super = len(df[df['prioridades'] == 'Super prioridade'])
         total_legal = len(df[df['prioridades'] == 'Prioridade Legal'])
-        total_30_dias = len(df[df['dias_aberto'] > 30])
+        total_30_dias = len(df[df['dias_aberto'] >= 30])
         
         with col1:
             st.metric("TOTAL GERAL", f"{total_processos}")
@@ -200,7 +200,7 @@ def main():
         with col3:
             st.metric("PRIORIDADE LEGAL", f"{total_legal}")
         with col4:
-            st.metric("PROCESSOS > 30 DIAS", f"{total_30_dias}", delta=f"{total_30_dias} em atraso", delta_color="inverse")
+            st.metric("PROCESSOS ≥ 30 DIAS", f"{total_30_dias}", delta=f"{total_30_dias} em atraso", delta_color="inverse")
 
         st.markdown("---")
         
@@ -247,8 +247,8 @@ def main():
             st.plotly_chart(fig_n_total, use_container_width=True)
             
         with col_n2:
-            st.markdown("#### Concentração de Processos > 30 Dias")
-            df_atraso = df[df['dias_aberto'] > 30]
+            st.markdown("#### Concentração de Processos ≥ 30 Dias")
+            df_atraso = df[df['dias_aberto'] >= 30]
             if not df_atraso.empty:
                 atraso_counts = df_atraso['nucleo'].value_counts().reset_index()
                 atraso_counts.columns = ['Núcleo', 'Atrasados']

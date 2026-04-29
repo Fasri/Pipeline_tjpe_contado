@@ -7,24 +7,27 @@ from src.db_sync import sync_database_from_storage
 
 def etl_tempo_real():
     print("=== ETL Tempo Real ===\n")
-    
+
     print("1/5 - Extraindo relatório...")
-    extract_report_tempo_real()
-    
+    success = extract_report_tempo_real()
+    if not success:
+        raise RuntimeError(
+            "Extração falhou: nenhum arquivo xlsx foi baixado. Pipeline abortado."
+        )
+
     print("\n2/5 - Transformando dados...")
     transform_tempo_real()
-    
+
     print("\n3/5 - Carregando para Google Sheets...")
     load_tempo_real()
-    
+
     print("\n4/5 - Carregando para Supabase (Storage)...")
     load_supabase()
-    
+
     print("\n5/5 - Sincronizando Banco de Dados (Postgres)...")
     sync_database_from_storage()
-    
-    print("\n=== ETL Concluído ===")
 
+    print("\n=== ETL Concluído ===")
 
 
 if __name__ == "__main__":

@@ -31,9 +31,10 @@ def backup_database():
     """
     print(f"[{datetime.now()}] Iniciando o backup de segurança do banco de dados...")
     supabase = get_supabase_client()
+    # Reutiliza as mesmas variáveis já carregadas pelo get_supabase_client
     url = os.getenv("SUPABASE_URL")
     key = os.getenv("SUPABASE_KEY")
-    
+
     # Pegar todas as tabelas da API REST do Supabase
     headers = {"apikey": key, "Authorization": f"Bearer {key}"}
     try:
@@ -173,17 +174,20 @@ def sync_database_from_storage():
             
             # 5. Registrar na Auditoria
             if SYSTEM_USER_ID:
-                supabase.table("audit_logs").insert({
-                    "user_id": SYSTEM_USER_ID,
-                    "user_name": "Sistema Automático (ETL)",
-                    "action": f"Sincronização automática: {inserted_count} novos processos adicionados.",
-                    "created_at": datetime.now().isoformat(),
-                    "details": {
-                        "attempted": len(to_insert), 
-                        "new_inserted": inserted_count, 
-                        "intra_file_skipped": intra_file_skipped
-                    }
-                }).execute()
+                try:
+                    supabase.table("audit_logs").insert({
+                        "user_id": SYSTEM_USER_ID,
+                        "user_name": "Sistema Automático (ETL)",
+                        "action": f"Sincronização automática: {inserted_count} novos processos adicionados.",
+                        "created_at": datetime.now().isoformat(),
+                        "details": {
+                            "attempted": len(to_insert),
+                            "new_inserted": inserted_count,
+                            "intra_file_skipped": intra_file_skipped,
+                        },
+                    }).execute()
+                except Exception as audit_err:
+                    print(f"Aviso: Falha ao registrar auditoria (sincronização já concluída): {audit_err}")
             
             print(f"Sucesso! {inserted_count} novos processos adicionados ao banco.")
         else:
