@@ -3,6 +3,7 @@ import shutil
 import glob
 import time
 import threading
+import socket
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -12,6 +13,8 @@ load_dotenv(BASE_DIR / ".env")
 
 
 def extract_report_tempo_real(totp_secret: str | None = None) -> bool:
+    socket.setdefaulttimeout(300)  # Aumenta timeout global para evitar ReadTimeout
+
     from selenium import webdriver
     from webdriver_manager.firefox import GeckoDriverManager
     from selenium.webdriver.firefox.service import Service
@@ -41,8 +44,12 @@ def extract_report_tempo_real(totp_secret: str | None = None) -> bool:
     fp.add_argument("--headless")
     fp.add_argument("--no-sandbox")
     fp.add_argument("--disable-dev-shm-usage")
+    fp.add_argument("--disable-gpu")
     fp.add_argument("--width=1920")
     fp.add_argument("--height=1080")
+    
+    # Otimizações para VPS 1GB RAM
+    fp.set_preference("permissions.default.image", 2)  # Não carrega imagens
     fp.set_preference("browser.download.folderList", 2)
     fp.set_preference("browser.download.manager.showWhenStarting", False)
     fp.set_preference("browser.download.dir", download_path)
@@ -59,9 +66,9 @@ def extract_report_tempo_real(totp_secret: str | None = None) -> bool:
 
     servico = Service(GeckoDriverManager().install())
     navegador = webdriver.Firefox(options=fp, service=servico)
-    navegador.set_page_load_timeout(60)
+    navegador.set_page_load_timeout(300)  # Aumentado para 5 minutos
     navegador.delete_all_cookies()
-    wait = WebDriverWait(navegador, 30)
+    wait = WebDriverWait(navegador, 60)  # Espera aumentada para 60s
 
     navegador.get("https://www.tjpe.jus.br/tjpereports/xhtml/login.xhtml")
     print(f"Página carregada: {navegador.current_url}")

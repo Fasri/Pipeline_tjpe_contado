@@ -37,11 +37,20 @@ _SUPER_PRIORIDADES = {
 
 
 def _determinar_prioridade(lista_prioridades: str) -> str:
-    if pd.isna(lista_prioridades):
+    if pd.isna(lista_prioridades) or str(lista_prioridades).strip() == "" or str(lista_prioridades).strip().lower() == "sem prioridade":
         return "Sem prioridade"
-    for prioridade in lista_prioridades.split(";"):
-        if prioridade.strip() in _SUPER_PRIORIDADES:
+        
+    import re
+    # Trata múltiplas prioridades separadas por vírgula, ponto e vírgula ou pipe
+    prioridades = [p.strip() for p in re.split(r'[;,\|]', str(lista_prioridades)) if p.strip()]
+    if not prioridades:
+        return "Sem prioridade"
+        
+    for prioridade in prioridades:
+        # Correspondência parcial (case-insensitive) para garantir que capturamos as super prioridades
+        if any(super_p.lower() in prioridade.lower() for super_p in _SUPER_PRIORIDADES):
             return "Super prioridade"
+            
     return "Prioridade Legal"
 
 
@@ -95,7 +104,7 @@ def transform_tempo_real():
     df_selected = df_selected[["nucleo", "processo", "vara", "data", "prioridades", "dias"]]
     df_selected = df_selected.fillna("")
 
-    df_selected["dias"] = df_selected["dias"].str.split(",").str[0]
+    df_selected["dias"] = pd.to_numeric(df_selected["dias"].str.split(",").str[0], errors="coerce").fillna(0).astype(int)
     df_selected["data"] = df_selected["data"].apply(_formatar_data)
     df_selected["nucleo"] = df_selected["nucleo"].replace(_SUBSTITUICOES_NUCLEO)
 

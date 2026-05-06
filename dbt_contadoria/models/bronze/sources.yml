@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: supabase_bronze
+    database: postgres
+    schema: bronze
+    tables:
+      - name: processes
+      - name: users
+      - name: status
+      - name: nucleos
+      - name: prioridades

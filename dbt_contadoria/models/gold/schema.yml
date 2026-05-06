@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: gld_processos_pendentes
+    description: "Tabela ouro com processos pendentes"
+    columns:
+      - name: status_atual
+        tests:
+          - accepted_values:
+              values: ['Pendente']

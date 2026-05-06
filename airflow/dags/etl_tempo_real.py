@@ -11,6 +11,16 @@ from src.transform_tempo_real import transform_tempo_real
 from src.load_google_tempo_real import load_tempo_real
 from src.load_supabase_tempo_real import load_supabase
 from src.db_sync import sync_database_from_storage
+from src.ingest_to_dw import ingest as ingest_to_dw
+import subprocess
+
+def run_dbt():
+    # Executa dbt run
+    subprocess.run(
+        ["uv", "run", "dbt", "run", "--profiles-dir", "dbt_contadoria", "--project-dir", "dbt_contadoria"],
+        check=True,
+        cwd="/opt/airflow/project"
+    )
 
 with DAG(
     dag_id="etl_tempo_real",
@@ -48,4 +58,14 @@ with DAG(
         python_callable=sync_database_from_storage,
     )
 
-    extract >> transform >> [load_google, load_supabase_storage] >> sync_db
+    ingest_dw = PythonOperator(
+        task_id="ingest_data_warehouse",
+        python_callable=ingest_to_dw,
+    )
+
+    run_dbt_task = PythonOperator(
+        task_id="run_dbt_transformations",
+        python_callable=run_dbt,
+    )
+
+    extract >> transform >> [load_google, load_supabase_storage] >> sync_db >> ingest_dw >> run_dbt_task
