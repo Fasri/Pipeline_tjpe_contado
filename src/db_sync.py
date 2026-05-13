@@ -5,6 +5,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 from pathlib import Path
 import requests
+import time
 
 # Configuração de caminhos
 BASE_DIR = Path(__file__).parent.parent
@@ -160,17 +161,34 @@ def sync_database_from_storage():
         # 4. Inserir no banco em blocos (upsert)
         inserted_count = 0
         if to_insert:
-            print(f"Processando {len(to_insert)} candidatos a novos processos...")
-            for i in range(0, len(to_insert), 500):
-                chunk = to_insert[i:i + 500]
-                res = supabase.table("processes").upsert(
-                    chunk, 
-                    on_conflict="number,entry_date,nucleus", 
-                    ignore_duplicates=True
-                ).execute()
+            total_items = len(to_insert)
+            chunk_size = 100
+            print(f"Processando {total_items} candidatos a novos processos (Lotes de {chunk_size})...")
+            
+            for i in range(0, total_items, chunk_size):
+                chunk = to_insert[i:i + chunk_size]
+                current_batch = (i // chunk_size) + 1
+                total_batches = (total_items // chunk_size) + (1 if total_items % chunk_size > 0 else 0)
                 
-                if res.data:
-                    inserted_count += len(res.data)
+                print(f"  -> Enviando lote {current_batch}/{total_batches} ({len(chunk)} registros)...")
+                
+                try:
+                    res = supabase.table("processes").upsert(
+                        chunk, 
+                        on_conflict="number,entry_date,nucleus", 
+                        ignore_duplicates=True
+                    ).execute()
+                    
+                    if res.data:
+                        inserted_count += len(res.data)
+                    
+                    # Pequena pausa para evitar sobrecarga e timeout
+                    time.sleep(0.5)
+                    
+                except Exception as batch_err:
+                    print(f"  [AVISO] Erro no lote {current_batch}: {batch_err}")
+                    print("  Tentando continuar com o próximo lote...")
+                    continue
             
             # 5. Registrar na Auditoria
             if SYSTEM_USER_ID:

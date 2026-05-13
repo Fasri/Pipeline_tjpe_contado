@@ -10,3 +10,4 @@ sources:
       - name: status
       - name: nucleos
       - name: prioridades
+      - name: audit_logs

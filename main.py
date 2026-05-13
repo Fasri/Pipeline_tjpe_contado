@@ -42,7 +42,10 @@ def etl_tempo_real():
     sync_database_from_storage()
 
     print("\n6/7 - Sincronizando Data Warehouse (Bronze Layer)...")
-    ingest_to_dw()
+    success = ingest_to_dw()
+    if not success:
+        print("\n[ERRO] Falha na ingestão do DW. Pipeline interrompido para evitar inconsistências.")
+        return
 
     print("\n7/7 - Processando Camadas Medalhão com dbt...")
     run_dbt()
