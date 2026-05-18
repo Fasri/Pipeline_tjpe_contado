@@ -6,6 +6,7 @@ from pathlib import Path
 from datetime import datetime
 import hashlib
 from sqlalchemy import create_engine, text
+from sqlalchemy.pool import NullPool
 
 # Carrega variáveis de ambiente
 BASE_DIR = Path(__file__).parent.parent
@@ -46,8 +47,10 @@ def ingest():
             f'postgresql://{DW_USER}:{DW_PASS}@{DW_HOST}:{DW_PORT}/{DW_DB}',
             connect_args={
                 "sslmode": "require",
-                "connect_timeout": 30
-            }
+                "connect_timeout": 30,
+                "gssencmode": "disable"
+            },
+            poolclass=NullPool
         )
         
         # Garantir schema bronze e configurar timeout da sessão com lógica de Retry
@@ -56,7 +59,8 @@ def ingest():
             try:
                 print(f"    Tentando conectar ao DW (Tentativa {attempt+1})...", flush=True)
                 with dw_engine.connect() as conn:
-                    conn.execute(text("SET statement_timeout = '600s';"))
+                    conn.execute(text("SET client_encoding TO 'UTF8';"))
+                    conn.execute(text("SET statement_timeout = '1800s';"))
                     conn.execute(text("CREATE SCHEMA IF NOT EXISTS bronze;"))
                     conn.commit()
                 print("    [OK] Conectado ao DW.", flush=True)
@@ -124,8 +128,18 @@ def ingest():
                 
                 df_chunk = pd.DataFrame(data)
                 mode = 'replace' if first_chunk else 'append'
-                # Reduzido chunksize para 200 para evitar queries gigantescas que causam timeout (380k+ chars)
-                df_chunk.to_sql(table_temp, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=200)
+                # Reduzido chunksize para 100 e adicionado retry para evitar timeout (psycopg2.errors.QueryCanceled)
+                max_insert_retries = 3
+                for insert_attempt in range(max_insert_retries):
+                    try:
+                        df_chunk.to_sql(table_temp, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=100)
+                        break
+                    except Exception as e:
+                        if insert_attempt == max_insert_retries - 1:
+                            raise e
+                        print(f"    [AVISO] Erro no to_sql ({e}). Tentando novamente em 5s... ({insert_attempt+1}/{max_insert_retries})")
+                        import time
+                        time.sleep(5)
                 
                 last_id = data[-1]['id']
                 first_chunk = False
@@ -148,7 +162,7 @@ def ingest():
             # Adicionamos uma lógica para lidar com locks caso o dashboard esteja travando a tabela.
             print(f"  Finalizando ingestão (Swap): bronze.{table_temp} -> bronze.{table}...")
             with dw_engine.connect() as conn:
-                conn.execute(text("SET statement_timeout = '600s';"))
+                conn.execute(text("SET statement_timeout = '1800s';"))
                 try:
                     # Tenta o swap atômico
                     conn.execute(text(f"DROP TABLE IF EXISTS bronze.{table} CASCADE;"))
@@ -179,7 +193,7 @@ def ingest():
             # Verificar no destino (Otimizado para evitar estouro de memória e timeout de rede)
             # Para tabelas grandes, verificamos apenas a contagem de linhas para garantir a integridade básica.
             with dw_engine.connect() as conn:
-                conn.execute(text("SET statement_timeout = '600s';"))
+                conn.execute(text("SET statement_timeout = '1800s';"))
                 dw_count = conn.execute(text(f"SELECT count(*) FROM bronze.{table};")).scalar()
             
             if src_check['count'] == dw_count:
