@@ -50,21 +50,22 @@ def main():
         print(f"[ERRO] Falha ao conectar ao Supabase: {e}")
         return
     
-    # 3. Buscar processos pendentes no banco de dados
-    print("\n3/5 - Buscando processos pendentes no banco...")
-    all_pending = []
+    # 3. Buscar processos elegíveis no banco de dados
+    print("\n3/5 - Buscando processos no banco (Pendentes ou com cumprimento >= 04/05/2026)...")
+    all_candidates = []
     page_size = 1000
     start = 0
     
     while True:
         try:
-            response = supabase.table("processes").select("id, number").eq("status", "Pendente").range(start, start + page_size - 1).execute()
+            # Busca processos que estão Pendentes OR que têm completion_date >= 2026-05-04
+            response = supabase.table("processes").select("id, number, priority, nucleus").or_("status.eq.Pendente,completion_date.gte.2026-05-04").range(start, start + page_size - 1).execute()
             data = response.data
             
             if not data:
                 break
                 
-            all_pending.extend(data)
+            all_candidates.extend(data)
             
             if len(data) < page_size:
                 break
@@ -74,36 +75,51 @@ def main():
             print(f"[ERRO] Falha na busca ao banco na página inicial {start}: {e}")
             break
             
-    print(f"      -> Encontrados {len(all_pending)} processos com status 'Pendente' no banco.")
+    print(f"      -> Encontrados {len(all_candidates)} processos elegíveis no banco.")
     
     # 4. Comparar processos
     print("\n4/5 - Cruzando dados (Excel x Banco)...")
     to_update = []
     
-    for proc in all_pending:
+    for proc in all_candidates:
         db_number = str(proc.get('number', '')).strip()
         db_number_clean = db_number.replace(".", "").replace("-", "")
         
         # Se o NPU limpo do banco existe na lista limpa do Excel
         if db_number_clean in npus_excel_clean:
-            to_update.append(proc['id'])
+            # Ignora os que já têm a prioridade AutoInspeção
+            if proc.get('priority') == 'AutoInspeção':
+                continue
+                
+            to_update.append(proc)
             
     print(f"      -> {len(to_update)} processos correspondentes encontrados que necessitam de atualização.")
     
     if not to_update:
-        print("\n=== Processo Concluído: Nenhum processo pendente para atualizar. ===")
+        print("\n=== Processo Concluído: Nenhum processo elegível para atualizar. ===")
         return
         
     # 5. Atualizar os processos no Supabase
-    print("\n5/5 - Atualizando prioridades no banco para 'AutoInspeção'...")
+    print("\n5/6 - Atualizando prioridades no banco para 'AutoInspeção'...")
     updated_count = 0
     errors_count = 0
+    report_data = []
     
-    for proc_id in to_update:
+    for proc in to_update:
+        proc_id = proc['id']
+        npu = proc.get('number', '')
+        nucleo = proc.get('nucleus', '')
+        
         try:
             # Atualiza a prioridade para AutoInspeção
             supabase.table("processes").update({"priority": "AutoInspeção"}).eq("id", proc_id).execute()
             updated_count += 1
+            report_data.append({
+                'NPU': npu,
+                'Nucleo': nucleo,
+                'Status': 'Atualizado com sucesso',
+                'Detalhe/Erro': ''
+            })
             
             # Feedback visual a cada 50 registros
             if updated_count % 50 == 0:
@@ -111,11 +127,34 @@ def main():
                 time.sleep(0.5)  # Breve pausa para evitar Rate Limit na API do Supabase
                 
         except Exception as e:
-            print(f"      -> [ERRO] Falha ao atualizar ID {proc_id}: {e}")
+            print(f"      -> [ERRO] Falha ao atualizar NPU {npu}: {e}")
             errors_count += 1
+            report_data.append({
+                'NPU': npu,
+                'Nucleo': nucleo,
+                'Status': 'Erro',
+                'Detalhe/Erro': str(e)
+            })
+            
+    # 6. Gerar relatório Excel
+    print("\n6/6 - Gerando relatório Excel...")
+    if report_data:
+        report_path = BASE_DIR / "Resultado_Atualizacao_AutoInspecao.xlsx"
+        df_report = pd.DataFrame(report_data)
+        df_resumo = pd.DataFrame([{
+            "Total Identificados (Match)": len(to_update),
+            "Atualizados com Sucesso": updated_count,
+            "Erros": errors_count
+        }])
+        
+        with pd.ExcelWriter(report_path) as writer:
+            df_report.to_excel(writer, sheet_name="Detalhes", index=False)
+            df_resumo.to_excel(writer, sheet_name="Resumo", index=False)
+            
+        print(f"      -> Relatório salvo em: {report_path}")
             
     print(f"\n=== Resumo da Operação ===")
-    print(f"Total de processos identificados: {len(to_update)}")
+    print(f"Total de processos elegíveis encontrados (Match): {len(to_update)}")
     print(f"Prioridades atualizadas com sucesso: {updated_count}")
     if errors_count > 0:
         print(f"Erros durante atualização: {errors_count}")
