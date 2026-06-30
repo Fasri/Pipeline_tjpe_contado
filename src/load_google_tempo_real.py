@@ -48,13 +48,16 @@ def load_tempo_real():
         values = [df.columns.values.tolist()] + df.values.tolist()
 
         body = {"values": values}
-        range_name = f"{sheet_name}!A1:J6000"
+        range_clear = f"{sheet_name}!A:Z"
+        range_update = f"{sheet_name}!A1"
+        
         service.spreadsheets().values().clear(
-            spreadsheetId=spreadsheet_id, range=range_name
+            spreadsheetId=spreadsheet_id, range=range_clear
         ).execute()
+        
         result = service.spreadsheets().values().update(
             spreadsheetId=spreadsheet_id,
-            range=range_name,
+            range=range_update,
             valueInputOption="RAW",
             body=body,
         ).execute()
