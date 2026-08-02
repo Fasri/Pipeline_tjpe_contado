@@ -56,25 +56,53 @@ def backup_database():
     for table in tables:
         print(f"  Fazendo backup da tabela/view: {table}...")
         try:
-            # Paginação para buscar todos os dados (limite do Supabase = 1000 por request)
+            # Tenta verificar se a tabela possui a coluna "id" para usar Keyset Pagination
+            use_keyset = False
+            try:
+                # Busca apenas 1 linha para testar a estrutura
+                test_res = supabase.table(table).select("*").limit(1).execute()
+                if test_res.data and "id" in test_res.data[0]:
+                    use_keyset = True
+            except Exception:
+                use_keyset = False
+
             all_data = []
             page_size = 1000
-            start = 0
-            while True:
-                response = supabase.table(table).select("*").range(start, start + page_size - 1).execute()
-                data = response.data
-                if not data:
-                    break
-                all_data.extend(data)
-                if len(data) < page_size:
-                    break
-                start += page_size
+
+            if use_keyset:
+                # Paginação por Keyset: extremamente rápida e eficiente em I/O
+                last_id = None
+                while True:
+                    query = supabase.table(table).select("*").order("id").limit(page_size)
+                    if last_id is not None:
+                        query = query.gt("id", last_id)
+                    
+                    response = query.execute()
+                    data = response.data
+                    if not data:
+                        break
+                    all_data.extend(data)
+                    last_id = data[-1]['id']
+                    if len(data) < page_size:
+                        break
+            else:
+                # Fallback para paginação por Offset tradicional
+                start = 0
+                while True:
+                    response = supabase.table(table).select("*").range(start, start + page_size - 1).execute()
+                    data = response.data
+                    if not data:
+                        break
+                    all_data.extend(data)
+                    if len(data) < page_size:
+                        break
+                    start += page_size
                 
             if all_data:
                 df = pd.DataFrame(all_data)
                 filepath = backup_dir / f"{table}.csv"
                 df.to_csv(filepath, index=False)
-                print(f"  -> {len(all_data)} registros salvos em {filepath.name}")
+                print(f"  -> {len(all_data)} registros salvos em {filepath.name} (Keyset: {use_keyset})")
             else:
                 print(f"  -> {table} vazia. Ignorada.")
                 
@@ -82,6 +110,7 @@ def backup_database():
             print(f"  -> Erro ao fazer backup de {table}: {e}")
             
     print(f"[{datetime.now()}] Backup concluído. Salvo em {backup_dir}\n")
+    return backup_dir
 
 
 def sync_database_from_storage():
@@ -92,7 +121,7 @@ def sync_database_from_storage():
     print(f"[{datetime.now()}] Iniciando a sincronização do Banco de Dados...")
     
     # Executa o backup antes de começar a mexer nos dados
-    backup_database()
+    backup_dir = backup_database()
     
     BUCKET_NAME = os.getenv("BUCKET_NAME", "relatorios")
     FILE_PATH = "tempo_real_Consolidado_supabase.csv"
@@ -216,6 +245,8 @@ def sync_database_from_storage():
     finally:
         if os.path.exists(TEMP_FILE):
             os.remove(TEMP_FILE)
+            
+    return backup_dir
 
 if __name__ == "__main__":
     sync_database_from_storage()

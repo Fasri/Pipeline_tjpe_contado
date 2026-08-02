@@ -37,8 +37,32 @@ def calculate_checksum(df):
     df_hash = hashlib.md5(pd.util.hash_pandas_object(df_sorted, index=True).values).hexdigest()
     return {"count": row_count, "hash": df_hash}
 
-def ingest():
-    print(f"[{datetime.now()}] Iniciando ingestão para o Data Warehouse (Origem via API)...", flush=True)
+def find_latest_backup_dir():
+    backup_base = BASE_DIR / "data_transform" / "backups"
+    if not backup_base.exists():
+        return None
+    dirs = [d for d in backup_base.iterdir() if d.is_dir()]
+    if not dirs:
+        return None
+    latest = sorted(dirs)[-1]
+    try:
+        folder_time = datetime.strptime(latest.name, "%Y%m%d_%H%M%S")
+        # Considera o backup válido se foi gerado nas últimas 3 horas
+        if (datetime.now() - folder_time).total_seconds() > 3 * 3600:
+            print(f"  [AVISO] O backup mais recente encontrado ({latest.name}) tem mais de 3 horas. Ignorando para evitar dados desatualizados.", flush=True)
+            return None
+    except Exception:
+        pass
+    return latest
+
+
+def ingest(backup_dir=None):
+    if backup_dir is None:
+        backup_dir = find_latest_backup_dir()
+        if backup_dir:
+            print(f"[{datetime.now()}] Pasta de backup recente detectada dinamicamente: {backup_dir.name}", flush=True)
+            
+    print(f"[{datetime.now()}] Iniciando ingestão para o Data Warehouse (Backup: {backup_dir.name if backup_dir else 'Origem via API'})...", flush=True)
     
     try:
         src_supabase = get_src_client()
@@ -82,57 +106,29 @@ def ingest():
 
             print(f"Processando tabela: {table}...", flush=True)
             
-            # Pegar contagem exata para log de progresso
-            res_count = src_supabase.table(table).select("*", count="exact").limit(1).execute()
-            total_expected = res_count.count
-            print(f"  Total esperado na origem: {total_expected}", flush=True)
-
-            # Estratégia de Shadow Table: Carregar em uma tabela temporária e depois trocar (swap)
-            # Isso minimiza o tempo de bloqueio (lock) na tabela oficial e evita dados parciais.
-            table_temp = f"{table}_temp"
-            print(f"  Iniciando carregamento na tabela sombra: bronze.{table_temp}...", flush=True)
-
-            # Extrair e Inserir em chunks na tabela TEMPORÁRIA
-            all_data = []
-            page_size = 1000
-            last_id = None
+            # Tentar carregar dados a partir do backup local em formato CSV
+            df_table = None
             total_loaded = 0
-            first_chunk = True
-
-            while True:
-                # Keyset Pagination com Retry (para lidar com instabilidades de rede)
-                max_retries = 5
-                data = None
-                for attempt in range(max_retries):
+            
+            if backup_dir:
+                csv_path = Path(backup_dir) / f"{table}.csv"
+                if csv_path.exists():
                     try:
-                        query = src_supabase.table(table).select("*").order("id").limit(page_size)
-                        if last_id is not None:
-                            query = query.gt("id", last_id)
-                        
-                        response = query.execute()
-                        data = response.data
-                        break
-                    except Exception as e:
-                        if attempt == max_retries - 1:
-                            raise e
-                        print(f"    [AVISO] Falha na conexão ({e}). Tentando novamente em 10s... ({attempt+1}/{max_retries})")
-                        import time
-                        time.sleep(10)
-                
-                if not data:
-                    break
-                
-                # Apenas acumula dados em memória se a tabela for pequena para evitar estouro de RAM (RNF01)
-                if total_expected < 50000:
-                    all_data.extend(data)
-                
-                df_chunk = pd.DataFrame(data)
-                mode = 'replace' if first_chunk else 'append'
-                # Reduzido chunksize para 100 e adicionado retry para evitar timeout (psycopg2.errors.QueryCanceled)
+                        print(f"  [OK] Carregando {table} a partir do backup local: {csv_path.name}", flush=True)
+                        df_table = pd.read_csv(csv_path)
+                        total_loaded = len(df_table)
+                    except Exception as csv_err:
+                        print(f"  [AVISO] Falha ao ler CSV local ({csv_err}). Fazendo fallback para API REST...", flush=True)
+                        df_table = None
+
+            if df_table is not None:
+                # Ingestão a partir do CSV Local
+                # Otimizada utilizando method='multi' e chunksize=5000 para velocidade extrema e baixo I/O
+                print(f"  Gravando {total_loaded} linhas na tabela sombra bronze.{table_temp}...", flush=True)
                 max_insert_retries = 3
                 for insert_attempt in range(max_insert_retries):
                     try:
-                        df_chunk.to_sql(table_temp, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=100)
+                        df_table.to_sql(table_temp, dw_engine, schema='bronze', if_exists='replace', index=False, chunksize=5000, method='multi')
                         break
                     except Exception as e:
                         if insert_attempt == max_insert_retries - 1:
@@ -141,21 +137,80 @@ def ingest():
                         import time
                         time.sleep(5)
                 
-                last_id = data[-1]['id']
-                first_chunk = False
-                total_loaded += len(data)
-                
-                if total_loaded % 10000 == 0:
-                    print(f"    Progresso {table}: {total_loaded} / {total_expected}...", flush=True)
-
-            # Cálculo de Checksum da Origem (Otimizado)
-            if total_expected < 50000:
-                df = pd.DataFrame(all_data)
-                src_check = calculate_checksum(df)
+                # Checksum da Origem (Local)
+                if total_loaded < 50000:
+                    src_check = calculate_checksum(df_table)
+                else:
+                    src_check = {"count": total_loaded, "hash": "ignorado_por_volume"}
             else:
-                src_check = {"count": total_loaded, "hash": "ignorado_por_volume"}
-            
-            print(f"  Origem (API): {src_check['count']} linhas | Hash: {src_check['hash']}")
+                # Fallback: Extrair via API REST do Supabase e Inserir em chunks
+                res_count = src_supabase.table(table).select("*", count="exact").limit(1).execute()
+                total_expected = res_count.count
+                print(f"  Total esperado na origem: {total_expected}", flush=True)
+                print(f"  Carregando {table} via API REST...", flush=True)
+                
+                all_data = []
+                page_size = 1000
+                last_id = None
+                total_loaded = 0
+                first_chunk = True
+
+                while True:
+                    # Keyset Pagination com Retry
+                    max_retries = 5
+                    data = None
+                    for attempt in range(max_retries):
+                        try:
+                            query = src_supabase.table(table).select("*").order("id").limit(page_size)
+                            if last_id is not None:
+                                query = query.gt("id", last_id)
+                            
+                            response = query.execute()
+                            data = response.data
+                            break
+                        except Exception as e:
+                            if attempt == max_retries - 1:
+                                raise e
+                            print(f"    [AVISO] Falha na conexão ({e}). Tentando novamente em 10s... ({attempt+1}/{max_retries})")
+                            import time
+                            time.sleep(10)
+                    
+                    if not data:
+                        break
+                    
+                    if total_expected < 50000:
+                        all_data.extend(data)
+                    
+                    df_chunk = pd.DataFrame(data)
+                    mode = 'replace' if first_chunk else 'append'
+                    
+                    max_insert_retries = 3
+                    for insert_attempt in range(max_insert_retries):
+                        try:
+                            # Otimizado com method='multi' e chunksize=1000 para a paginação da API
+                            df_chunk.to_sql(table_temp, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=1000, method='multi')
+                            break
+                        except Exception as e:
+                            if insert_attempt == max_insert_retries - 1:
+                                raise e
+                            print(f"    [AVISO] Erro no to_sql ({e}). Tentando novamente em 5s... ({insert_attempt+1}/{max_insert_retries})")
+                            import time
+                            time.sleep(5)
+                    
+                    last_id = data[-1]['id']
+                    first_chunk = False
+                    total_loaded += len(data)
+                    
+                    if total_loaded % 10000 == 0:
+                        print(f"    Progresso {table}: {total_loaded} / {total_expected}...", flush=True)
+
+                if total_expected < 50000:
+                    df = pd.DataFrame(all_data)
+                    src_check = calculate_checksum(df)
+                else:
+                    src_check = {"count": total_loaded, "hash": "ignorado_por_volume"}
+
+            print(f"  Origem: {src_check['count']} linhas | Hash: {src_check['hash']}")
             
             # Finalização: SWAP (DROP + RENAME)
             # Voltamos para o SWAP pois ele suporta mudanças de schema (colunas novas), que foi o erro detectado.

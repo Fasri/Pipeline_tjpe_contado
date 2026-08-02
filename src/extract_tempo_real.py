@@ -164,10 +164,28 @@ def extract_report_tempo_real(totp_secret: str | None = None) -> bool:
         time.sleep(check_interval)
         arquivos_atuais = set(os.listdir(download_path))
         novos = arquivos_atuais - arquivos_antes
+        
+        # Filtra os novos arquivos .xlsx
         xlsx_files = [f for f in novos if f.endswith(".xlsx")]
-        if xlsx_files:
-            print(f"Download detectado: {xlsx_files}")
-            break
+        # Verifica se ainda há downloads em andamento (.part)
+        part_files = [f for f in arquivos_atuais if f.endswith(".part")]
+        
+        if xlsx_files and not part_files:
+            # Garante que o arquivo de fato terminou de ser escrito e tem tamanho maior que 0
+            all_complete = True
+            for f in xlsx_files:
+                file_full_path = os.path.join(download_path, f)
+                try:
+                    if os.path.exists(file_full_path) and os.path.getsize(file_full_path) > 0:
+                        continue
+                    else:
+                        all_complete = False
+                except Exception:
+                    all_complete = False
+            
+            if all_complete:
+                print(f"Download detectado e concluído: {xlsx_files}")
+                break
 
         for check_dir in ["/home/airflow/Downloads", "/tmp", "/downloads"]:
             if os.path.exists(check_dir):

@@ -39,10 +39,10 @@ def etl_tempo_real():
     load_supabase()
 
     print("\n5/7 - Sincronizando Banco de Dados de Produção (Postgres)...")
-    sync_database_from_storage()
+    backup_dir = sync_database_from_storage()
 
     print("\n6/7 - Sincronizando Data Warehouse (Bronze Layer)...")
-    success = ingest_to_dw()
+    success = ingest_to_dw(backup_dir=backup_dir)
     if not success:
         print("\n[ERRO] Falha na ingestão do DW. Pipeline interrompido para evitar inconsistências.")
         return
