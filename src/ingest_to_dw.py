@@ -8,6 +8,8 @@ import hashlib
 from sqlalchemy import create_engine, text
 from sqlalchemy.pool import NullPool
 
+import urllib.parse
+
 # Carrega variáveis de ambiente
 BASE_DIR = Path(__file__).parent.parent
 load_dotenv(BASE_DIR / ".env")
@@ -66,9 +68,10 @@ def ingest(backup_dir=None):
     
     try:
         src_supabase = get_src_client()
+        encoded_pass = urllib.parse.quote_plus(DW_PASS) if DW_PASS else ""
         # Conexão simplificada (Removido pool_pre_ping para evitar travamentos na AWS)
         dw_engine = create_engine(
-            f'postgresql://{DW_USER}:{DW_PASS}@{DW_HOST}:{DW_PORT}/{DW_DB}',
+            f'postgresql://{DW_USER}:{encoded_pass}@{DW_HOST}:{DW_PORT}/{DW_DB}',
             connect_args={
                 "sslmode": "require",
                 "connect_timeout": 30,
@@ -90,6 +93,11 @@ def ingest(backup_dir=None):
                 print("    [OK] Conectado ao DW.", flush=True)
                 break
             except Exception as e:
+                err_str = str(e)
+                if "EAUTHQUERY" in err_str or "connection to database not available" in err_str:
+                    proj_ref = DW_USER.split('.')[-1] if DW_USER and '.' in DW_USER else DW_USER
+                    print(f"    [ERRO SUPABASE] A instância do PostgreSQL no Supabase (projeto DW: {proj_ref}) está PAUSADA ou indisponível.", flush=True)
+                    print(f"    -> SOLUÇÃO: Acesse o painel do Supabase (https://supabase.com/dashboard/project/{proj_ref}) e clique em 'Restore project' para reativar o banco de dados.", flush=True)
                 if attempt == max_conn_retries - 1:
                     raise e
                 print(f"    [AVISO] Falha na conexão inicial ({e}). Tentando novamente em 5s... ({attempt+1}/{max_conn_retries})")

@@ -139,7 +139,8 @@ def transform_tempo_real():
 
     consolidado.to_csv(file_path_csv, index=False, encoding="utf-8")
 
-    consolidado_supabase = consolidado[["processo", "data", "vara", "nucleo", "prioridades"]]
+    consolidado_supabase = consolidado[["processo", "data", "vara", "nucleo", "prioridades"]].copy()
+    consolidado_supabase["pje"] = True
     consolidado_supabase.to_csv(file_path_csv_supabase, index=False, encoding="utf-8")
     consolidado_supabase.to_csv(supabase_file_path_csv, index=False, encoding="utf-8")
 

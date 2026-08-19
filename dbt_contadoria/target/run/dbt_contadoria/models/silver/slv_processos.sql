@@ -27,6 +27,7 @@ SELECT
     p.entry_date AS data_remessa,
     u.name AS Calculista,  -- Substituindo ID pelo Nome (coluna 'name' em users)
     p.status AS status_atual,   -- Usando a coluna 'status' diretamente de processes
+    COALESCE(p.pje, true) AS pje,
     
     -- Lógica da Coluna Meta
     CASE 

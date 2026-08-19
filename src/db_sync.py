@@ -184,8 +184,12 @@ def sync_database_from_storage():
                 "position": 0,
                 "valor_custas": float(get_val(row, ['valor_custas', 'Custas'], 0)),
                 "observacao": str(get_val(row, ['observacao', 'Nota'], "")).strip(),
+                "pje": True,
                 "created_at": datetime.now().isoformat()
             })
+
+        # Conjunto de números de processos presentes no arquivo baixado
+        file_numbers_set = set(item["number"] for item in to_insert if item.get("number"))
 
         # 4. Inserir no banco em blocos (upsert)
         inserted_count = 0
@@ -218,7 +222,59 @@ def sync_database_from_storage():
                     print(f"  [AVISO] Erro no lote {current_batch}: {batch_err}")
                     print("  Tentando continuar com o próximo lote...")
                     continue
-            
+
+        # 4.5. Sincronizar campo 'pje' (booleano) nos processos com status Pendente no banco
+        print("Sincronizando campo 'pje' nos processos com status Pendente...")
+        all_pending_db = []
+        page_size = 1000
+        start = 0
+        while True:
+            try:
+                res = supabase.table("processes").select("id, number, status, pje").ilike("status", "Pendente%").range(start, start + page_size - 1).execute()
+                data = res.data or []
+                if not data:
+                    break
+                all_pending_db.extend(data)
+                if len(data) < page_size:
+                    break
+                start += page_size
+            except Exception as fetch_err:
+                print(f"  [AVISO] Erro ao carregar processos pendentes do banco para sincronização 'pje': {fetch_err}")
+                break
+
+        ids_pje_false = []
+        ids_pje_true = []
+
+        for p in all_pending_db:
+            p_id = p.get("id")
+            p_num = str(p.get("number") or "").strip()
+            curr_pje = p.get("pje")
+            in_file = p_num in file_numbers_set
+
+            if in_file and curr_pje is not True:
+                ids_pje_true.append(p_id)
+            elif not in_file and curr_pje is not False:
+                ids_pje_false.append(p_id)
+
+        if ids_pje_false:
+            print(f"  -> Atualizando pje=False para {len(ids_pje_false)} processos pendentes no banco que NÃO estão no arquivo...")
+            for b in range(0, len(ids_pje_false), 100):
+                batch = ids_pje_false[b:b+100]
+                try:
+                    supabase.table("processes").update({"pje": False}).in_("id", batch).execute()
+                except Exception as e:
+                    print(f"  [AVISO] Erro ao atualizar pje=False no lote: {e}")
+
+        if ids_pje_true:
+            print(f"  -> Atualizando pje=True para {len(ids_pje_true)} processos pendentes no banco que ESTÃO no arquivo...")
+            for b in range(0, len(ids_pje_true), 100):
+                batch = ids_pje_true[b:b+100]
+                try:
+                    supabase.table("processes").update({"pje": True}).in_("id", batch).execute()
+                except Exception as e:
+                    print(f"  [AVISO] Erro ao atualizar pje=True no lote: {e}")
+
+        if to_insert:
             # 5. Registrar na Auditoria
             if SYSTEM_USER_ID:
                 try:
