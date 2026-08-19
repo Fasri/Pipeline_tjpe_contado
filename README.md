@@ -28,7 +28,7 @@ Projeto de ETL para extração e tratamento de dados de processos destinados à 
 
 ## 🛠️ Stacks Utilizadas
 
-- **Linguagem**: Python 3.13
+- **Linguagem**: Python 3.135
 - **Frontend/Dashboards**: Streamlit
 - **IA/LLM**: Groq (Llama 3) / Google Gemini
 - **Orquestração**: Apache Airflow
