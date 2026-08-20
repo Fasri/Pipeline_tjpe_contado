@@ -43,11 +43,18 @@ def backup_database():
         data = resp.json()
         paths = data.get("paths", {})
         
-        # Filtra paths vazios ou procedimentos armazenados (rpc)
-        tables = [p[1:] for p in paths.keys() if p.startswith("/") and p[1:] and not p[1:].startswith("rpc/")]
+        # Filtra paths vazios, procedimentos armazenados (rpc), views (vw_) e tabelas temporárias (temp_*, stg_*)
+        tables = [
+            p[1:] for p in paths.keys() 
+            if p.startswith("/") and p[1:] 
+            and not p[1:].startswith("rpc/") 
+            and not p[1:].startswith("vw_")
+            and not p[1:].startswith("temp")
+            and not p[1:].startswith("stg")
+        ]
     except Exception as e:
         print(f"Erro ao buscar lista de tabelas para backup via OpenAPI: {e}")
-        # Lista de fallback das tabelas conhecidas
+        # Lista de fallback das tabelas físicas reais
         tables = ['processes', 'audit_logs', 'users', 'nucleos', 'status', 'prioridades']
         
     backup_dir = BASE_DIR / "data_transform" / "backups" / datetime.now().strftime("%Y%m%d_%H%M%S")

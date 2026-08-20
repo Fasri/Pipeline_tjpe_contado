@@ -14,3 +14,9 @@ credentials.json
 token.json
 .env
 atualizar_bd_contadoria\.env
+
+# Data & Backups
+data_transform/backups/
+data_transform/*.csv
+data_transform/*.xlsx
+data_tempo_real/
