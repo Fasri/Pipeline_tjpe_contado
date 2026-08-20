@@ -1,4 +1,4 @@
-{{ config(materialized='table', schema='silver') }}
+{{ config(materialized='view', schema='silver') }}
 
 WITH base_processos AS (
     SELECT * FROM {{ source('supabase_bronze', 'processes') }}
@@ -46,7 +46,8 @@ SELECT
     p.completion_date AS data_conclusao,
     p.valor_custas,
     p.observacao,
-    p.created_at
+    p.created_at,
+    COALESCE(p.updated_at, NOW()) AS updated_at
 
 FROM base_processos p
 LEFT JOIN base_users u ON p.assigned_to_id = u.id  -- Corrigido para assigned_to_id

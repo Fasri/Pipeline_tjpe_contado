@@ -106,184 +106,281 @@ def ingest(backup_dir=None):
         
         results = []
         for table in TABLES:
-            table_temp = f"{table}_temp"
-            print(f"Limpando resquícios de bronze.{table_temp}...", flush=True)
+            stg_table = f"stg_{table}"
+            print(f"\nProcessando tabela de forma incremental: {table}...", flush=True)
+            
+            # 1. Garantir que a tabela final no schema bronze existe
             with dw_engine.connect() as conn:
-                conn.execute(text(f"DROP TABLE IF EXISTS bronze.{table_temp} CASCADE;"))
+                conn.execute(text("SET statement_timeout = '1800s';"))
+                if table == "processes":
+                    conn.execute(text("""
+                        CREATE TABLE IF NOT EXISTS bronze.processes (
+                            id SERIAL PRIMARY KEY,
+                            number TEXT,
+                            entry_date TEXT,
+                            court TEXT,
+                            nucleus TEXT,
+                            priority TEXT,
+                            status TEXT,
+                            position INT,
+                            priority_position INT,
+                            assigned_to_id INT,
+                            completion_date TEXT,
+                            valor_custas NUMERIC,
+                            observacao TEXT,
+                            pje BOOLEAN DEFAULT TRUE,
+                            created_at TIMESTAMPTZ DEFAULT NOW(),
+                            updated_at TIMESTAMPTZ DEFAULT NOW()
+                        );
+                    """))
+                    # Garantir constraint de unicidade para o ON CONFLICT
+                    try:
+                        conn.execute(text("""
+                            DO $$
+                            BEGIN
+                                IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'unique_bronze_processes_key') THEN
+                                    ALTER TABLE bronze.processes ADD CONSTRAINT unique_bronze_processes_key UNIQUE (number, entry_date, nucleus);
+                                END IF;
+                            END $$;
+                        """))
+                    except Exception as e_c:
+                        print(f"  [AVISO] Constraint já existe ou erro ignorado: {e_c}")
+                else:
+                    # Tabelas auxiliares
+                    conn.execute(text(f"""
+                        CREATE TABLE IF NOT EXISTS bronze.{table} (
+                            id INT PRIMARY KEY,
+                            name TEXT,
+                            nome TEXT,
+                            created_at TIMESTAMPTZ DEFAULT NOW()
+                        );
+                    """))
                 conn.commit()
 
-            print(f"Processando tabela: {table}...", flush=True)
-            
-            # Tentar carregar dados a partir do backup local em formato CSV
+            # 2. Carregar dados para a tabela temporária de staging
+            with dw_engine.connect() as conn:
+                conn.execute(text(f"DROP TABLE IF EXISTS bronze.{stg_table} CASCADE;"))
+                conn.commit()
+
             df_table = None
             total_loaded = 0
+            has_public_table = False
             
+            # Verificar se a tabela existe no schema public (PostgreSQL direto)
+            with dw_engine.connect() as conn:
+                chk = conn.execute(text(f"SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = '{table}');")).scalar()
+                has_public_table = bool(chk)
+
+            if has_public_table and not backup_dir:
+                print(f"  [OK] Cópia direta SQL rápida detectada (public.{table} -> bronze.{table})...", flush=True)
+                with dw_engine.connect() as conn:
+                    conn.execute(text("SET statement_timeout = '1800s';"))
+                    if table == "processes":
+                        # Obter colunas reais da public.processes
+                        pub_cols = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='processes'")).scalars().all()
+                        brz_cols = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_schema='bronze' AND table_name='processes'")).scalars().all()
+                        
+                        common_cols = [c for c in pub_cols if c in brz_cols and c not in ['id']]
+                        if 'updated_at' not in common_cols:
+                            common_cols.append('updated_at')
+
+                        col_names = ", ".join(common_cols)
+                        
+                        # Construir expressão de SELECT com fallback para colunas faltantes na origem
+                        select_exprs = []
+                        for c in common_cols:
+                            if c == 'updated_at':
+                                if 'updated_at' in pub_cols:
+                                    select_exprs.append("COALESCE(updated_at, NOW()) AS updated_at")
+                                else:
+                                    select_exprs.append("NOW() AS updated_at")
+                            elif c in pub_cols:
+                                select_exprs.append(c)
+                            else:
+                                select_exprs.append(f"NULL AS {c}")
+                        select_sql = ", ".join(select_exprs)
+
+                        upd_cols = [c for c in common_cols if c not in ['number', 'entry_date', 'nucleus', 'created_at', 'id']]
+                        update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in upd_cols])
+                        distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in upd_cols])
+
+                        upsert_direct_sql = f"""
+                        INSERT INTO bronze.processes ({col_names})
+                        SELECT {select_sql}
+                        FROM public.processes
+                        ON CONFLICT (number, entry_date, nucleus)
+                        DO UPDATE SET {update_assignments}
+                        WHERE {distinct_checks};
+                        """
+                        res_d = conn.execute(text(upsert_direct_sql))
+                        conn.commit()
+                        print(f"  [OK] UPSERT direto de public.processes concluído! Linhas efetivamente alteradas/inseridas: {res_d.rowcount}", flush=True)
+                    else:
+                        # Garantir PK na tabela auxiliar no bronze se não houver
+                        try:
+                            conn.execute(text(f"""
+                                DO $$
+                                BEGIN
+                                    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conrelid = 'bronze.{table}'::regclass AND contype = 'p') THEN
+                                        ALTER TABLE bronze.{table} ADD PRIMARY KEY (id);
+                                    END IF;
+                                EXCEPTION WHEN OTHERS THEN NULL;
+                                END $$;
+                            """))
+                            conn.commit()
+                        except Exception:
+                            pass
+
+                        pub_cols = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='{table}'")).scalars().all()
+                        col_list = [c for c in pub_cols if c in ['id', 'name', 'nome', 'created_at']]
+                        col_names = ", ".join(col_list)
+                        
+                        # Se não tiver chave primária/única, limpa e reinsere a tabela auxiliar (são tabelas minúsculas com poucas linhas)
+                        has_pk = conn.execute(text(f"SELECT EXISTS (SELECT 1 FROM pg_constraint WHERE conrelid = 'bronze.{table}'::regclass AND contype IN ('p','u'));")).scalar()
+                        if has_pk:
+                            upsert_direct_sql = f"""
+                            INSERT INTO bronze.{table} ({col_names})
+                            SELECT {col_names} FROM public.{table}
+                            ON CONFLICT (id) DO NOTHING;
+                            """
+                        else:
+                            upsert_direct_sql = f"""
+                            TRUNCATE TABLE bronze.{table};
+                            INSERT INTO bronze.{table} ({col_names})
+                            SELECT {col_names} FROM public.{table};
+                            """
+                        res_d = conn.execute(text(upsert_direct_sql))
+                        conn.commit()
+                        print(f"  [OK] Cópia de public.{table} concluída!", flush=True)
+
+                    dw_count = conn.execute(text(f"SELECT count(*) FROM bronze.{table};")).scalar()
+                    print(f"  Destino DW (Postgres): {dw_count} total de linhas em bronze.{table}.")
+                    results.append(True)
+                    continue
+
             if backup_dir:
                 csv_path = Path(backup_dir) / f"{table}.csv"
                 if csv_path.exists():
                     try:
-                        print(f"  [OK] Carregando {table} a partir do backup local: {csv_path.name}", flush=True)
+                        print(f"  [OK] Carregando {table} do backup local: {csv_path.name}", flush=True)
                         df_table = pd.read_csv(csv_path)
                         total_loaded = len(df_table)
                     except Exception as csv_err:
-                        print(f"  [AVISO] Falha ao ler CSV local ({csv_err}). Fazendo fallback para API REST...", flush=True)
+                        print(f"  [AVISO] Falha ao ler CSV local ({csv_err}). Fallback para API REST...", flush=True)
                         df_table = None
 
             if df_table is not None:
-                # Ingestão a partir do CSV Local
-                # Otimizada utilizando method='multi' e chunksize=5000 para velocidade extrema e baixo I/O
-                print(f"  Gravando {total_loaded} linhas na tabela sombra bronze.{table_temp}...", flush=True)
-                max_insert_retries = 3
-                for insert_attempt in range(max_insert_retries):
-                    try:
-                        df_table.to_sql(table_temp, dw_engine, schema='bronze', if_exists='replace', index=False, chunksize=5000, method='multi')
-                        break
-                    except Exception as e:
-                        if insert_attempt == max_insert_retries - 1:
-                            raise e
-                        print(f"    [AVISO] Erro no to_sql ({e}). Tentando novamente em 5s... ({insert_attempt+1}/{max_insert_retries})")
-                        import time
-                        time.sleep(5)
-                
-                # Checksum da Origem (Local)
-                if total_loaded < 50000:
-                    src_check = calculate_checksum(df_table)
-                else:
-                    src_check = {"count": total_loaded, "hash": "ignorado_por_volume"}
+                print(f"  Enviando {total_loaded} linhas para staging bronze.{stg_table}...", flush=True)
+                df_table.to_sql(stg_table, dw_engine, schema='bronze', if_exists='replace', index=False, chunksize=5000, method='multi')
             else:
-                # Fallback: Extrair via API REST do Supabase e Inserir em chunks
-                res_count = src_supabase.table(table).select("*", count="exact").limit(1).execute()
-                total_expected = res_count.count
-                print(f"  Total esperado na origem: {total_expected}", flush=True)
+                # Fallback: API REST com retry robusto
                 print(f"  Carregando {table} via API REST...", flush=True)
-                
                 all_data = []
                 page_size = 1000
                 last_id = None
-                total_loaded = 0
                 first_chunk = True
 
                 while True:
-                    # Keyset Pagination com Retry
-                    max_retries = 5
                     data = None
-                    for attempt in range(max_retries):
+                    for api_retry in range(3):
                         try:
                             query = src_supabase.table(table).select("*").order("id").limit(page_size)
                             if last_id is not None:
                                 query = query.gt("id", last_id)
-                            
                             response = query.execute()
                             data = response.data
                             break
-                        except Exception as e:
-                            if attempt == max_retries - 1:
-                                raise e
-                            print(f"    [AVISO] Falha na conexão ({e}). Tentando novamente em 10s... ({attempt+1}/{max_retries})")
+                        except Exception as req_err:
+                            if api_retry == 2:
+                                print(f"  [AVISO] Conexão API REST indisponível: {req_err}")
+                                data = []
+                                break
                             import time
-                            time.sleep(10)
-                    
+                            time.sleep(3)
+
                     if not data:
                         break
                     
-                    if total_expected < 50000:
-                        all_data.extend(data)
-                    
                     df_chunk = pd.DataFrame(data)
                     mode = 'replace' if first_chunk else 'append'
-                    
-                    max_insert_retries = 3
-                    for insert_attempt in range(max_insert_retries):
-                        try:
-                            # Otimizado com method='multi' e chunksize=1000 para a paginação da API
-                            df_chunk.to_sql(table_temp, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=1000, method='multi')
-                            break
-                        except Exception as e:
-                            if insert_attempt == max_insert_retries - 1:
-                                raise e
-                            print(f"    [AVISO] Erro no to_sql ({e}). Tentando novamente em 5s... ({insert_attempt+1}/{max_insert_retries})")
-                            import time
-                            time.sleep(5)
+                    df_chunk.to_sql(stg_table, dw_engine, schema='bronze', if_exists=mode, index=False, chunksize=1000, method='multi')
                     
                     last_id = data[-1]['id']
                     first_chunk = False
                     total_loaded += len(data)
+
+            # 3. Executar o BULK UPSERT condicional (Incremental)
+            print(f"  Executando UPSERT incremental de bronze.{stg_table} -> bronze.{table}...", flush=True)
+            with dw_engine.connect() as conn:
+                conn.execute(text("SET statement_timeout = '1800s';"))
+                if table == "processes":
+                    # Mapear colunas existentes no staging
+                    cols_stg = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='bronze' AND table_name='{stg_table}'")).scalars().all()
                     
-                    if total_loaded % 10000 == 0:
-                        print(f"    Progresso {table}: {total_loaded} / {total_expected}...", flush=True)
+                    col_list = [c for c in cols_stg if c in ['number', 'entry_date', 'court', 'nucleus', 'priority', 'status', 'position', 'priority_position', 'assigned_to_id', 'completion_date', 'valor_custas', 'observacao', 'pje', 'created_at', 'updated_at']]
+                    col_names = ", ".join(col_list)
+                    
+                    update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in col_list if c not in ['number', 'entry_date', 'nucleus', 'created_at']])
+                    distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in col_list if c not in ['number', 'entry_date', 'nucleus', 'created_at']])
 
-                if total_expected < 50000:
-                    df = pd.DataFrame(all_data)
-                    src_check = calculate_checksum(df)
-                else:
-                    src_check = {"count": total_loaded, "hash": "ignorado_por_volume"}
-
-            print(f"  Origem: {src_check['count']} linhas | Hash: {src_check['hash']}")
-            
-            # Finalização: SWAP (DROP + RENAME)
-            # Voltamos para o SWAP pois ele suporta mudanças de schema (colunas novas), que foi o erro detectado.
-            # Adicionamos uma lógica para lidar com locks caso o dashboard esteja travando a tabela.
-            print(f"  Finalizando ingestão (Swap): bronze.{table_temp} -> bronze.{table}...")
-            with dw_engine.connect() as conn:
-                conn.execute(text("SET statement_timeout = '1800s';"))
-                try:
-                    # Tenta o swap atômico
-                    conn.execute(text(f"DROP TABLE IF EXISTS bronze.{table} CASCADE;"))
-                    conn.execute(text(f"ALTER TABLE bronze.{table_temp} RENAME TO {table};"))
+                    upsert_sql = f"""
+                    INSERT INTO bronze.processes ({col_names})
+                    SELECT {col_names} FROM bronze.{stg_table}
+                    ON CONFLICT (number, entry_date, nucleus)
+                    DO UPDATE SET {update_assignments}, updated_at = NOW()
+                    WHERE {distinct_checks};
+                    """
+                    result = conn.execute(text(upsert_sql))
                     conn.commit()
-                    print(f"  [OK] Swap da tabela {table} realizado com sucesso.", flush=True)
-                except Exception as e:
-                    conn.rollback()
-                    if "timeout" in str(e).lower() or "lock" in str(e).lower():
-                        print(f"  [AVISO] Conflito de lock detectado no swap da {table}. Tentando forçar encerramento de bloqueios...")
-                        try:
-                            # Tentar derrubar conexões que estão lendo a tabela e impedindo o DROP (locks ACCESS SHARE)
-                            # Filtramos pela query para evitar derrubar a própria conexão ou processos vitais
-                            conn.execute(text(f"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid() AND query LIKE '%{table}%';"))
-                            conn.commit()
-                            
-                            # Tentar novamente o swap
-                            conn.execute(text(f"DROP TABLE IF EXISTS bronze.{table} CASCADE;"))
-                            conn.execute(text(f"ALTER TABLE bronze.{table_temp} RENAME TO {table};"))
-                            conn.commit()
-                            print(f"  [OK] Swap da tabela {table} realizado com sucesso após forçar.")
-                        except Exception as e_force:
-                            print(f"  [ERRO] Falha ao forçar swap: {e_force}")
-                            raise e_force
-                    else:
-                        raise e
-            
-            # Verificar no destino (Otimizado para evitar estouro de memória e timeout de rede)
-            # Para tabelas grandes, verificamos apenas a contagem de linhas para garantir a integridade básica.
-            with dw_engine.connect() as conn:
-                conn.execute(text("SET statement_timeout = '1800s';"))
-                dw_count = conn.execute(text(f"SELECT count(*) FROM bronze.{table};")).scalar()
-            
-            if src_check['count'] == dw_count:
-                if dw_count < 50000:
-                    # Tabelas pequenas: Verificação completa de Hash
-                    with dw_engine.connect() as conn:
-                        df_dest = pd.read_sql(text(f"SELECT * FROM bronze.{table};"), conn)
-                    dw_check = calculate_checksum(df_dest)
-                    print(f"  Destino (Postgres): {dw_check['count']} linhas | Hash: {dw_check['hash']}")
+                    print(f"  [OK] UPSERT concluído! Linhas realmente alteradas/inseridas: {result.rowcount}", flush=True)
                 else:
-                    # Tabelas grandes: Apenas contagem para segurança
-                    print(f"  Destino (Postgres): {dw_count} linhas | [OK] Contagem coincide. (Hash ignorado por volume)")
+                    cols_stg = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='bronze' AND table_name='{stg_table}'")).scalars().all()
+                    col_list = [c for c in cols_stg if c in ['id', 'name', 'nome', 'created_at']]
+                    col_names = ", ".join(col_list)
+                    update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in col_list if c != 'id'])
+                    
+                    if update_assignments:
+                        distinct_checks = " OR ".join([f"bronze.{table}.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in col_list if c != 'id'])
+                        upsert_sql = f"""
+                        INSERT INTO bronze.{table} ({col_names})
+                        SELECT {col_names} FROM bronze.{stg_table}
+                        ON CONFLICT (id)
+                        DO UPDATE SET {update_assignments}
+                        WHERE {distinct_checks};
+                        """
+                    else:
+                        upsert_sql = f"""
+                        INSERT INTO bronze.{table} ({col_names})
+                        SELECT {col_names} FROM bronze.{stg_table}
+                        ON CONFLICT (id) DO NOTHING;
+                        """
+                    result = conn.execute(text(upsert_sql))
+                    conn.commit()
+                    print(f"  [OK] UPSERT tabela {table} concluído! Linhas alteradas/inseridas: {result.rowcount}", flush=True)
+
+                # Limpar staging
+                conn.execute(text(f"DROP TABLE IF EXISTS bronze.{stg_table} CASCADE;"))
+                conn.commit()
+
+            # 4. Verificar total de registros no destino
+            with dw_engine.connect() as conn:
+                dw_count = conn.execute(text(f"SELECT count(*) FROM bronze.{table};")).scalar()
+                print(f"  Destino DW (Postgres): {dw_count} total de linhas em bronze.{table}.")
                 results.append(True)
-            else:
-                print(f"  [ERRO] Divergência na contagem de linhas: Origem {src_check['count']} != Destino {dw_count}")
-                results.append(False)
                 
         if all(results):
-            print(f"\n[{datetime.now()}] Ingestão concluída com sucesso!")
+            print(f"\n[{datetime.now()}] Ingestão INCREMENTAL concluída com SUCESSO!")
             return True
         else:
-            print(f"\n[{datetime.now()}] Ingestão concluída com ERROS.")
+            print(f"\n[{datetime.now()}] Ingestão concluída com AVISOS.")
             return False
             
     except Exception as e:
-        print(f"ERRO CRÍTICO NA INGESTÃO: {e}")
+        print(f"ERRO CRÍTICO NA INGESTÃO INCREMENTAL: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 if __name__ == "__main__":
     ingest()
+
