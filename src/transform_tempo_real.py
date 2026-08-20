@@ -108,6 +108,13 @@ def transform_tempo_real():
     df_selected["data"] = df_selected["data"].apply(_formatar_data)
     df_selected["nucleo"] = df_selected["nucleo"].replace(_SUBSTITUICOES_NUCLEO)
 
+    # Regra Automática: Varas contendo 'Juizado' que pertencem à '1ª CCJ' são redirecionadas para a '7ª CCJ'
+    mascara_juizado = (
+        df_selected["vara"].astype(str).str.contains("Juizado", case=False, na=False) & 
+        (df_selected["nucleo"] == "1ª CCJ")
+    )
+    df_selected.loc[mascara_juizado, "nucleo"] = "7ª CCJ"
+
     print("\nValores únicos na coluna Núcleo após as substituições:")
     print(df_selected["nucleo"].unique())
 
