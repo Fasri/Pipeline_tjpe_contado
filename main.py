@@ -20,29 +20,29 @@ def run_dbt():
 
 
 def etl_tempo_real():
-    # print("=== ETL Tempo Real ===\n")
+    print("=== ETL Tempo Real ===\n")
 
-    # print("1/7 - Extraindo relatório...")
-    # success = extract_report_tempo_real()
-    # if not success:
-    #     raise RuntimeError(
-    #         "Extração falhou: nenhum arquivo xlsx foi baixado. Pipeline abortado."
-    #     )
+    print("1/7 - Extraindo relatório...")
+    success = extract_report_tempo_real()
+    if not success:
+        raise RuntimeError(
+            "Extração falhou: nenhum arquivo xlsx foi baixado. Pipeline abortado."
+        )
 
-    # print("\n2/7 - Transformando dados...")
-    # transform_tempo_real()
+    print("\n2/7 - Transformando dados...")
+    transform_tempo_real()
 
-    # print("\n3/7 - Carregando para Google Sheets...")
-    # load_tempo_real()
+    print("\n3/7 - Carregando para Google Sheets...")
+    load_tempo_real()
 
-    # print("\n4/7 - Carregando para Supabase (Storage)...")
-    # load_supabase()
+    print("\n4/7 - Carregando para Supabase (Storage)...")
+    load_supabase()
 
-    # print("\n5/7 - Sincronizando Banco de Dados de Produção (Postgres)...")
-    # backup_dir = sync_database_from_storage()
+    print("\n5/7 - Sincronizando Banco de Dados de Produção (Postgres)...")
+    backup_dir = sync_database_from_storage()
 
-    print("\n6/7 - Sincronizando Data Warehouse (Bronze Layer Incremental)...")
-    success = ingest_to_dw()
+    print("\n6/7 - Sincronizando Data Warehouse (Bronze Layer)...")
+    success = ingest_to_dw(backup_dir=backup_dir)
     if not success:
         print("\n[ERRO] Falha na ingestão do DW. Pipeline interrompido para evitar inconsistências.")
         return

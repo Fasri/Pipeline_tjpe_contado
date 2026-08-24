@@ -1,8 +1,13 @@
 
-  create view "postgres"."public_silver"."slv_processos__dbt_tmp"
+  
     
-    
-  as (
+
+  create  table "postgres"."silver"."slv_processos__dbt_tmp"
+  
+  
+    as
+  
+  (
     
 
 WITH base_processos AS (
@@ -57,3 +62,4 @@ SELECT
 FROM base_processos p
 LEFT JOIN base_users u ON p.assigned_to_id = u.id  -- Corrigido para assigned_to_id
   );
+  

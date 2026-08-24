@@ -180,8 +180,9 @@ def main():
 
     if df is not None:
         # Processamento de datas
-        df['data_dt'] = pd.to_datetime(df['data'], format='%d/%m/%Y', errors='coerce')
-        hoje = datetime(2026, 4, 12)
+        df['data_dt'] = pd.to_datetime(df['data'], format='%d/%m/%Y', dayfirst=True, errors='coerce')
+        df['data_dt'] = df['data_dt'].fillna(pd.to_datetime(df['data'], dayfirst=True, errors='coerce'))
+        hoje = datetime.now()
         df['dias_aberto'] = (hoje - df['data_dt']).dt.days
         
         # 1. KPIs de Alto Nível

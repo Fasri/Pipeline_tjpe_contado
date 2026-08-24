@@ -124,7 +124,7 @@ def ingest(backup_dir=None):
                             status TEXT,
                             position INT,
                             priority_position INT,
-                            assigned_to_id INT,
+                            assigned_to_id TEXT,
                             completion_date TEXT,
                             valor_custas NUMERIC,
                             observacao TEXT,
@@ -133,6 +133,13 @@ def ingest(backup_dir=None):
                             updated_at TIMESTAMPTZ DEFAULT NOW()
                         );
                     """))
+                    # Garantir que assigned_to_id seja TEXT em tabelas pré-existentes
+                    try:
+                        conn.execute(text("ALTER TABLE bronze.processes ALTER COLUMN assigned_to_id TYPE TEXT;"))
+                        conn.commit()
+                    except Exception:
+                        conn.rollback()
+
                     # Garantir constraint de unicidade para o ON CONFLICT
                     try:
                         conn.execute(text("""
@@ -143,18 +150,27 @@ def ingest(backup_dir=None):
                                 END IF;
                             END $$;
                         """))
+                        conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_status ON bronze.processes(status);"))
+                        conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_assigned ON bronze.processes(assigned_to_id);"))
+                        conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_nucleus ON bronze.processes(nucleus);"))
+                        conn.commit()
                     except Exception as e_c:
-                        print(f"  [AVISO] Constraint já existe ou erro ignorado: {e_c}")
+                        conn.rollback()
                 else:
                     # Tabelas auxiliares
                     conn.execute(text(f"""
                         CREATE TABLE IF NOT EXISTS bronze.{table} (
-                            id INT PRIMARY KEY,
+                            id TEXT PRIMARY KEY,
                             name TEXT,
                             nome TEXT,
                             created_at TIMESTAMPTZ DEFAULT NOW()
                         );
                     """))
+                    try:
+                        conn.execute(text(f"ALTER TABLE bronze.{table} ALTER COLUMN id TYPE TEXT;"))
+                        conn.commit()
+                    except Exception:
+                        conn.rollback()
                 conn.commit()
 
             # 2. Carregar dados para a tabela temporária de staging
@@ -191,19 +207,39 @@ def ingest(backup_dir=None):
                         for c in common_cols:
                             if c == 'updated_at':
                                 if 'updated_at' in pub_cols:
-                                    select_exprs.append("COALESCE(updated_at, NOW()) AS updated_at")
+                                    select_exprs.append("COALESCE(NULLIF(updated_at::text, '')::timestamptz, NOW()) AS updated_at")
                                 else:
                                     select_exprs.append("NOW() AS updated_at")
+                            elif c == 'created_at':
+                                if 'created_at' in pub_cols:
+                                    select_exprs.append("NULLIF(created_at::text, '')::timestamptz AS created_at")
+                                else:
+                                    select_exprs.append("NOW() AS created_at")
                             elif c in pub_cols:
                                 select_exprs.append(c)
                             else:
                                 select_exprs.append(f"NULL AS {c}")
                         select_sql = ", ".join(select_exprs)
 
-                        upd_cols = [c for c in common_cols if c not in ['number', 'entry_date', 'nucleus', 'created_at', 'id']]
+                        upd_cols = [c for c in common_cols if c not in ['number', 'entry_date', 'nucleus', 'created_at', 'updated_at']]
                         update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in upd_cols])
+                        if update_assignments:
+                            update_assignments += ", updated_at = NOW()"
+                        else:
+                            update_assignments = "updated_at = NOW()"
                         distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in upd_cols])
 
+                        # Sincronização Incremental Inteligente (Otimizada para Supabase Free Tier):
+                        # 1. Remover do bronze registros que foram excluídos na produção (public)
+                        del_sql = """
+                        DELETE FROM bronze.processes
+                        WHERE (number, entry_date, nucleus) NOT IN (
+                            SELECT number, entry_date, nucleus FROM public.processes
+                        );
+                        """
+                        res_del = conn.execute(text(del_sql))
+
+                        # 2. UPSERT apenas das linhas que efetivamente mudaram ou são novas
                         upsert_direct_sql = f"""
                         INSERT INTO bronze.processes ({col_names})
                         SELECT {select_sql}
@@ -214,44 +250,34 @@ def ingest(backup_dir=None):
                         """
                         res_d = conn.execute(text(upsert_direct_sql))
                         conn.commit()
-                        print(f"  [OK] UPSERT direto de public.processes concluído! Linhas efetivamente alteradas/inseridas: {res_d.rowcount}", flush=True)
+                        print(f"  [OK] Sync incremental limpo: {res_del.rowcount} apagados, {res_d.rowcount} novos/atualizados.", flush=True)
                     else:
-                        # Garantir PK na tabela auxiliar no bronze se não houver
-                        try:
-                            conn.execute(text(f"""
-                                DO $$
-                                BEGIN
-                                    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conrelid = 'bronze.{table}'::regclass AND contype = 'p') THEN
-                                        ALTER TABLE bronze.{table} ADD PRIMARY KEY (id);
-                                    END IF;
-                                EXCEPTION WHEN OTHERS THEN NULL;
-                                END $$;
-                            """))
-                            conn.commit()
-                        except Exception:
-                            pass
-
+                        del_sql = f"DELETE FROM bronze.{table} WHERE id NOT IN (SELECT id FROM public.{table});"
+                        conn.execute(text(del_sql))
+                        
                         pub_cols = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='{table}'")).scalars().all()
                         col_list = [c for c in pub_cols if c in ['id', 'name', 'nome', 'created_at']]
                         col_names = ", ".join(col_list)
                         
-                        # Se não tiver chave primária/única, limpa e reinsere a tabela auxiliar (são tabelas minúsculas com poucas linhas)
-                        has_pk = conn.execute(text(f"SELECT EXISTS (SELECT 1 FROM pg_constraint WHERE conrelid = 'bronze.{table}'::regclass AND contype IN ('p','u'));")).scalar()
-                        if has_pk:
+                        update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in col_list if c != 'id'])
+                        if update_assignments:
+                            distinct_checks = " OR ".join([f"bronze.{table}.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in col_list if c != 'id'])
+                            upsert_direct_sql = f"""
+                            INSERT INTO bronze.{table} ({col_names})
+                            SELECT {col_names} FROM public.{table}
+                            ON CONFLICT (id)
+                            DO UPDATE SET {update_assignments}
+                            WHERE {distinct_checks};
+                            """
+                        else:
                             upsert_direct_sql = f"""
                             INSERT INTO bronze.{table} ({col_names})
                             SELECT {col_names} FROM public.{table}
                             ON CONFLICT (id) DO NOTHING;
                             """
-                        else:
-                            upsert_direct_sql = f"""
-                            TRUNCATE TABLE bronze.{table};
-                            INSERT INTO bronze.{table} ({col_names})
-                            SELECT {col_names} FROM public.{table};
-                            """
                         res_d = conn.execute(text(upsert_direct_sql))
                         conn.commit()
-                        print(f"  [OK] Cópia de public.{table} concluída!", flush=True)
+                        print(f"  [OK] Cópia incremental de public.{table} concluída!", flush=True)
 
                     dw_count = conn.execute(text(f"SELECT count(*) FROM bronze.{table};")).scalar()
                     print(f"  Destino DW (Postgres): {dw_count} total de linhas em bronze.{table}.")
@@ -270,6 +296,8 @@ def ingest(backup_dir=None):
                         df_table = None
 
             if df_table is not None:
+                if 'pje' in df_table.columns:
+                    df_table['pje'] = df_table['pje'].astype(str).str.lower().map({'true': True, '1': True, '1.0': True, 'false': False, '0': False, '0.0': False}).fillna(True)
                 print(f"  Enviando {total_loaded} linhas para staging bronze.{stg_table}...", flush=True)
                 df_table.to_sql(stg_table, dw_engine, schema='bronze', if_exists='replace', index=False, chunksize=5000, method='multi')
             else:
@@ -320,30 +348,77 @@ def ingest(backup_dir=None):
                     col_list = [c for c in cols_stg if c in ['number', 'entry_date', 'court', 'nucleus', 'priority', 'status', 'position', 'priority_position', 'assigned_to_id', 'completion_date', 'valor_custas', 'observacao', 'pje', 'created_at', 'updated_at']]
                     col_names = ", ".join(col_list)
                     
-                    update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in col_list if c not in ['number', 'entry_date', 'nucleus', 'created_at']])
-                    distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in col_list if c not in ['number', 'entry_date', 'nucleus', 'created_at']])
+                    select_exprs = []
+                    for c in col_list:
+                        if c == 'created_at':
+                            select_exprs.append("NULLIF(created_at::text, '')::timestamptz AS created_at")
+                        elif c == 'updated_at':
+                            select_exprs.append("COALESCE(NULLIF(updated_at::text, '')::timestamptz, NOW()) AS updated_at")
+                        elif c in ['position', 'priority_position']:
+                            select_exprs.append(f"NULLIF({c}::text, '')::numeric::integer AS {c}")
+                        elif c == 'assigned_to_id':
+                            select_exprs.append("assigned_to_id::text AS assigned_to_id")
+                        elif c == 'valor_custas':
+                            select_exprs.append("NULLIF(valor_custas::text, '')::numeric AS valor_custas")
+                        elif c == 'pje':
+                            select_exprs.append("COALESCE(pje::text::boolean, true) AS pje")
+                        else:
+                            select_exprs.append(c)
+                    select_sql = ", ".join(select_exprs)
+                    
+                    upd_cols = [c for c in col_list if c not in ['number', 'entry_date', 'nucleus', 'created_at', 'updated_at']]
+                    update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in upd_cols])
+                    if update_assignments:
+                        update_assignments += ", updated_at = NOW()"
+                    else:
+                        update_assignments = "updated_at = NOW()"
+                    distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in upd_cols])
+
+                    # Remover do bronze registros que não existem mais na origem/staging
+                    del_sql = f"""
+                    DELETE FROM bronze.processes p
+                    WHERE NOT EXISTS (
+                        SELECT 1 
+                        FROM bronze.{stg_table} s
+                        WHERE s.number = p.number
+                          AND s.entry_date = p.entry_date
+                          AND s.nucleus = p.nucleus
+                    );
+                    """
+                    res_del = conn.execute(text(del_sql))
 
                     upsert_sql = f"""
                     INSERT INTO bronze.processes ({col_names})
-                    SELECT {col_names} FROM bronze.{stg_table}
+                    SELECT {select_sql} FROM bronze.{stg_table}
                     ON CONFLICT (number, entry_date, nucleus)
-                    DO UPDATE SET {update_assignments}, updated_at = NOW()
+                    DO UPDATE SET {update_assignments}
                     WHERE {distinct_checks};
                     """
                     result = conn.execute(text(upsert_sql))
                     conn.commit()
-                    print(f"  [OK] UPSERT concluído! Linhas realmente alteradas/inseridas: {result.rowcount}", flush=True)
+                    print(f"  [OK] UPSERT incremental concluído! Removidos: {res_del.rowcount}, Linhas alteradas/inseridas: {result.rowcount}", flush=True)
                 else:
                     cols_stg = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='bronze' AND table_name='{stg_table}'")).scalars().all()
                     col_list = [c for c in cols_stg if c in ['id', 'name', 'nome', 'created_at']]
                     col_names = ", ".join(col_list)
+                    
+                    select_exprs = []
+                    for c in col_list:
+                        if c == 'created_at':
+                            select_exprs.append("NULLIF(created_at::text, '')::timestamptz AS created_at")
+                        elif c == 'id':
+                            select_exprs.append("id::text AS id")
+                        else:
+                            select_exprs.append(c)
+                    select_sql = ", ".join(select_exprs)
+                    
                     update_assignments = ", ".join([f"{c} = EXCLUDED.{c}" for c in col_list if c != 'id'])
                     
                     if update_assignments:
                         distinct_checks = " OR ".join([f"bronze.{table}.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in col_list if c != 'id'])
                         upsert_sql = f"""
                         INSERT INTO bronze.{table} ({col_names})
-                        SELECT {col_names} FROM bronze.{stg_table}
+                        SELECT {select_sql} FROM bronze.{stg_table}
                         ON CONFLICT (id)
                         DO UPDATE SET {update_assignments}
                         WHERE {distinct_checks};
@@ -351,7 +426,7 @@ def ingest(backup_dir=None):
                     else:
                         upsert_sql = f"""
                         INSERT INTO bronze.{table} ({col_names})
-                        SELECT {col_names} FROM bronze.{stg_table}
+                        SELECT {select_sql} FROM bronze.{stg_table}
                         ON CONFLICT (id) DO NOTHING;
                         """
                     result = conn.execute(text(upsert_sql))

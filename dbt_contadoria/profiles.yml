@@ -6,7 +6,9 @@ contadoria_dw:
       host: aws-1-sa-east-1.pooler.supabase.com
       user: postgres.owpqwkntxojqnpyfebal
       password: "Nk6/4Q-_Aq8ukW!"
-      port: 6543
+      port: 5432
       dbname: postgres
       schema: public
-      threads: 4
+      threads: 2
+      connect_timeout: 30
+      keepalives_idle: 30

@@ -1,11 +1,17 @@
 
-  create view "postgres"."public_gold"."gld_processos_pendentes__dbt_tmp"
+  
     
-    
-  as (
+
+  create  table "postgres"."gold"."gld_processos_pendentes__dbt_tmp"
+  
+  
+    as
+  
+  (
     
 
 SELECT *
-FROM "postgres"."public_silver"."slv_processos"
+FROM "postgres"."silver"."slv_processos"
 WHERE status_atual = 'Pendente'
   );
+  

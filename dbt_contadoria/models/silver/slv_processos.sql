@@ -1,4 +1,13 @@
-{{ config(materialized='view', schema='silver') }}
+{{ config(
+    materialized='table',
+    schema='silver',
+    post_hook=[
+        "CREATE INDEX IF NOT EXISTS idx_slv_processos_status ON {{ this }} (status_atual)",
+        "CREATE INDEX IF NOT EXISTS idx_slv_processos_calculista ON {{ this }} (calculista)",
+        "CREATE INDEX IF NOT EXISTS idx_slv_processos_nucleo ON {{ this }} (nucleo)",
+        "CREATE INDEX IF NOT EXISTS idx_slv_processos_vara ON {{ this }} (vara)"
+    ]
+) }}
 
 WITH base_processos AS (
     SELECT * FROM {{ source('supabase_bronze', 'processes') }}
