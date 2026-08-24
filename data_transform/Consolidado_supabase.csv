@@ -2,6 +2,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000119-49.2022.8.17.2100,19/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,4ª CCJ,Prioridade Legal,True
 0000442-59.2019.8.17.2100,20/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,5ª CC,Prioridade Legal,True
 0001314-74.2019.8.17.2100,27/07/2026,1ª Vara Cível da Comarca de Abreu e Lima,4ª CCJ,Sem prioridade,True
+0001630-43.2026.8.17.2100,23/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,4ª CCJ,Prioridade Legal,True
 0001936-17.2023.8.17.2100,14/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,5ª CC,Prioridade Legal,True
 0002022-56.2021.8.17.2100,17/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,4ª CCJ,Prioridade Legal,True
 0003126-49.2022.8.17.2100,11/08/2026,1ª Vara Cível da Comarca de Abreu e Lima,4ª CCJ,Sem prioridade,True
@@ -17,6 +18,8 @@ processo,data,vara,nucleo,prioridades,pje
 0002409-37.2022.8.17.2100,18/08/2026,3ª Vara Cível da Comarca de Abreu e Lima,5ª CC,Prioridade Legal,True
 0003507-86.2024.8.17.2100,20/08/2026,3ª Vara Cível da Comarca de Abreu e Lima,5ª CC,Prioridade Legal,True
 0003684-16.2025.8.17.2100,18/08/2026,3ª Vara Cível da Comarca de Abreu e Lima,5ª CC,Prioridade Legal,True
+0000239-83.2019.8.17.0100,23/08/2026,Vara Criminal da Comarca de Abreu e Lima,2ª CC,Sem prioridade,True
+0000502-26.2024.8.17.5990,23/08/2026,Vara Criminal da Comarca de Abreu e Lima,2ª CC,Prioridade Legal,True
 0000253-51.2019.8.17.2110,19/08/2026,1ª Vara Cível da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
 0000264-41.2023.8.17.2110,18/08/2026,1ª Vara Cível da Comarca de Afogados da Ingazeira,7ª CC,Prioridade Legal,True
 0000374-06.2024.8.17.2110,24/07/2026,1ª Vara Cível da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
@@ -55,7 +58,6 @@ processo,data,vara,nucleo,prioridades,pje
 0001387-40.2024.8.17.2110,27/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
 0001403-91.2024.8.17.2110,27/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
 0001827-36.2024.8.17.2110,27/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
-0001867-52.2023.8.17.2110,18/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,7ª CC,Prioridade Legal,True
 0002174-16.2017.8.17.2110,21/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,7ª CC,Prioridade Legal,True
 0002692-25.2025.8.17.2110,31/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,3ª CC,Prioridade Legal,True
 0002888-73.2017.8.17.2110,21/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,7ª CC,Prioridade Legal,True
@@ -68,7 +70,6 @@ processo,data,vara,nucleo,prioridades,pje
 0003376-18.2023.8.17.2110,21/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,7ª CC,Prioridade Legal,True
 0003475-85.2023.8.17.2110,21/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,6ª CCJ,Sem prioridade,True
 0003539-61.2024.8.17.2110,27/07/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Afogados da Ingazeira,6ª CCJ,Prioridade Legal,True
-0000007-15.2025.8.17.2120,18/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0000027-40.2024.8.17.2120,05/08/2026,Vara Única da Comarca de Afrânio,6ª CCJ,Prioridade Legal,True
 0000030-49.2025.8.17.5130,18/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0000170-34.2021.8.17.2120,18/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Sem prioridade,True
@@ -93,7 +94,6 @@ processo,data,vara,nucleo,prioridades,pje
 0001170-64.2024.8.17.2120,17/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0001597-61.2024.8.17.2120,18/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0001678-10.2024.8.17.2120,17/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
-0001785-54.2024.8.17.2120,17/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0001841-87.2024.8.17.2120,18/08/2026,Vara Única da Comarca de Afrânio,7ª CC,Prioridade Legal,True
 0008230-08.2011.8.17.1130,12/08/2026,Vara Única da Comarca de Afrânio,6ª CCJ,Prioridade Legal,True
 0000003-79.2024.8.17.2130,11/08/2026,Vara Única da Comarca de Agrestina,5ª CCJ,Prioridade Legal,True
@@ -110,21 +110,16 @@ processo,data,vara,nucleo,prioridades,pje
 0000028-31.2026.8.17.2160,21/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000032-05.2025.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000048-61.2022.8.17.2160,21/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Prioridade Legal,True
-0000089-23.2025.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000114-36.2025.8.17.2160,18/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Sem prioridade,True
 0000138-98.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000156-04.2007.8.17.0160,21/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
-0000174-14.2022.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000185-77.2021.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000199-61.2021.8.17.2160,29/07/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Prioridade Legal,True
 0000243-46.2022.8.17.2160,19/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000250-10.2011.8.17.0160,14/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Sem prioridade,True
-0000283-57.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000293-67.2025.8.17.2160,18/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Prioridade Legal,True
 0000301-78.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000311-88.2025.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
-0000349-37.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
-0000362-07.2022.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000363-21.2024.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000383-22.2018.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Prioridade Legal,True
 0000419-20.2025.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
@@ -144,10 +139,8 @@ processo,data,vara,nucleo,prioridades,pje
 0000845-66.2024.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000857-85.2021.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0000901-02.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
-0000921-27.2023.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0000980-78.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0001151-35.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
-0001200-76.2024.8.17.2160,13/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
 0001269-45.2023.8.17.2160,18/08/2026,Vara Única da Comarca de Alagoinha,5ª CCJ,Prioridade Legal,True
 0001457-38.2023.8.17.2160,14/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Prioridade Legal,True
 0001459-30.2018.8.17.1110,18/08/2026,Vara Única da Comarca de Alagoinha,6ª CC,Sem prioridade,True
@@ -188,7 +181,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000239-17.2020.8.17.2180,18/08/2026,Vara Única da Comarca de Altinho,5ª CCJ,Prioridade Legal,True
 0000260-90.2020.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0000349-11.2023.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
-0000398-57.2020.8.17.2180,13/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0000415-88.2023.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0000416-83.2017.8.17.2180,30/07/2026,Vara Única da Comarca de Altinho,5ª CCJ,Prioridade Legal,True
 0000422-22.2019.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,5ª CCJ,Sem prioridade,True
@@ -199,10 +191,8 @@ processo,data,vara,nucleo,prioridades,pje
 0000830-37.2024.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0000851-76.2025.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0000886-07.2023.8.17.2180,19/08/2026,Vara Única da Comarca de Altinho,6ª CC,Sem prioridade,True
-0000990-96.2023.8.17.2180,13/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0001091-36.2023.8.17.2180,21/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0001158-64.2024.8.17.2180,11/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
-0001201-98.2024.8.17.2180,13/08/2026,Vara Única da Comarca de Altinho,6ª CC,Prioridade Legal,True
 0001204-87.2023.8.17.2180,17/08/2026,Vara Única da Comarca de Altinho,5ª CCJ,Prioridade Legal,True
 0001229-66.2024.8.17.2180,31/07/2026,Vara Única da Comarca de Altinho,5ª CCJ,Sem prioridade,True
 0000046-74.2017.8.17.3160,14/08/2026,Vara Única da Comarca de Amaraji,4ª CCJ,Prioridade Legal,True
@@ -212,15 +202,17 @@ processo,data,vara,nucleo,prioridades,pje
 0000352-72.2019.8.17.2190,14/08/2026,Vara Única da Comarca de Amaraji,4ª CCJ,Prioridade Legal,True
 0000433-85.2011.8.17.1160,14/08/2026,Vara Única da Comarca de Amaraji,5ª CC,Prioridade Legal,True
 0000505-95.2025.8.17.2190,21/07/2026,Vara Única da Comarca de Amaraji,4ª CCJ,Prioridade Legal,True
+0000978-18.2024.8.17.2190,23/08/2026,Vara Única da Comarca de Amaraji,5ª CC,Prioridade Legal,True
 0000085-02.2014.8.17.0210,19/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
 0000156-34.1996.8.17.0210,19/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Sem prioridade,True
 0000403-81.2023.8.17.2210,27/07/2026,1ª Vara Cível da Comarca de Araripina,6ª CCJ,Sem prioridade,True
 0001234-71.2019.8.17.2210,20/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
 0001357-35.2020.8.17.2210,19/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
+0001388-55.2020.8.17.2210,23/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
 0001657-95.2011.8.17.0210,18/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
+0001662-87.2018.8.17.2210,23/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
 0001697-37.2024.8.17.2210,20/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Sem prioridade,True
 0002252-89.2014.8.17.0210,27/07/2026,1ª Vara Cível da Comarca de Araripina,6ª CCJ,Sem prioridade,True
-0002554-83.2024.8.17.2210,21/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Super prioridade,True
 0003236-38.2024.8.17.2210,19/08/2026,1ª Vara Cível da Comarca de Araripina,7ª CC,Prioridade Legal,True
 0000219-57.2025.8.17.2210,04/08/2026,2ª Vara Cível da Comarca de Araripina,6ª CCJ,Sem prioridade,True
 0000902-70.2020.8.17.2210,04/08/2026,2ª Vara Cível da Comarca de Araripina,6ª CCJ,Prioridade Legal,True
@@ -238,7 +230,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000645-39.2025.8.17.2220,06/08/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
 0000646-24.2025.8.17.2220,27/07/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
 0000723-72.2021.8.17.2220,05/08/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
-0000870-25.2026.8.17.2220,18/08/2026,1ª Vara Cível da Comarca de Arcoverde,7ª CC,Prioridade Legal,True
 0001034-87.2026.8.17.2220,12/08/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
 0001128-35.2026.8.17.2220,20/08/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
 0001165-96.2025.8.17.2220,13/08/2026,1ª Vara Cível da Comarca de Arcoverde,6ª CCJ,Prioridade Legal,True
@@ -276,13 +267,13 @@ processo,data,vara,nucleo,prioridades,pje
 0000253-52.2020.8.17.2260,12/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0000981-65.2009.8.17.0260,04/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Sem prioridade,True
 0001155-29.2025.8.17.2260,13/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
+0001490-82.2024.8.17.2260,23/08/2026,1ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0001551-69.2026.8.17.2260,20/08/2026,1ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0002288-77.2023.8.17.2260,13/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0002792-49.2024.8.17.2260,20/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0002977-87.2024.8.17.2260,17/08/2026,1ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0003218-61.2024.8.17.2260,13/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0005008-18.2014.8.17.0260,05/08/2026,1ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Sem prioridade,True
-0000083-70.2026.8.17.2260,13/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0000116-07.2019.8.17.2260,18/08/2026,2ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0000158-17.2023.8.17.2260,12/08/2026,2ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
 0000209-72.2016.8.17.2260,07/08/2026,2ª Vara Cível da Comarca de Belo Jardim,5ª CCJ,Prioridade Legal,True
@@ -297,6 +288,7 @@ processo,data,vara,nucleo,prioridades,pje
 0001390-70.2011.8.17.0260,19/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Sem prioridade,True
 0001435-05.2022.8.17.2260,20/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0001543-68.2021.8.17.2260,21/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
+0001554-34.2020.8.17.2260,23/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Sem prioridade,True
 0001611-76.2025.8.17.2260,20/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
 0001793-62.2025.8.17.2260,19/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Sem prioridade,True
 0001879-33.2025.8.17.2260,20/08/2026,2ª Vara Cível da Comarca de Belo Jardim,6ª CC,Prioridade Legal,True
@@ -322,7 +314,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000788-74.2021.8.17.2250,20/08/2026,Vara Única da Comarca de Belém São Francisco,7ª CC,Prioridade Legal,True
 0000833-44.2022.8.17.2250,19/08/2026,Vara Única da Comarca de Belém São Francisco,6ª CCJ,Sem prioridade,True
 0001212-48.2023.8.17.2250,18/08/2026,Vara Única da Comarca de Belém São Francisco,7ª CC,Sem prioridade,True
-0000037-66.2017.8.17.2270,13/08/2026,1ª Vara da Comarca de Bezerros,6ª CC,Prioridade Legal,True
 0000337-17.2025.8.17.2280,12/08/2026,1ª Vara da Comarca de Bezerros,6ª CC,Prioridade Legal,True
 0000407-34.2025.8.17.2280,12/08/2026,1ª Vara da Comarca de Bezerros,6ª CC,Sem prioridade,True
 0001315-31.2024.8.17.5480,21/08/2026,1ª Vara da Comarca de Bezerros,6ª CC,Prioridade Legal,True
@@ -341,6 +332,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000233-30.2015.8.17.0290,06/08/2026,Vara Única da Comarca de Bodocó,6ª CCJ,Prioridade Legal,True
 0000291-71.2020.8.17.2290,21/08/2026,Vara Única da Comarca de Bodocó,7ª CC,Prioridade Legal,True
 0000579-46.2020.8.17.1020,21/08/2026,Vara Única da Comarca de Bodocó,7ª CC,Prioridade Legal,True
+0000927-95.2024.8.17.2290,23/08/2026,Vara Única da Comarca de Bodocó,7ª CC,Prioridade Legal,True
 0001030-73.2022.8.17.2290,16/08/2026,Vara Única da Comarca de Bodocó,6ª CCJ,Prioridade Legal,True
 0000094-18.2022.8.17.2300,18/08/2026,1ª Vara da Comarca de Bom Conselho,6ª CC,Sem prioridade,True
 0000130-31.2020.8.17.2300,22/08/2026,1ª Vara da Comarca de Bom Conselho,6ª CC,Prioridade Legal,True
@@ -392,19 +384,28 @@ processo,data,vara,nucleo,prioridades,pje
 0001011-08.2013.8.17.0310,06/08/2026,Vara Única da Comarca de Bom Jardim,5ª CCJ,Prioridade Legal,True
 0001247-56.2022.8.17.2310,06/08/2026,Vara Única da Comarca de Bom Jardim,5ª CCJ,Prioridade Legal,True
 0001450-81.2023.8.17.2310,21/08/2026,Vara Única da Comarca de Bom Jardim,6ª CC,Prioridade Legal,True
+0000031-35.2019.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000031-37.1990.8.17.0320,14/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0000039-62.2000.8.17.0320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0000171-59.2025.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0000177-03.2024.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000335-88.2017.8.17.0320,21/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
 0000363-65.2020.8.17.2320,29/07/2026,Vara Única da Comarca de Bonito,5ª CCJ,Prioridade Legal,True
 0000419-26.2016.8.17.0320,19/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
 0000420-10.2025.8.17.2320,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0000512-61.2020.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000529-69.2009.8.17.0320,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
 0000576-82.2005.8.17.0320,11/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000763-16.2019.8.17.2320,21/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000785-35.2023.8.17.2320,14/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0000887-28.2021.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0000956-55.2024.8.17.2320,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
+0001001-64.2021.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0001058-77.2024.8.17.2320,17/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0001078-45.2010.8.17.0320,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0001436-04.2022.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0001603-16.2025.8.17.2320,21/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
+0001668-16.2022.8.17.2320,23/08/2026,Vara Única da Comarca de Bonito,6ª CC,Prioridade Legal,True
 0002255-04.2023.8.17.2320,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
 0007047-02.2017.8.17.0480,20/08/2026,Vara Única da Comarca de Bonito,6ª CC,Sem prioridade,True
 0000130-08.2020.8.17.2340,11/08/2026,Vara Única da Comarca de Brejo da Madre de Deus,5ª CCJ,Sem prioridade,True
@@ -451,6 +452,7 @@ processo,data,vara,nucleo,prioridades,pje
 0004947-83.2024.8.17.2370,21/08/2026,3ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
 0006502-83.2008.8.17.0370,17/08/2026,3ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
 0006953-63.2024.8.17.2370,21/08/2026,3ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
+0008771-50.2024.8.17.2370,23/08/2026,3ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
 0038239-93.2023.8.17.2370,18/08/2026,3ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Sem prioridade,True
 0002543-25.2025.8.17.2370,19/08/2026,4ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
 0002998-87.2025.8.17.2370,20/08/2026,4ª Vara Cível da Comarca do Cabo de Santo Agostinho,5ª CC,Prioridade Legal,True
@@ -567,6 +569,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000067-47.2026.8.17.2380,20/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Prioridade Legal,True
 0000115-80.2012.8.17.0380,17/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Sem prioridade,True
 0000241-88.2022.8.17.5260,21/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Prioridade Legal,True
+0000283-35.2025.8.17.5260,23/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Prioridade Legal,True
 0000318-41.2021.8.17.2380,20/08/2026,2ª Vara da Comarca de Cabrobó,6ª CCJ,Prioridade Legal,True
 0000354-83.2021.8.17.2380,04/08/2026,2ª Vara da Comarca de Cabrobó,6ª CCJ,Prioridade Legal,True
 0000373-89.2021.8.17.2380,04/08/2026,2ª Vara da Comarca de Cabrobó,6ª CCJ,Prioridade Legal,True
@@ -580,7 +583,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000906-14.2022.8.17.2380,15/07/2026,2ª Vara da Comarca de Cabrobó,6ª CCJ,Prioridade Legal,True
 0001203-55.2021.8.17.2380,04/08/2026,2ª Vara da Comarca de Cabrobó,6ª CCJ,Prioridade Legal,True
 0001473-74.2024.8.17.2380,18/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Prioridade Legal,True
-0001648-73.2021.8.17.2380,18/08/2026,2ª Vara da Comarca de Cabrobó,7ª CC,Prioridade Legal,True
 0000082-83.2026.8.17.2390,17/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Prioridade Legal,True
 0000085-14.2021.8.17.2390,11/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Prioridade Legal,True
 0000146-74.2018.8.17.2390,04/08/2026,Vara Única da Comarca de Cachoeirinha,5ª CCJ,Prioridade Legal,True
@@ -590,16 +592,15 @@ processo,data,vara,nucleo,prioridades,pje
 0000442-92.2012.8.17.0390,14/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Sem prioridade,True
 0000701-47.2025.8.17.2390,18/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Prioridade Legal,True
 0001004-32.2023.8.17.2390,07/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Prioridade Legal,True
+0001248-91.2018.8.17.1110,24/08/2026,Vara Única da Comarca de Cachoeirinha,6ª CC,Prioridade Legal,True
 0000032-38.2011.8.17.0400,18/08/2026,Vara Única da Comarca de Caetés,6ª CC,Sem prioridade,True
 0000070-55.2008.8.17.0400,18/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000131-41.2019.8.17.2400,05/08/2026,Vara Única da Comarca de Caetés,5ª CCJ,Prioridade Legal,True
 0000159-38.2021.8.17.2400,30/07/2026,Vara Única da Comarca de Caetés,5ª CCJ,Prioridade Legal,True
-0000174-07.2021.8.17.2400,13/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000265-97.2021.8.17.2400,14/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000297-29.2026.8.17.2400,21/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000374-15.2012.8.17.0400,22/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000490-78.2025.8.17.2400,21/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
-0000543-59.2025.8.17.2400,13/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000545-34.2022.8.17.2400,18/08/2026,Vara Única da Comarca de Caetés,6ª CC,Prioridade Legal,True
 0000684-49.2023.8.17.2400,20/08/2026,Vara Única da Comarca de Caetés,5ª CCJ,Prioridade Legal,True
 0000082-27.2025.8.17.2420,21/08/2026,1ª Vara Cível da Comarca de Camaragibe,5ª CC,Prioridade Legal,True
@@ -638,7 +639,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000523-78.2024.8.17.8228,10/07/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0000533-93.2022.8.17.8228,18/06/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0000613-86.2024.8.17.8228,06/07/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
-0000691-46.2025.8.17.8228,17/06/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0000805-19.2024.8.17.8228,11/08/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0000856-93.2025.8.17.8228,14/08/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0000857-78.2025.8.17.8228,09/07/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
@@ -672,11 +672,11 @@ processo,data,vara,nucleo,prioridades,pje
 0002396-50.2023.8.17.8228,04/08/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0002594-87.2023.8.17.8228,11/08/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0002807-93.2023.8.17.8228,29/06/2026,Juizado Especial Cível e das Relações de Consumo de Camaragibe - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
+0000200-41.2023.8.17.2430,23/08/2026,Vara Única da Comarca de Camocim de São Félix,6ª CC,Prioridade Legal,True
 0000259-29.2023.8.17.2430,21/08/2026,Vara Única da Comarca de Camocim de São Félix,6ª CC,Prioridade Legal,True
 0000296-56.2023.8.17.2430,14/08/2026,Vara Única da Comarca de Camocim de São Félix,6ª CC,Prioridade Legal,True
 0000366-74.2014.8.17.0430,21/08/2026,Vara Única da Comarca de Camocim de São Félix,6ª CC,Sem prioridade,True
 0000474-06.2014.8.17.0430,13/08/2026,Vara Única da Comarca de Camocim de São Félix,5ª CCJ,Sem prioridade,True
-0017471-44.2022.8.17.2480,13/08/2026,Vara Única da Comarca de Camocim de São Félix,6ª CC,Prioridade Legal,True
 0000028-80.2008.8.17.0440,06/08/2026,Vara Única da Comarca de Canhotinho,5ª CCJ,Sem prioridade,True
 0000137-49.2024.8.17.2440,21/08/2026,Vara Única da Comarca de Canhotinho,6ª CC,Prioridade Legal,True
 0000227-57.2024.8.17.2440,14/08/2026,Vara Única da Comarca de Canhotinho,6ª CC,Sem prioridade,True
@@ -723,6 +723,7 @@ processo,data,vara,nucleo,prioridades,pje
 0004154-38.2024.8.17.2470,19/08/2026,1ª Vara Cível da Comarca de Carpina,5ª CC,Sem prioridade,True
 0004157-61.2022.8.17.2470,19/08/2026,1ª Vara Cível da Comarca de Carpina,5ª CC,Prioridade Legal,True
 0004825-66.2021.8.17.2470,21/08/2026,1ª Vara Cível da Comarca de Carpina,5ª CC,Prioridade Legal,True
+0000686-47.2016.8.17.2470,23/08/2026,2ª Vara Cível da Comarca de Carpina,4ª CCJ,Sem prioridade,True
 0001210-34.2022.8.17.2470,28/07/2026,2ª Vara Cível da Comarca de Carpina,4ª CCJ,Sem prioridade,True
 0001713-84.2024.8.17.2470,14/08/2026,2ª Vara Cível da Comarca de Carpina,4ª CCJ,Prioridade Legal,True
 0002517-57.2021.8.17.2470,17/08/2026,2ª Vara Cível da Comarca de Carpina,4ª CCJ,Prioridade Legal,True
@@ -752,7 +753,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000109-68.2018.8.17.2480,14/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0001827-27.2023.8.17.2480,18/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Sem prioridade,True
 0002578-53.2019.8.17.2480,11/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Sem prioridade,True
-0003227-13.2022.8.17.2480,28/07/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0003281-52.2017.8.17.2480,19/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0003560-67.2019.8.17.2480,18/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0003884-23.2020.8.17.2480,20/07/2026,1ª Vara Cível da Comarca de Caruaru,1ª CCJ,Prioridade Legal,True
@@ -780,6 +780,7 @@ processo,data,vara,nucleo,prioridades,pje
 0018778-62.2024.8.17.2480,18/08/2026,1ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0001664-42.2026.8.17.2480,11/08/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,4ª CC,Prioridade Legal,True
 0002684-44.2021.8.17.2480,10/06/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,2ª CCJ,Prioridade Legal,True
+0002952-35.2020.8.17.2480,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,4ª CC,Prioridade Legal,True
 0003209-26.2021.8.17.2480,01/08/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,2ª CCJ,Prioridade Legal,True
 0003620-69.2021.8.17.2480,05/06/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,2ª CCJ,Prioridade Legal,True
 0003994-56.2019.8.17.2480,23/07/2026,1ª Vara da Fazenda Pública da Comarca de Caruaru,2ª CCJ,Prioridade Legal,True
@@ -1022,7 +1023,6 @@ processo,data,vara,nucleo,prioridades,pje
 0004058-90.2024.8.17.2480,07/08/2026,5ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0005151-54.2025.8.17.2480,31/07/2026,5ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0005818-21.2017.8.17.2480,09/08/2026,5ª Vara Cível da Comarca de Caruaru,1ª CCJ,Prioridade Legal,True
-0006517-65.2024.8.17.2480,28/07/2026,5ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0007173-03.2016.8.17.2480,17/06/2026,5ª Vara Cível da Comarca de Caruaru,1ª CCJ,Prioridade Legal,True
 0008724-71.2023.8.17.2480,13/07/2026,5ª Vara Cível da Comarca de Caruaru,1ª CCJ,Prioridade Legal,True
 0009097-05.2023.8.17.2480,14/08/2026,5ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
@@ -1057,7 +1057,6 @@ processo,data,vara,nucleo,prioridades,pje
 0019641-52.2023.8.17.2480,10/08/2026,6ª Vara Cível da Comarca de Caruaru,3ª CC,Prioridade Legal,True
 0000161-02.2026.8.17.8230,13/07/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0000222-28.2024.8.17.8230,13/08/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
-0001136-58.2025.8.17.8230,17/06/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0001333-13.2025.8.17.8230,16/07/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0001482-77.2023.8.17.8230,22/07/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0001496-90.2025.8.17.8230,27/07/2026,Juizado Especial Cível e das Relações de Consumo de Caruaru - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Sem prioridade,True
@@ -1116,11 +1115,13 @@ processo,data,vara,nucleo,prioridades,pje
 0000122-09.2021.8.17.2530,24/07/2026,Vara Única da Comarca de Cortês,4ª CCJ,Prioridade Legal,True
 0000123-91.2021.8.17.2530,26/07/2026,Vara Única da Comarca de Cortês,4ª CCJ,Prioridade Legal,True
 0000128-16.2021.8.17.2530,18/08/2026,Vara Única da Comarca de Cortês,5ª CC,Prioridade Legal,True
+0000157-95.2023.8.17.2530,23/08/2026,Vara Única da Comarca de Cortês,5ª CC,Prioridade Legal,True
 0000239-35.2011.8.17.0530,17/08/2026,Vara Única da Comarca de Cortês,4ª CCJ,Prioridade Legal,True
 0000335-10.2024.8.17.2530,18/08/2026,Vara Única da Comarca de Cortês,4ª CCJ,Prioridade Legal,True
 0000497-68.2025.8.17.2530,18/08/2026,Vara Única da Comarca de Cortês,4ª CCJ,Sem prioridade,True
 0002138-95.2024.8.17.4480,21/08/2026,Vara Única da Comarca de Cortês,5ª CC,Prioridade Legal,True
 0000089-87.2012.8.17.0540,16/08/2026,Vara Única da Comarca de Cumaru,5ª CCJ,Sem prioridade,True
+0000164-96.2019.8.17.2540,23/08/2026,Vara Única da Comarca de Cumaru,5ª CCJ,Prioridade Legal,True
 0000215-63.2026.8.17.2540,13/08/2026,Vara Única da Comarca de Cumaru,6ª CC,Prioridade Legal,True
 0000134-46.2021.8.17.0550,17/08/2026,Vara Única da Comarca de Cupira,6ª CC,Prioridade Legal,True
 0000188-80.2019.8.17.0550,18/08/2026,Vara Única da Comarca de Cupira,6ª CC,Prioridade Legal,True
@@ -1136,7 +1137,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000135-35.2020.8.17.0560,17/08/2026,2ª Vara da Comarca de Custódia,7ª CC,Sem prioridade,True
 0000178-31.2004.8.17.0560,19/08/2026,2ª Vara da Comarca de Custódia,6ª CCJ,Sem prioridade,True
 0000495-82.2011.8.17.0560,19/08/2026,2ª Vara da Comarca de Custódia,7ª CC,Prioridade Legal,True
-0000686-27.2025.8.17.5220,17/08/2026,2ª Vara da Comarca de Custódia,7ª CC,Prioridade Legal,True
 0000798-61.2021.8.17.2560,21/08/2026,2ª Vara da Comarca de Custódia,7ª CC,Prioridade Legal,True
 0000200-38.2025.8.17.2570,19/08/2026,1ª Vara da Comarca de Escada,5ª CC,Sem prioridade,True
 0000232-73.2018.8.17.0570,20/08/2026,1ª Vara da Comarca de Escada,5ª CC,Prioridade Legal,True
@@ -1207,15 +1207,20 @@ processo,data,vara,nucleo,prioridades,pje
 0011206-39.2022.8.17.3090,20/07/2026,Vara Única da Comarca de Flores,6ª CCJ,Prioridade Legal,True
 0000006-53.2023.8.17.2620,18/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000040-49.2023.8.17.5620,20/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
+0000051-52.2026.8.17.2620,23/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000053-77.2025.8.17.5620,17/08/2026,Vara Única da Comarca de Floresta,7ª CC,Sem prioridade,True
 0000076-52.2006.8.17.0620,18/08/2026,Vara Única da Comarca de Floresta,6ª CCJ,Sem prioridade,True
+0000096-32.2021.8.17.2620,23/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000363-67.2022.8.17.2620,21/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000409-17.2026.8.17.2620,18/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000416-82.2021.8.17.2620,18/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000543-15.2024.8.17.2620,19/08/2026,Vara Única da Comarca de Floresta,6ª CCJ,Prioridade Legal,True
 0000602-67.2016.8.17.0620,29/07/2026,Vara Única da Comarca de Floresta,6ª CCJ,Prioridade Legal,True
+0000620-87.2025.8.17.2620,23/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000795-66.2021.8.17.2250,03/08/2026,Vara Única da Comarca de Floresta,6ª CCJ,Prioridade Legal,True
+0000863-70.2021.8.17.2620,23/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0001020-38.2024.8.17.2620,20/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
+0001163-72.2008.8.17.0620,24/08/2026,Vara Única da Comarca de Floresta,7ª CC,Sem prioridade,True
 0002073-88.2023.8.17.2620,17/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0003685-76.2022.8.17.3370,18/08/2026,Vara Única da Comarca de Floresta,7ª CC,Prioridade Legal,True
 0000033-74.2021.8.17.2630,12/08/2026,Vara Única da Comarca de Gameleira,5ª CC,Sem prioridade,True
@@ -1377,6 +1382,7 @@ processo,data,vara,nucleo,prioridades,pje
 0002461-67.2019.8.17.2640,13/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
 0003120-37.2023.8.17.2640,11/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
 0003141-47.2022.8.17.2640,05/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
+0003684-55.2019.8.17.2640,23/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,2ª CCJ,Sem prioridade,True
 0004049-36.2024.8.17.2640,17/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
 0004308-07.2019.8.17.2640,13/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
 0005057-48.2024.8.17.2640,18/06/2026,Vara da Fazenda Pública da Comarca de Garanhuns,2ª CCJ,Prioridade Legal,True
@@ -1384,6 +1390,8 @@ processo,data,vara,nucleo,prioridades,pje
 0008163-18.2021.8.17.2480,07/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,2ª CCJ,Prioridade Legal,True
 0008299-20.2021.8.17.2640,14/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
 0009081-56.2023.8.17.2640,07/07/2026,Vara da Fazenda Pública da Comarca de Garanhuns,2ª CCJ,Prioridade Legal,True
+0010440-75.2022.8.17.2640,23/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Prioridade Legal,True
+0012300-48.2021.8.17.2640,23/08/2026,Vara da Fazenda Pública da Comarca de Garanhuns,4ª CC,Sem prioridade,True
 0000082-46.2018.8.17.0650,19/08/2026,Vara Única da Comarca de Glória do Goitá,5ª CC,Prioridade Legal,True
 0000087-09.2023.8.17.2650,04/08/2026,Vara Única da Comarca de Glória do Goitá,4ª CCJ,Prioridade Legal,True
 0000402-13.2018.8.17.2650,29/07/2026,Vara Única da Comarca de Glória do Goitá,4ª CCJ,Prioridade Legal,True
@@ -1447,7 +1455,6 @@ processo,data,vara,nucleo,prioridades,pje
 0003941-43.2023.8.17.8233,19/06/2026,Juizado Especial Cível e das Relações de Consumo e Criminal de Goiana - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0001300-56.2021.8.17.2218,19/08/2026,Vara Criminal da Comarca de Goiana,2ª CC,Prioridade Legal,True
 0000101-70.2010.8.17.0670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
-0000114-24.2026.8.17.2670,12/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000142-26.2025.8.17.2670,15/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000169-15.2017.8.17.2500,19/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0000188-73.2020.8.17.2190,13/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
@@ -1458,17 +1465,21 @@ processo,data,vara,nucleo,prioridades,pje
 0000329-94.2015.8.17.0500,28/07/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0000331-72.2023.8.17.2670,13/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000542-84.2018.8.17.2670,17/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
+0000553-69.2025.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000567-79.2001.8.17.0670,14/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000604-46.2026.8.17.2670,06/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
+0000707-53.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000962-21.2020.8.17.2670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0000964-13.2019.8.17.2480,18/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0001035-04.2005.8.17.0670,19/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0001106-63.2018.8.17.2670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
+0001112-89.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0001356-57.2022.8.17.2670,20/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0001392-32.2015.8.17.0670,07/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0001507-87.2014.8.17.0670,20/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0001709-97.2022.8.17.2670,03/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0001726-31.2025.8.17.2670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
+0001762-39.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0001912-20.2026.8.17.2670,15/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0001973-57.2009.8.17.0670,12/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0002105-06.2024.8.17.2670,21/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
@@ -1476,15 +1487,19 @@ processo,data,vara,nucleo,prioridades,pje
 0002243-07.2023.8.17.2670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0002398-39.2025.8.17.2670,13/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0002491-70.2023.8.17.2670,13/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
+0002528-92.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
+0002533-17.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0002551-44.2014.8.17.0670,03/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0002554-96.2014.8.17.0670,31/07/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0002558-36.2014.8.17.0670,21/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Sem prioridade,True
 0002570-44.2026.8.17.2670,14/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0002616-33.2026.8.17.2670,29/07/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
+0002745-38.2026.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0002912-55.2026.8.17.2670,17/08/2026,1ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0003164-92.2025.8.17.2670,20/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003331-46.2024.8.17.2670,21/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003353-70.2025.8.17.2670,13/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
+0003567-95.2024.8.17.2670,23/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003584-97.2025.8.17.2670,19/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003674-76.2023.8.17.2670,14/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003711-06.2023.8.17.2670,18/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
@@ -1495,7 +1510,6 @@ processo,data,vara,nucleo,prioridades,pje
 0005857-83.2024.8.17.2670,20/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0009154-69.2022.8.17.2670,19/08/2026,1ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000093-53.2023.8.17.2670,21/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
-0000171-73.2014.8.17.0500,13/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0000186-89.2018.8.17.2670,21/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000409-33.2015.8.17.0670,20/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0000669-80.2022.8.17.2670,21/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
@@ -1509,10 +1523,8 @@ processo,data,vara,nucleo,prioridades,pje
 0002520-18.2026.8.17.2670,08/08/2026,2ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0002580-02.2011.8.17.0670,07/08/2026,2ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0002642-65.2025.8.17.2670,20/08/2026,2ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
-0002760-47.2013.8.17.0670,13/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0003197-48.2026.8.17.2670,17/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0004572-26.2022.8.17.2670,21/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
-0005891-92.2023.8.17.2670,13/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Sem prioridade,True
 0005905-42.2024.8.17.2670,04/08/2026,2ª Vara Cível da Comarca de Gravatá,5ª CCJ,Prioridade Legal,True
 0007710-98.2022.8.17.2670,18/08/2026,2ª Vara Cível da Comarca de Gravatá,6ª CC,Prioridade Legal,True
 0000164-09.2025.8.17.8224,11/08/2026,Juizado Especial Cível e das Relações de Consumo e Criminal da Comarca de Gravatá,7ª CCJ,Prioridade Legal,True
@@ -1561,6 +1573,7 @@ processo,data,vara,nucleo,prioridades,pje
 0005632-74.2023.8.17.2710,21/08/2026,2ª Vara Cível da Comarca de Igarassu,4ª CCJ,Prioridade Legal,True
 0006232-32.2022.8.17.2710,04/08/2026,2ª Vara Cível da Comarca de Igarassu,4ª CCJ,Prioridade Legal,True
 0000193-39.2023.8.17.5990,19/08/2026,Vara Criminal da Comarca de Igarassu,2ª CC,Prioridade Legal,True
+0003598-93.2015.8.17.0710,23/08/2026,Vara Criminal da Comarca de Igarassu,2ª CC,Sem prioridade,True
 0000004-90.2005.8.17.0720,20/08/2026,Vara Única da Comarca de Inajá,6ª CCJ,Sem prioridade,True
 0000321-48.2018.8.17.2720,03/08/2026,Vara Única da Comarca de Inajá,6ª CCJ,Prioridade Legal,True
 0000534-44.2024.8.17.2720,19/08/2026,Vara Única da Comarca de Inajá,6ª CCJ,Prioridade Legal,True
@@ -1631,6 +1644,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000521-58.2019.8.17.2740,21/08/2026,Vara Única da Comarca de Ipubi,7ª CC,Prioridade Legal,True
 0000611-67.2010.8.17.0740,04/08/2026,Vara Única da Comarca de Ipubi,6ª CCJ,Sem prioridade,True
 0000667-89.2025.8.17.2740,19/08/2026,Vara Única da Comarca de Ipubi,7ª CC,Prioridade Legal,True
+0000825-52.2022.8.17.2740,23/08/2026,Vara Única da Comarca de Ipubi,6ª CCJ,Prioridade Legal,True
 0000873-11.2022.8.17.2740,20/08/2026,Vara Única da Comarca de Ipubi,7ª CC,Prioridade Legal,True
 0001239-79.2024.8.17.2740,28/07/2026,Vara Única da Comarca de Ipubi,6ª CCJ,Sem prioridade,True
 0001293-79.2023.8.17.2740,20/08/2026,Vara Única da Comarca de Ipubi,7ª CC,Prioridade Legal,True
@@ -1643,6 +1657,8 @@ processo,data,vara,nucleo,prioridades,pje
 0000393-70.2015.8.17.0770,20/07/2026,Vara Única da Comarca de Itambé,4ª CCJ,Sem prioridade,True
 0000595-80.2022.8.17.4980,18/08/2026,Vara Única da Comarca de Itambé,5ª CC,Prioridade Legal,True
 0001369-76.2024.8.17.2770,14/08/2026,Vara Única da Comarca de Itambé,4ª CCJ,Sem prioridade,True
+0000024-17.2013.8.17.0780,23/08/2026,Vara Única da Comarca de Itapetim,7ª CC,Prioridade Legal,True
+0000025-02.2013.8.17.0780,23/08/2026,Vara Única da Comarca de Itapetim,7ª CC,Prioridade Legal,True
 0000042-92.2000.8.17.0780,05/08/2026,Vara Única da Comarca de Itapetim,6ª CCJ,Prioridade Legal,True
 0000568-38.2021.8.17.2780,17/08/2026,Vara Única da Comarca de Itapetim,7ª CC,Prioridade Legal,True
 0000644-23.2025.8.17.2780,18/08/2026,Vara Única da Comarca de Itapetim,7ª CC,Prioridade Legal,True
@@ -1676,10 +1692,12 @@ processo,data,vara,nucleo,prioridades,pje
 0000137-95.2022.8.17.5810,21/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0001062-16.2024.8.17.4810,22/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0001108-75.2025.8.17.5810,20/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Prioridade Legal,True
+0001489-83.2025.8.17.5810,23/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Prioridade Legal,True
 0001880-72.2024.8.17.5810,21/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Prioridade Legal,True
 0002046-45.2019.8.17.0810,22/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0005994-92.2019.8.17.0810,21/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0039150-80.2022.8.17.2810,19/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
+0043495-17.2018.8.17.0810,23/08/2026,1ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0002207-64.2022.8.17.2810,11/08/2026,1ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0004647-38.2019.8.17.2810,04/08/2026,1ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Prioridade Legal,True
 0005332-35.2025.8.17.2810,04/08/2026,1ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
@@ -1748,7 +1766,7 @@ processo,data,vara,nucleo,prioridades,pje
 0012412-66.2023.8.17.8227,12/08/2026,1º Juizado Especial Cível e das Relações de Consumo de Jaboatão dos Guararapes - Turno Manhã - 08:00h às 14:00h,7ª CCJ,Prioridade Legal,True
 0001048-05.2025.8.17.5810,21/08/2026,2ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Prioridade Legal,True
 0008156-36.2014.8.17.0810,21/08/2026,2ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
-0057660-10.2023.8.17.2810,22/08/2026,2ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
+0057660-10.2023.8.17.2810,23/08/2026,2ª Vara Criminal da Comarca de Jaboatão dos Guararapes,2ª CC,Sem prioridade,True
 0000737-42.2015.8.17.2810,14/08/2026,2ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0001011-88.2024.8.17.2810,15/07/2026,2ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Prioridade Legal,True
 0001806-60.2025.8.17.2810,03/08/2026,2ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
@@ -1861,7 +1879,6 @@ processo,data,vara,nucleo,prioridades,pje
 0016005-63.2020.8.17.2810,17/06/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Sem prioridade,True
 0024941-43.2021.8.17.2810,20/08/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0028604-68.2019.8.17.2810,18/06/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Sem prioridade,True
-0029446-72.2024.8.17.2810,28/07/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0057222-81.2023.8.17.2810,13/08/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Prioridade Legal,True
 0074098-79.2024.8.17.2001,30/07/2026,4ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0003112-64.2025.8.17.2810,13/08/2026,4ª Vara de Família e Registro Civil da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
@@ -1909,7 +1926,6 @@ processo,data,vara,nucleo,prioridades,pje
 0006448-76.2025.8.17.2810,18/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0009564-90.2025.8.17.2810,18/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0011862-21.2026.8.17.2810,19/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
-0012283-45.2025.8.17.2810,28/07/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0014758-71.2025.8.17.2810,20/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0014779-47.2025.8.17.2810,13/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0020933-57.2020.8.17.2810,06/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
@@ -1926,7 +1942,6 @@ processo,data,vara,nucleo,prioridades,pje
 0034069-87.2021.8.17.2810,03/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Prioridade Legal,True
 0047038-03.2022.8.17.2810,03/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Sem prioridade,True
 0048825-04.2021.8.17.2810,03/08/2026,5ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Sem prioridade,True
-0001463-69.2022.8.17.2810,28/07/2026,6ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0004880-40.2016.8.17.2810,06/08/2026,6ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Prioridade Legal,True
 0007182-71.2018.8.17.2810,18/06/2026,6ª Vara Cível da Comarca de Jaboatão dos Guararapes,1ª CCJ,Prioridade Legal,True
 0008498-75.2025.8.17.2810,29/07/2026,6ª Vara Cível da Comarca de Jaboatão dos Guararapes,3ª CC,Sem prioridade,True
@@ -1981,6 +1996,7 @@ processo,data,vara,nucleo,prioridades,pje
 0013935-39.2021.8.17.2810,29/07/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
 0014089-57.2021.8.17.2810,05/08/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
 0014196-43.2017.8.17.2810,30/07/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
+0016174-50.2020.8.17.2810,23/08/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
 0016255-62.2021.8.17.2810,30/07/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
 0018372-65.2017.8.17.2810,11/06/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Sem prioridade,True
 0025881-47.2017.8.17.2810,12/06/2026,Vara da Fazenda Pública da Comarca de Jaboatão dos Guararapes,2ª CCJ,Prioridade Legal,True
@@ -2000,6 +2016,7 @@ processo,data,vara,nucleo,prioridades,pje
 0009995-03.2020.8.17.2810,27/07/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,PARTIDOR,Prioridade Legal,True
 0012540-70.2025.8.17.2810,05/08/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,3ª CCJ,Prioridade Legal,True
 0014100-23.2020.8.17.2810,17/07/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,PARTIDOR,Sem prioridade,True
+0015142-34.2025.8.17.2810,24/08/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,3ª CCJ,Prioridade Legal,True
 0015621-95.2023.8.17.2810,13/08/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,PARTIDOR,Prioridade Legal,True
 0018009-69.2014.8.17.0810,13/08/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,3ª CCJ,Prioridade Legal,True
 0022511-55.2020.8.17.2810,11/08/2026,Vara de Sucessões e Registros Públicos da Comarca de Jaboatão dos Guararapes,3ª CCJ,Prioridade Legal,True
@@ -2020,13 +2037,13 @@ processo,data,vara,nucleo,prioridades,pje
 0012455-89.2022.8.17.2810,18/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Prioridade Legal,True
 0012699-47.2024.8.17.2810,21/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Prioridade Legal,True
 0017572-67.2010.8.17.0810,21/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Sem prioridade,True
+0019476-48.2024.8.17.2810,23/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Prioridade Legal,True
 0025771-04.2024.8.17.2810,13/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Sem prioridade,True
 0027117-25.2014.8.17.0810,17/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Prioridade Legal,True
 0035733-57.2012.8.17.0810,12/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Sem prioridade,True
 0057433-20.2023.8.17.2810,21/08/2026,Vara dos Executivos Fiscais da Comarca de Jaboatão dos Guararapes,4ª CC,Sem prioridade,True
 0000513-63.2023.8.17.2830,16/08/2026,Vara Única da Comarca de João Alfredo,6ª CC,Sem prioridade,True
 0000565-31.2012.8.17.0830,21/08/2026,Vara Única da Comarca de João Alfredo,6ª CC,Prioridade Legal,True
-0000609-78.2023.8.17.2830,13/08/2026,Vara Única da Comarca de João Alfredo,6ª CC,Prioridade Legal,True
 0000931-35.2022.8.17.2830,16/08/2026,Vara Única da Comarca de João Alfredo,6ª CC,Sem prioridade,True
 0000972-02.2022.8.17.2830,16/08/2026,Vara Única da Comarca de João Alfredo,6ª CC,Sem prioridade,True
 0000987-97.2024.8.17.2830,03/08/2026,Vara Única da Comarca de João Alfredo,5ª CCJ,Prioridade Legal,True
@@ -2038,7 +2055,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000151-39.2021.8.17.2860,21/08/2026,Vara Única da Comarca de Jurema,6ª CC,Sem prioridade,True
 0000210-90.2022.8.17.2860,21/08/2026,Vara Única da Comarca de Jurema,5ª CCJ,Prioridade Legal,True
 0000262-62.2017.8.17.2860,14/08/2026,Vara Única da Comarca de Jurema,6ª CC,Prioridade Legal,True
-0000293-77.2020.8.17.2860,13/08/2026,Vara Única da Comarca de Jurema,6ª CC,Sem prioridade,True
 0000453-63.2024.8.17.2860,06/08/2026,Vara Única da Comarca de Jurema,5ª CCJ,Prioridade Legal,True
 0000500-76.2020.8.17.2860,14/08/2026,Vara Única da Comarca de Jurema,6ª CC,Prioridade Legal,True
 0000564-47.2024.8.17.2860,19/08/2026,Vara Única da Comarca de Jurema,6ª CC,Sem prioridade,True
@@ -2166,6 +2182,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000268-17.2022.8.17.2950,22/07/2026,Vara Única da Comarca de Mirandiba,6ª CCJ,Prioridade Legal,True
 0000368-98.2024.8.17.2950,03/08/2026,Vara Única da Comarca de Mirandiba,6ª CCJ,Prioridade Legal,True
 0000479-88.2012.8.17.0950,21/08/2026,Vara Única da Comarca de Mirandiba,7ª CC,Sem prioridade,True
+0000557-47.2022.8.17.2950,23/08/2026,Vara Única da Comarca de Mirandiba,7ª CC,Sem prioridade,True
 0000561-16.2024.8.17.2950,22/07/2026,Vara Única da Comarca de Mirandiba,6ª CCJ,Sem prioridade,True
 0000641-43.2025.8.17.2950,18/08/2026,Vara Única da Comarca de Mirandiba,7ª CC,Prioridade Legal,True
 0000649-88.2023.8.17.2950,18/08/2026,Vara Única da Comarca de Mirandiba,6ª CCJ,Sem prioridade,True
@@ -2301,9 +2318,9 @@ processo,data,vara,nucleo,prioridades,pje
 0026256-80.2023.8.17.2990,06/08/2026,1ª Vara Cível da Comarca de Olinda,1ª CCJ,Prioridade Legal,True
 0027561-12.2017.8.17.2990,18/08/2026,1ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0053284-57.2022.8.17.2990,10/06/2026,1ª Vara Cível da Comarca de Olinda,1ª CCJ,Prioridade Legal,True
-0070541-95.2022.8.17.2990,28/07/2026,1ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0083595-31.2022.8.17.2990,07/07/2026,1ª Vara Cível da Comarca de Olinda,1ª CCJ,Super prioridade,True
 0103210-30.2023.8.17.2001,12/08/2026,1ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
+0000096-28.2017.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0000311-54.1998.8.17.0990,14/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0000565-45.2015.8.17.2990,27/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0001503-40.2015.8.17.2990,19/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
@@ -2313,12 +2330,14 @@ processo,data,vara,nucleo,prioridades,pje
 0003391-68.2020.8.17.2990,14/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0003790-05.2017.8.17.2990,20/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0004205-09.1996.8.17.0990,11/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
+0004592-03.2017.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0004608-54.2017.8.17.2990,20/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0004785-81.2018.8.17.2990,17/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0004839-63.2000.8.17.0990,17/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0005504-35.2007.8.17.0990,11/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0006097-24.2020.8.17.2990,21/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0006189-70.2018.8.17.2990,20/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
+0006750-50.2025.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0007624-98.2026.8.17.2990,18/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0007699-21.2018.8.17.2990,13/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0007760-32.2025.8.17.2990,12/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Sem prioridade,True
@@ -2327,6 +2346,7 @@ processo,data,vara,nucleo,prioridades,pje
 0010343-93.2013.8.17.0990,06/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Sem prioridade,True
 0010750-02.2013.8.17.0990,16/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0011717-22.2017.8.17.2990,21/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
+0011796-31.2010.8.17.0990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0012035-98.2011.8.17.0990,22/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0012267-80.2018.8.17.2990,19/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0012672-78.2013.8.17.0990,11/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
@@ -2334,9 +2354,12 @@ processo,data,vara,nucleo,prioridades,pje
 0014294-70.2017.8.17.2990,20/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0015166-75.2023.8.17.2990,11/06/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0015278-49.2020.8.17.2990,26/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
+0016068-04.2018.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0016186-88.2003.8.17.0990,14/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
+0017382-19.2017.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0017905-26.2020.8.17.2990,22/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0018982-75.2017.8.17.2990,02/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
+0019727-16.2021.8.17.2990,23/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,4ª CC,Prioridade Legal,True
 0021361-76.2023.8.17.2990,14/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Sem prioridade,True
 0025954-61.2017.8.17.2990,23/07/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
 0032385-43.2019.8.17.2990,12/08/2026,1ª Vara da Fazenda Pública da Comarca de Olinda,2ª CCJ,Prioridade Legal,True
@@ -2373,7 +2396,7 @@ processo,data,vara,nucleo,prioridades,pje
 0005293-08.2019.8.17.8223,15/07/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0005672-36.2025.8.17.8223,24/07/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0005926-09.2025.8.17.8223,14/07/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
-0006506-10.2023.8.17.8223,17/06/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
+0006469-12.2025.8.17.8223,23/08/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0006686-94.2021.8.17.8223,18/08/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0006787-05.2019.8.17.8223,17/08/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0006952-42.2025.8.17.8223,18/06/2026,1º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
@@ -2438,6 +2461,7 @@ processo,data,vara,nucleo,prioridades,pje
 0001862-93.2024.8.17.5990,21/08/2026,3ª Vara Criminal da Comarca de Olinda,2ª CC,Prioridade Legal,True
 0002742-56.2022.8.17.5990,21/08/2026,3ª Vara Criminal da Comarca de Olinda,2ª CC,Prioridade Legal,True
 0002987-33.2023.8.17.5990,21/08/2026,3ª Vara Criminal da Comarca de Olinda,2ª CC,Prioridade Legal,True
+0003772-96.2019.8.17.0990,23/08/2026,3ª Vara Criminal da Comarca de Olinda,2ª CC,Sem prioridade,True
 0000389-66.2015.8.17.2990,13/08/2026,3ª Vara Cível da Comarca de Olinda,1ª CCJ,Prioridade Legal,True
 0000781-25.2023.8.17.2990,06/08/2026,3ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0001160-44.2015.8.17.2990,12/06/2026,3ª Vara Cível da Comarca de Olinda,1ª CCJ,Prioridade Legal,True
@@ -2474,7 +2498,6 @@ processo,data,vara,nucleo,prioridades,pje
 0002017-22.2026.8.17.8223,13/08/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0002738-42.2024.8.17.8223,31/07/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0006473-49.2025.8.17.8223,19/06/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
-0006704-13.2024.8.17.8223,17/06/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0006925-59.2025.8.17.8223,18/06/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0007652-86.2023.8.17.8223,19/06/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0008423-64.2023.8.17.8223,23/07/2026,3º Juizado Especial Cível e das Relações de Consumo de Olinda - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
@@ -2492,10 +2515,8 @@ processo,data,vara,nucleo,prioridades,pje
 0015096-58.2023.8.17.2990,20/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0017117-12.2020.8.17.2990,13/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0017968-46.2023.8.17.2990,11/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
-0018352-72.2024.8.17.2990,28/07/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0018458-97.2025.8.17.2990,13/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0020988-11.2024.8.17.2990,11/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
-0024421-57.2023.8.17.2990,28/07/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0028956-29.2023.8.17.2990,10/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0038671-37.2019.8.17.2990,11/08/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0062131-48.2022.8.17.2990,30/07/2026,4ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
@@ -2517,7 +2538,6 @@ processo,data,vara,nucleo,prioridades,pje
 0084138-34.2022.8.17.2990,17/08/2026,5ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0123254-86.2018.8.17.2990,12/08/2026,5ª Vara Cível da Comarca de Olinda,3ª CC,Sem prioridade,True
 0000393-34.2026.8.17.4990,20/08/2026,6ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
-0000473-57.2021.8.17.2990,28/07/2026,6ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0000655-78.2011.8.17.0990,06/08/2026,6ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
 0001298-40.2017.8.17.2990,27/07/2026,6ª Vara Cível da Comarca de Olinda,3ª CC,Sem prioridade,True
 0007078-43.2026.8.17.2990,06/08/2026,6ª Vara Cível da Comarca de Olinda,3ª CC,Prioridade Legal,True
@@ -2571,7 +2591,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000001-84.2025.8.17.3000,13/08/2026,Vara Única da Comarca de Orobó,6ª CC,Prioridade Legal,True
 0000002-40.2023.8.17.3000,30/07/2026,Vara Única da Comarca de Orobó,5ª CCJ,Prioridade Legal,True
 0000053-57.2011.8.17.1000,20/08/2026,Vara Única da Comarca de Orobó,5ª CCJ,Sem prioridade,True
-0000082-33.2025.8.17.3000,13/08/2026,Vara Única da Comarca de Orobó,6ª CC,Prioridade Legal,True
 0000215-52.2011.8.17.1000,20/08/2026,Vara Única da Comarca de Orobó,6ª CC,Prioridade Legal,True
 0000416-43.2020.8.17.3000,03/08/2026,Vara Única da Comarca de Orobó,5ª CCJ,Sem prioridade,True
 0000427-38.2021.8.17.3000,20/08/2026,Vara Única da Comarca de Orobó,6ª CC,Prioridade Legal,True
@@ -2580,7 +2599,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000113-91.2023.8.17.3010,03/08/2026,Vara Única da Comarca de Orocó,6ª CCJ,Prioridade Legal,True
 0000175-63.2025.8.17.3010,17/08/2026,Vara Única da Comarca de Orocó,7ª CC,Prioridade Legal,True
 0000309-61.2023.8.17.3010,19/08/2026,Vara Única da Comarca de Orocó,7ª CC,Prioridade Legal,True
-0000314-54.2021.8.17.3010,18/08/2026,Vara Única da Comarca de Orocó,7ª CC,Prioridade Legal,True
 0000391-92.2023.8.17.3010,19/08/2026,Vara Única da Comarca de Orocó,7ª CC,Prioridade Legal,True
 0000432-88.2025.8.17.3010,06/08/2026,Vara Única da Comarca de Orocó,6ª CCJ,Prioridade Legal,True
 0000452-21.2021.8.17.3010,14/08/2026,Vara Única da Comarca de Orocó,6ª CCJ,Prioridade Legal,True
@@ -2621,7 +2639,6 @@ processo,data,vara,nucleo,prioridades,pje
 0001179-13.2022.8.17.3020,21/08/2026,2ª Vara Cível da Comarca de Ouricuri,7ª CC,Prioridade Legal,True
 0001333-32.2013.8.17.1020,14/08/2026,2ª Vara Cível da Comarca de Ouricuri,7ª CC,Prioridade Legal,True
 0001485-84.2019.8.17.3020,03/08/2026,2ª Vara Cível da Comarca de Ouricuri,6ª CCJ,Prioridade Legal,True
-0001502-24.2010.8.17.1020,16/08/2026,2ª Vara Cível da Comarca de Ouricuri,7ª CC,Sem prioridade,True
 0001522-04.2025.8.17.3020,19/08/2026,2ª Vara Cível da Comarca de Ouricuri,7ª CC,Prioridade Legal,True
 0001596-64.2013.8.17.1020,21/08/2026,2ª Vara Cível da Comarca de Ouricuri,6ª CCJ,Prioridade Legal,True
 0001717-24.2015.8.17.1020,19/08/2026,2ª Vara Cível da Comarca de Ouricuri,7ª CC,Sem prioridade,True
@@ -2698,6 +2715,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000975-09.2023.8.17.3060,20/08/2026,Vara Única da Comarca de Parnamirim,7ª CC,Prioridade Legal,True
 0001036-64.2023.8.17.3060,21/08/2026,Vara Única da Comarca de Parnamirim,7ª CC,Prioridade Legal,True
 0001064-33.2014.8.17.1060,27/07/2026,Vara Única da Comarca de Parnamirim,6ª CCJ,Prioridade Legal,True
+0001067-84.2023.8.17.3060,23/08/2026,Vara Única da Comarca de Parnamirim,7ª CC,Prioridade Legal,True
 0001076-47.2014.8.17.1060,12/08/2026,Vara Única da Comarca de Parnamirim,6ª CCJ,Prioridade Legal,True
 0001076-74.2020.8.17.3020,17/08/2026,Vara Única da Comarca de Parnamirim,7ª CC,Prioridade Legal,True
 0001180-38.2023.8.17.3060,05/08/2026,Vara Única da Comarca de Parnamirim,6ª CCJ,Prioridade Legal,True
@@ -3043,7 +3061,6 @@ processo,data,vara,nucleo,prioridades,pje
 0004861-94.2022.8.17.3110,20/08/2026,1ª Vara Cível da Comarca de Pesqueira,6ª CC,Prioridade Legal,True
 0004862-79.2022.8.17.3110,14/08/2026,1ª Vara Cível da Comarca de Pesqueira,5ª CCJ,Prioridade Legal,True
 0005179-43.2023.8.17.3110,20/08/2026,1ª Vara Cível da Comarca de Pesqueira,6ª CC,Prioridade Legal,True
-0005296-34.2023.8.17.3110,13/08/2026,1ª Vara Cível da Comarca de Pesqueira,6ª CC,Prioridade Legal,True
 0005509-40.2023.8.17.3110,19/08/2026,1ª Vara Cível da Comarca de Pesqueira,6ª CC,Prioridade Legal,True
 0005539-75.2023.8.17.3110,20/08/2026,1ª Vara Cível da Comarca de Pesqueira,6ª CC,Prioridade Legal,True
 0006316-60.2023.8.17.3110,20/08/2026,1ª Vara Cível da Comarca de Pesqueira,5ª CCJ,Prioridade Legal,True
@@ -3116,7 +3133,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000832-33.2025.8.17.3130,30/07/2026,2ª Vara Cível da Comarca de Petrolina,1ª CCJ,Prioridade Legal,True
 0002247-27.2020.8.17.3130,24/07/2026,2ª Vara Cível da Comarca de Petrolina,1ª CCJ,Prioridade Legal,True
 0003101-79.2024.8.17.3130,11/06/2026,2ª Vara Cível da Comarca de Petrolina,1ª CCJ,Sem prioridade,True
-0004155-46.2025.8.17.3130,28/07/2026,2ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
 0004799-62.2020.8.17.3130,03/08/2026,2ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
 0004916-53.2020.8.17.3130,11/08/2026,2ª Vara Cível da Comarca de Petrolina,1ª CCJ,Prioridade Legal,True
 0005775-93.2025.8.17.3130,19/08/2026,2ª Vara Cível da Comarca de Petrolina,1ª CCJ,Prioridade Legal,True
@@ -3164,14 +3180,12 @@ processo,data,vara,nucleo,prioridades,pje
 0002252-14.2025.8.17.8226,24/07/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Sem prioridade,True
 0003808-51.2025.8.17.8226,19/06/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0004725-70.2025.8.17.8226,16/06/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
-0005865-42.2025.8.17.8226,18/06/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0006441-35.2025.8.17.8226,20/07/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0007335-45.2024.8.17.8226,14/08/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0007356-84.2025.8.17.8226,20/07/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0007566-38.2025.8.17.8226,29/07/2026,2º Juizado Especial Cível e das Relações de Consumo de Petrolina,7ª CCJ,Prioridade Legal,True
 0000435-13.2021.8.17.3130,12/08/2026,3ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
 0000476-04.2026.8.17.3130,17/08/2026,3ª Vara Cível da Comarca de Petrolina,1ª CCJ,Prioridade Legal,True
-0001778-05.2025.8.17.3130,28/07/2026,3ª Vara Cível da Comarca de Petrolina,3ª CC,Sem prioridade,True
 0002516-90.2025.8.17.3130,29/07/2026,3ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
 0002670-74.2026.8.17.3130,05/08/2026,3ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
 0003570-67.2020.8.17.3130,07/07/2026,3ª Vara Cível da Comarca de Petrolina,3ª CC,Prioridade Legal,True
@@ -3246,6 +3260,7 @@ processo,data,vara,nucleo,prioridades,pje
 0002403-73.2024.8.17.3130,12/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0002449-04.2020.8.17.3130,10/07/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0002552-40.2022.8.17.3130,12/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
+0002563-02.2015.8.17.1130,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Sem prioridade,True
 0002962-64.2023.8.17.3130,20/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0002962-69.2020.8.17.3130,05/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0003071-94.2005.8.17.1130,17/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
@@ -3263,6 +3278,7 @@ processo,data,vara,nucleo,prioridades,pje
 0005204-98.2020.8.17.3130,23/07/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0005412-19.2019.8.17.3130,29/07/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0005423-04.2026.8.17.3130,18/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
+0005595-19.2021.8.17.3130,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Sem prioridade,True
 0005613-06.2022.8.17.3130,09/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Sem prioridade,True
 0005759-23.2017.8.17.3130,12/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0006032-31.2019.8.17.3130,23/07/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Sem prioridade,True
@@ -3289,6 +3305,7 @@ processo,data,vara,nucleo,prioridades,pje
 0010582-98.2021.8.17.3130,12/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0011088-45.2019.8.17.3130,20/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0011403-73.2019.8.17.3130,21/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
+0012363-58.2021.8.17.3130,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0012496-66.2022.8.17.3130,07/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0013031-29.2021.8.17.3130,05/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0013172-48.2021.8.17.3130,18/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
@@ -3300,7 +3317,9 @@ processo,data,vara,nucleo,prioridades,pje
 0015544-29.2016.8.17.1130,19/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0015679-45.2022.8.17.3130,12/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0016299-23.2023.8.17.3130,19/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
+0016832-11.2025.8.17.3130,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0016930-98.2022.8.17.3130,10/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Sem prioridade,True
+0018062-25.2024.8.17.3130,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Super prioridade,True
 0018151-19.2022.8.17.3130,19/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0018299-30.2022.8.17.3130,12/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Prioridade Legal,True
 0018859-64.2025.8.17.3130,20/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Sem prioridade,True
@@ -3312,6 +3331,7 @@ processo,data,vara,nucleo,prioridades,pje
 0022300-24.2023.8.17.3130,23/07/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0023909-42.2023.8.17.3130,11/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
 0024548-60.2023.8.17.3130,18/06/2026,Vara da Fazenda Pública da Comarca de Petrolina,2ª CCJ,Prioridade Legal,True
+0109969-78.2021.8.17.2001,23/08/2026,Vara da Fazenda Pública da Comarca de Petrolina,4ª CC,Sem prioridade,True
 0020587-77.2024.8.17.3130,21/08/2026,Vara de Violência Doméstica e Familiar Contra Mulher de Petrolina,2ª CC,Sem prioridade,True
 0000051-32.2017.8.17.3440,19/08/2026,1ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000102-33.2017.8.17.3120,17/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
@@ -3322,12 +3342,10 @@ processo,data,vara,nucleo,prioridades,pje
 0000746-34.2021.8.17.3120,04/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
 0000861-89.2020.8.17.3120,05/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
 0000906-60.2012.8.17.1120,21/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
-0000973-25.2012.8.17.1120,17/08/2026,1ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0001050-33.2021.8.17.3120,06/07/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
 0001097-37.2014.8.17.1120,03/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Sem prioridade,True
 0001156-29.2020.8.17.3120,06/08/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
 0001311-95.2021.8.17.3120,24/07/2026,1ª Vara da Comarca de Petrolândia,6ª CCJ,Prioridade Legal,True
-0001494-61.2024.8.17.3120,17/08/2026,1ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0002700-13.2024.8.17.3120,17/08/2026,1ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000001-88.2020.8.17.3120,20/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000002-78.2023.8.17.3440,20/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
@@ -3335,7 +3353,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000034-54.2021.8.17.3440,19/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000070-46.2026.8.17.4370,20/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000186-92.2021.8.17.3120,19/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Sem prioridade,True
-0000213-75.2021.8.17.3120,18/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000227-74.2018.8.17.3440,18/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000369-87.2026.8.17.3120,19/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Prioridade Legal,True
 0000373-33.2014.8.17.1120,17/08/2026,2ª Vara da Comarca de Petrolândia,7ª CC,Sem prioridade,True
@@ -3420,8 +3437,6 @@ processo,data,vara,nucleo,prioridades,pje
 0030561-57.2024.8.17.8201,07/08/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0031117-25.2025.8.17.8201,06/07/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0032319-37.2025.8.17.8201,21/07/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0034401-75.2024.8.17.8201,17/06/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0035178-94.2023.8.17.8201,17/06/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0036131-87.2025.8.17.8201,14/08/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0036851-88.2024.8.17.8201,05/08/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0039764-09.2025.8.17.8201,07/07/2026,11º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -3476,6 +3491,7 @@ processo,data,vara,nucleo,prioridades,pje
 0047285-05.2025.8.17.8201,03/08/2026,13º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Sem prioridade,True
 0047605-55.2025.8.17.8201,17/07/2026,13º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0094773-63.2024.8.17.2001,22/08/2026,13º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Sem prioridade,True
+0000522-31.2025.8.17.4810,23/08/2026,14ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0007438-65.2019.8.17.0001,21/08/2026,14ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0108429-53.2025.8.17.2001,06/08/2026,14ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0006859-48.2025.8.17.8201,18/06/2026,14º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -3484,7 +3500,6 @@ processo,data,vara,nucleo,prioridades,pje
 0018718-27.2026.8.17.8201,14/08/2026,14º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0018886-29.2026.8.17.8201,05/08/2026,14º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Sem prioridade,True
 0037402-34.2025.8.17.8201,01/07/2026,14º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0049556-07.2013.8.17.8201,23/08/2026,14º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Sem prioridade,True
 0002571-23.2026.8.17.8201,01/07/2026,15º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0006570-81.2026.8.17.8201,16/06/2026,15º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0007724-37.2026.8.17.8201,18/06/2026,15º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -3537,7 +3552,6 @@ processo,data,vara,nucleo,prioridades,pje
 0049605-28.2025.8.17.8201,15/07/2026,17º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0049788-38.2021.8.17.8201,07/08/2026,17º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Sem prioridade,True
 0051541-88.2025.8.17.8201,07/08/2026,17º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0001561-41.2026.8.17.8201,18/06/2026,18º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0001834-54.2025.8.17.8201,18/06/2026,18º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0008682-23.2026.8.17.8201,18/06/2026,18º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0008732-83.2025.8.17.8201,12/08/2026,18º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -3590,6 +3604,7 @@ processo,data,vara,nucleo,prioridades,pje
 0087633-51.2019.8.17.2001,13/06/2026,1ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0100511-66.2023.8.17.2001,28/07/2026,1ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0116000-17.2021.8.17.2001,21/08/2026,1ª Vara da Fazenda Pública da Capital,2ª CCJ,Super prioridade,True
+0122106-24.2023.8.17.2001,23/08/2026,1ª Vara da Fazenda Pública da Capital,4ª CC,Sem prioridade,True
 0137301-26.2009.8.17.0001,14/08/2026,1ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0141011-43.2024.8.17.2001,15/07/2026,1ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0144970-22.2024.8.17.2001,12/08/2026,1ª Vara da Fazenda Pública da Capital,4ª CC,Sem prioridade,True
@@ -3869,6 +3884,7 @@ processo,data,vara,nucleo,prioridades,pje
 0154268-49.2009.8.17.0001,02/07/2026,3ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0168953-21.2022.8.17.2001,02/07/2026,3ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0192806-94.2012.8.17.0001,06/06/2026,3ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
+0003510-34.2025.8.17.5001,23/08/2026,3ª Vara de Enfrentamento à Violência Doméstica e Familiar contra a Mulher,2ª CC,Prioridade Legal,True
 0011492-44.2026.8.17.2001,11/08/2026,3ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0052351-39.2025.8.17.2001,12/08/2026,3ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0005478-44.2026.8.17.2001,17/08/2026,3ª Vara de Sucessões e Registros Públicos da Capital,3ª CCJ,Prioridade Legal,True
@@ -3965,6 +3981,7 @@ processo,data,vara,nucleo,prioridades,pje
 0001298-74.2024.8.17.5001,21/08/2026,4ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0018052-32.2019.8.17.0001,21/08/2026,4ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0021818-68.2023.8.17.2001,21/08/2026,4ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
+0043846-30.2023.8.17.2001,23/08/2026,4ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0144711-96.2013.8.17.0001,21/08/2026,4ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0007564-66.2018.8.17.2001,16/06/2026,4ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0014570-61.2017.8.17.2001,21/07/2026,4ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
@@ -4002,7 +4019,6 @@ processo,data,vara,nucleo,prioridades,pje
 0028662-24.2024.8.17.8201,01/07/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0034233-39.2025.8.17.8201,21/08/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Super prioridade,True
 0038430-37.2025.8.17.8201,01/07/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
-0039326-17.2024.8.17.8201,17/06/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0039651-89.2024.8.17.8201,01/07/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0043852-90.2025.8.17.8201,01/07/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0044026-36.2024.8.17.8201,14/07/2026,4º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
@@ -4018,6 +4034,7 @@ processo,data,vara,nucleo,prioridades,pje
 0063791-27.2023.8.17.8201,15/07/2026,4º Juizado Especial da Fazenda Pública da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0001013-86.2021.8.17.5001,21/08/2026,5ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0001625-86.2021.8.17.0001,21/08/2026,5ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
+0003109-69.2024.8.17.5001,23/08/2026,5ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0065713-79.2023.8.17.2001,21/08/2026,5ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0000702-07.2014.8.17.0001,02/07/2026,5ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0001625-62.2016.8.17.0001,02/07/2026,5ª Vara da Fazenda Pública da Capital,2ª CCJ,Super prioridade,True
@@ -4135,18 +4152,22 @@ processo,data,vara,nucleo,prioridades,pje
 0048718-78.2024.8.17.8201,30/07/2026,5º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0049883-63.2024.8.17.8201,29/07/2026,5º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0005515-95.2026.8.17.8201,14/08/2026,5º Juizado Especial da Fazenda Pública da Capital,7ª CCJ,Prioridade Legal,True
-0000268-04.2024.8.17.5001,21/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
+0000268-04.2024.8.17.5001,23/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0003708-08.2024.8.17.5001,21/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
-0018202-81.2017.8.17.0001,21/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
+0005331-78.2022.8.17.5001,23/08/2026,6ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
+0018202-81.2017.8.17.0001,23/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
+0064415-86.2022.8.17.2001,23/08/2026,6ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0105345-78.2024.8.17.2001,21/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0159794-20.2023.8.17.2001,22/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0191593-53.2012.8.17.0001,21/08/2026,6ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
+0001753-52.2023.8.17.2001,23/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Sem prioridade,True
 0015354-67.2019.8.17.2001,12/06/2026,6ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0036575-77.2017.8.17.2001,11/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0037743-91.2003.8.17.0001,20/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0041658-69.2020.8.17.2001,22/08/2026,6ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0064304-74.2011.8.17.0001,06/07/2026,6ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0065700-51.2021.8.17.2001,16/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
+0085139-09.2025.8.17.2001,23/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0085468-21.2025.8.17.2001,11/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0091762-94.2022.8.17.2001,13/08/2026,6ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0002428-49.2022.8.17.2001,14/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
@@ -4157,6 +4178,7 @@ processo,data,vara,nucleo,prioridades,pje
 0042089-30.2025.8.17.2001,29/07/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0045106-40.2026.8.17.2001,18/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0051184-84.2025.8.17.2001,21/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
+0054447-27.2025.8.17.2001,24/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0064413-92.2017.8.17.2001,20/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Sem prioridade,True
 0080524-73.2025.8.17.2001,21/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0087293-97.2025.8.17.2001,03/08/2026,6ª Vara de Família e Registro Civil da Capital,3ª CCJ,Prioridade Legal,True
@@ -4184,6 +4206,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000231-74.2024.8.17.5001,22/08/2026,7ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0004408-52.2022.8.17.5001,22/08/2026,7ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0011726-56.2019.8.17.0001,21/08/2026,7ª Vara Criminal da Capital,2ª CC,Super prioridade,True
+0018562-79.2018.8.17.0001,23/08/2026,7ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0000370-15.2018.8.17.2001,23/08/2026,7ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0000596-77.2009.8.17.0920,13/08/2026,7ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
 0000905-50.2021.8.17.4001,23/07/2026,7ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
@@ -4220,9 +4243,12 @@ processo,data,vara,nucleo,prioridades,pje
 0044338-46.2023.8.17.8201,04/08/2026,7º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0048458-98.2024.8.17.8201,11/08/2026,7º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
 0053464-52.2025.8.17.8201,13/07/2026,7º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Manhã - 07:00h às 13:00h,7ª CCJ,Prioridade Legal,True
+0002238-66.2023.8.17.4001,23/08/2026,8ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0002908-77.2024.8.17.5001,22/08/2026,8ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
+0004152-45.2020.8.17.0001,23/08/2026,8ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0004337-79.2024.8.17.5001,21/08/2026,8ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0019020-37.2023.8.17.2001,22/08/2026,8ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
+0142175-14.2022.8.17.2001,23/08/2026,8ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0000629-29.2026.8.17.2001,29/07/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0000792-77.2024.8.17.2001,06/08/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0001203-37.2025.8.17.2470,24/07/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
@@ -4299,6 +4325,7 @@ processo,data,vara,nucleo,prioridades,pje
 0071008-97.2023.8.17.2001,10/06/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
 0071017-59.2023.8.17.2001,27/07/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0071097-23.2023.8.17.2001,20/08/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Sem prioridade,True
+0076634-29.2025.8.17.2001,23/08/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0080051-29.2021.8.17.2001,11/06/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0087884-30.2023.8.17.2001,15/07/2026,8ª Vara da Fazenda Pública da Capital,2ª CCJ,Prioridade Legal,True
 0088874-50.2025.8.17.2001,21/08/2026,8ª Vara da Fazenda Pública da Capital,4ª CC,Prioridade Legal,True
@@ -4336,9 +4363,7 @@ processo,data,vara,nucleo,prioridades,pje
 0018928-49.2024.8.17.8201,20/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0019226-07.2025.8.17.8201,04/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0021471-59.2023.8.17.8201,11/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0025699-09.2025.8.17.8201,17/06/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0026532-61.2024.8.17.8201,12/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
-0030466-61.2023.8.17.8201,17/06/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0039710-29.2014.8.17.8201,03/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0044738-89.2025.8.17.8201,05/08/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0049078-47.2023.8.17.8201,28/07/2026,8º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -4346,7 +4371,6 @@ processo,data,vara,nucleo,prioridades,pje
 0004563-14.2023.8.17.4001,22/08/2026,9ª Vara Criminal da Capital,2ª CC,Sem prioridade,True
 0013146-03.2025.8.17.2001,22/08/2026,9ª Vara Criminal da Capital,2ª CC,Prioridade Legal,True
 0083606-15.2025.8.17.2001,11/08/2026,9ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
-0131638-85.2024.8.17.2001,28/07/2026,9ª Vara de Família e Registro Civil da Capital,3ª CC,Prioridade Legal,True
 0000017-86.2024.8.17.8201,03/07/2026,9º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0006806-67.2025.8.17.8201,07/08/2026,9º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
 0014324-74.2026.8.17.8201,19/08/2026,9º Juizado Especial Cível e das Relações de Consumo da Capital - Turno Tarde - 13:00h às 19:00h,7ª CCJ,Prioridade Legal,True
@@ -4489,6 +4513,7 @@ processo,data,vara,nucleo,prioridades,pje
 0047522-25.2019.8.17.2001,29/07/2026,Seção A da 13ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0052668-08.2023.8.17.2001,20/08/2026,Seção A da 13ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0053670-52.2019.8.17.2001,17/07/2026,Seção A da 13ª Vara Cível da Capital,1ª CCJ,Sem prioridade,True
+0059880-81.2014.8.17.0001,24/08/2026,Seção A da 13ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0060687-03.2023.8.17.2001,20/08/2026,Seção A da 13ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0062300-63.2020.8.17.2001,05/08/2026,Seção A da 13ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0071963-60.2025.8.17.2001,24/07/2026,Seção A da 13ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4507,7 +4532,6 @@ processo,data,vara,nucleo,prioridades,pje
 0002211-35.2024.8.17.2001,20/08/2026,Seção A da 15ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0003462-93.2021.8.17.2001,17/08/2026,Seção A da 15ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0004204-55.2020.8.17.2001,18/08/2026,Seção A da 15ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0006181-78.2014.8.17.0001,21/07/2026,Seção A da 15ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0008973-38.2022.8.17.2001,14/07/2026,Seção A da 15ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0010084-23.2023.8.17.2001,17/08/2026,Seção A da 15ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0010531-21.2017.8.17.2001,08/07/2026,Seção A da 15ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
@@ -4567,7 +4591,7 @@ processo,data,vara,nucleo,prioridades,pje
 0073490-81.2024.8.17.2001,20/08/2026,Seção A da 18ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0082156-71.2024.8.17.2001,31/07/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0101253-23.2025.8.17.2001,24/07/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0108774-19.2025.8.17.2001,21/07/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
+0108774-19.2025.8.17.2001,24/08/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0123474-68.2023.8.17.2001,21/08/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0131790-36.2024.8.17.2001,23/07/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0134723-16.2023.8.17.2001,23/07/2026,Seção A da 18ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4584,7 +4608,7 @@ processo,data,vara,nucleo,prioridades,pje
 0058143-42.2023.8.17.2001,18/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0060154-73.2025.8.17.2001,03/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0061292-51.2020.8.17.2001,20/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0068198-18.2024.8.17.2001,20/07/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0069395-42.2023.8.17.2001,24/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0070218-50.2022.8.17.2001,20/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0074493-09.2014.8.17.0001,21/07/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0076888-02.2025.8.17.2001,06/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4596,6 +4620,7 @@ processo,data,vara,nucleo,prioridades,pje
 0136816-49.2023.8.17.2001,04/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0139022-02.2024.8.17.2001,13/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0139491-82.2023.8.17.2001,18/08/2026,Seção A da 19ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
+0003449-61.2013.8.17.0001,24/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0019955-30.2004.8.17.0001,23/07/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0020559-19.2015.8.17.2001,19/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0023723-46.2013.8.17.0001,17/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4605,6 +4630,7 @@ processo,data,vara,nucleo,prioridades,pje
 0055567-42.2024.8.17.2001,23/07/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0058809-48.2020.8.17.2001,20/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0068670-58.2020.8.17.2001,06/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0077323-49.2020.8.17.2001,24/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0080409-24.2014.8.17.0001,20/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CCJ,Sem prioridade,True
 0080515-82.2023.8.17.2001,22/07/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0130709-57.2021.8.17.2001,20/08/2026,Seção A da 1ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4614,6 +4640,7 @@ processo,data,vara,nucleo,prioridades,pje
 0003389-19.2024.8.17.2001,19/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0003827-94.2014.8.17.2001,24/07/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0007932-65.2024.8.17.2001,11/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0012957-30.2022.8.17.2001,24/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0015958-18.2025.8.17.2001,03/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0016687-54.2019.8.17.2001,05/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0016721-19.2025.8.17.2001,06/08/2026,Seção A da 20ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4656,7 +4683,6 @@ processo,data,vara,nucleo,prioridades,pje
 0038021-71.2024.8.17.2001,27/07/2026,Seção A da 21ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0038404-15.2025.8.17.2001,15/06/2026,Seção A da 21ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0038644-72.2023.8.17.2001,17/08/2026,Seção A da 21ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
-0042810-56.2011.8.17.0001,20/07/2026,Seção A da 21ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0049893-49.2025.8.17.2001,22/07/2026,Seção A da 21ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0054894-21.2013.8.17.0001,12/08/2026,Seção A da 21ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0058191-35.2022.8.17.2001,20/08/2026,Seção A da 21ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4679,12 +4705,14 @@ processo,data,vara,nucleo,prioridades,pje
 0010757-89.2018.8.17.2001,23/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0017223-55.2025.8.17.2001,24/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0033852-23.2007.8.17.0001,04/08/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0038356-61.2022.8.17.2001,24/08/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0046265-86.2024.8.17.2001,05/08/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0048511-02.2017.8.17.2001,06/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0054508-64.2008.8.17.0001,31/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0061782-97.2025.8.17.2001,29/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0062907-19.2007.8.17.0001,27/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0065541-79.2019.8.17.2001,30/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0066358-12.2020.8.17.2001,24/08/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0072479-56.2020.8.17.2001,20/08/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0110365-61.2009.8.17.0001,29/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0111890-33.2025.8.17.2001,28/07/2026,Seção A da 22ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4797,6 +4825,7 @@ processo,data,vara,nucleo,prioridades,pje
 0046961-69.2017.8.17.2001,28/07/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0051640-50.2007.8.17.0001,12/08/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0060627-59.2025.8.17.2001,23/07/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
+0063706-52.2013.8.17.0001,24/08/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0079048-97.2025.8.17.2001,17/08/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0079801-54.2025.8.17.2001,04/08/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0097418-61.2024.8.17.2001,28/07/2026,Seção A da 26ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4823,6 +4852,7 @@ processo,data,vara,nucleo,prioridades,pje
 0067946-54.2020.8.17.2001,19/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0073453-54.2024.8.17.2001,17/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CCJ,Sem prioridade,True
 0074354-91.2013.8.17.0001,23/07/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
+0076161-49.2013.8.17.0001,24/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0092996-14.2022.8.17.2001,07/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0101699-31.2022.8.17.2001,20/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0104462-97.2025.8.17.2001,03/08/2026,Seção A da 27ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -4984,7 +5014,6 @@ processo,data,vara,nucleo,prioridades,pje
 0024069-59.2023.8.17.2001,03/08/2026,Seção A da 33ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0028470-09.2020.8.17.2001,23/07/2026,Seção A da 33ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0044691-91.2025.8.17.2001,27/07/2026,Seção A da 33ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0051869-63.2014.8.17.0001,21/07/2026,Seção A da 33ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0056915-95.2024.8.17.2001,14/07/2026,Seção A da 33ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0056998-77.2025.8.17.2001,31/07/2026,Seção A da 33ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0062258-38.2025.8.17.2001,17/08/2026,Seção A da 33ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -5005,7 +5034,6 @@ processo,data,vara,nucleo,prioridades,pje
 0032336-93.2018.8.17.2001,22/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0034156-22.2007.8.17.0001,31/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0061658-56.2021.8.17.2001,24/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0078536-17.2025.8.17.2001,21/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0095989-93.2023.8.17.2001,31/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0098756-70.2024.8.17.2001,18/08/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0102426-53.2023.8.17.2001,31/07/2026,Seção A da 34ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -5094,7 +5122,6 @@ processo,data,vara,nucleo,prioridades,pje
 0005485-89.2022.8.17.4001,21/08/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0006148-29.2019.8.17.2001,20/08/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0010876-74.2023.8.17.2001,21/08/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0012270-87.2021.8.17.2001,20/07/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0025511-55.2026.8.17.2001,04/08/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0034626-13.2020.8.17.2001,15/07/2026,Seção A da 5ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0039387-25.2010.8.17.0001,03/08/2026,Seção A da 5ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -5208,6 +5235,7 @@ processo,data,vara,nucleo,prioridades,pje
 0053720-34.2026.8.17.2001,12/08/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0057704-60.2025.8.17.2001,24/07/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0059558-55.2026.8.17.2001,19/08/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
+0059914-95.2010.8.17.0001,24/08/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0064132-34.2020.8.17.2001,23/07/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0066560-47.2024.8.17.2001,12/08/2026,Seção A da 9ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0070954-35.2014.8.17.0001,12/08/2026,Seção A da 9ª Vara Cível da Capital,1ª CC,Sem prioridade,True
@@ -5646,6 +5674,7 @@ processo,data,vara,nucleo,prioridades,pje
 0046388-21.2023.8.17.2001,24/07/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0048160-88.2012.8.17.0001,24/07/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0048508-47.2017.8.17.2001,30/07/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Sem prioridade,True
+0055116-62.2008.8.17.0001,24/08/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0067267-88.2019.8.17.2001,24/07/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0069561-74.2023.8.17.2001,04/08/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0076242-02.2019.8.17.2001,06/08/2026,Seção B da 24ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -6004,7 +6033,6 @@ processo,data,vara,nucleo,prioridades,pje
 0038482-77.2023.8.17.2001,29/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0038664-05.2019.8.17.2001,28/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0044336-91.2019.8.17.2001,28/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Sem prioridade,True
-0050126-56.2019.8.17.2001,20/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0056031-66.2024.8.17.2001,04/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0058711-35.2022.8.17.2990,13/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CCJ,Prioridade Legal,True
 0058791-51.2025.8.17.2001,20/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -6019,7 +6047,6 @@ processo,data,vara,nucleo,prioridades,pje
 0101241-09.2025.8.17.2001,27/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0104065-38.2025.8.17.2001,05/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0107857-34.2024.8.17.2001,29/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0109671-47.2025.8.17.2001,21/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0109709-93.2024.8.17.2001,28/07/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0119418-66.2009.8.17.0001,18/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0124861-21.2023.8.17.2001,20/08/2026,Seção B da 6ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -6052,7 +6079,6 @@ processo,data,vara,nucleo,prioridades,pje
 0099794-83.2025.8.17.2001,31/07/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0099974-02.2025.8.17.2001,13/08/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
 0100964-90.2025.8.17.2001,13/08/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
-0105053-64.2022.8.17.2001,21/07/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0128853-58.2021.8.17.2001,03/08/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Super prioridade,True
 0134416-28.2024.8.17.2001,24/07/2026,Seção B da 7ª Vara Cível da Capital,1ª CC,Sem prioridade,True
 0000354-85.2023.8.17.2001,06/08/2026,Seção B da 8ª Vara Cível da Capital,1ª CC,Prioridade Legal,True
@@ -6198,6 +6224,7 @@ processo,data,vara,nucleo,prioridades,pje
 0002402-12.2024.8.17.3220,19/08/2026,1ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
 0002820-14.2016.8.17.1220,18/08/2026,1ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
 0002835-80.2016.8.17.1220,17/08/2026,1ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
+0002966-88.2024.8.17.3220,23/08/2026,1ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
 0003298-22.2016.8.17.1220,12/08/2026,1ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
 0000284-92.2026.8.17.3220,21/08/2026,2ª Vara Cível da Comarca de Salgueiro,7ª CC,Prioridade Legal,True
 0000460-13.2022.8.17.3220,24/07/2026,2ª Vara Cível da Comarca de Salgueiro,6ª CCJ,Prioridade Legal,True
@@ -6212,7 +6239,6 @@ processo,data,vara,nucleo,prioridades,pje
 0003267-98.2025.8.17.3220,21/08/2026,2ª Vara Cível da Comarca de Salgueiro,7ª CC,Prioridade Legal,True
 0000040-46.2020.8.17.3230,07/08/2026,Vara Única da Comarca de Saloá,6ª CC,Sem prioridade,True
 0000160-50.2024.8.17.3230,12/08/2026,Vara Única da Comarca de Saloá,5ª CCJ,Prioridade Legal,True
-0000213-03.2013.8.17.1230,12/08/2026,Vara Única da Comarca de Saloá,6ª CC,Prioridade Legal,True
 0000231-29.2026.8.17.5640,21/08/2026,Vara Única da Comarca de Saloá,6ª CC,Prioridade Legal,True
 0000359-20.2008.8.17.1230,19/08/2026,Vara Única da Comarca de Saloá,5ª CCJ,Sem prioridade,True
 0000854-48.2026.8.17.3230,14/08/2026,Vara Única da Comarca de Saloá,6ª CC,Prioridade Legal,True
@@ -6265,7 +6291,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000040-83.2020.8.17.3250,18/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Sem prioridade,True
 0000392-02.2024.8.17.3250,11/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,5ª CCJ,Prioridade Legal,True
 0000543-07.2020.8.17.3250,07/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
-0001475-59.2012.8.17.1250,13/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Sem prioridade,True
 0001617-23.2025.8.17.3250,19/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Sem prioridade,True
 0002383-52.2020.8.17.3250,13/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
 0002561-25.2025.8.17.3250,19/08/2026,1ª Vara Cível da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
@@ -6279,7 +6304,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000118-52.2024.8.17.5250,21/08/2026,2ª Vara Criminal da Comarca de Santa Cruz do Capibaribe,2ª CC,Sem prioridade,True
 0000583-72.2026.8.17.4480,21/08/2026,2ª Vara Criminal da Comarca de Santa Cruz do Capibaribe,2ª CC,Prioridade Legal,True
 0000590-19.2025.8.17.5250,21/08/2026,2ª Vara Criminal da Comarca de Santa Cruz do Capibaribe,2ª CC,Prioridade Legal,True
-0000003-43.1998.8.17.0820,13/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
+0000003-43.1998.8.17.0820,24/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Santa Cruz do Capibaribe,5ª CCJ,Prioridade Legal,True
 0000593-23.2026.8.17.3250,18/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
 0001843-28.2025.8.17.3250,18/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
 0002035-05.2018.8.17.3250,14/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Santa Cruz do Capibaribe,6ª CC,Prioridade Legal,True
@@ -6339,6 +6364,7 @@ processo,data,vara,nucleo,prioridades,pje
 0002670-38.2023.8.17.3370,18/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Serra Talhada,7ª CC,Prioridade Legal,True
 0002971-48.2024.8.17.3370,18/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Serra Talhada,7ª CC,Prioridade Legal,True
 0003393-23.2024.8.17.3370,19/08/2026,2ª Vara Cível e Regional da Infância e Juventude da Comarca de Serra Talhada,7ª CC,Sem prioridade,True
+0000066-68.2021.8.17.7220,23/08/2026,Vara Única da Comarca de Serrita,7ª CC,Prioridade Legal,True
 0000093-62.2020.8.17.3380,19/08/2026,Vara Única da Comarca de Serrita,7ª CC,Prioridade Legal,True
 0000270-80.2018.8.17.1380,18/08/2026,Vara Única da Comarca de Serrita,7ª CC,Prioridade Legal,True
 0000310-21.2026.8.17.7220,18/08/2026,Vara Única da Comarca de Serrita,7ª CC,Sem prioridade,True
@@ -6350,6 +6376,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000928-74.2025.8.17.3380,21/08/2026,Vara Única da Comarca de Serrita,7ª CC,Prioridade Legal,True
 0000958-46.2024.8.17.3380,19/08/2026,Vara Única da Comarca de Serrita,7ª CC,Prioridade Legal,True
 0000960-51.2014.8.17.1380,18/08/2026,Vara Única da Comarca de Serrita,7ª CC,Sem prioridade,True
+0001331-14.2023.8.17.3380,23/08/2026,Vara Única da Comarca de Serrita,7ª CC,Sem prioridade,True
 0000295-33.2025.8.17.3390,21/08/2026,1ª Vara da Comarca de Sertânia,7ª CC,Prioridade Legal,True
 0000309-90.2020.8.17.3390,18/08/2026,1ª Vara da Comarca de Sertânia,6ª CCJ,Prioridade Legal,True
 0000319-38.2011.8.17.1390,06/08/2026,1ª Vara da Comarca de Sertânia,6ª CCJ,Sem prioridade,True
@@ -6435,6 +6462,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000261-74.2025.8.17.3320,04/08/2026,Vara Única da Comarca de São José da Coroa Grande,4ª CCJ,Sem prioridade,True
 0000641-97.2025.8.17.3320,18/08/2026,Vara Única da Comarca de São José da Coroa Grande,5ª CC,Sem prioridade,True
 0000453-40.2026.8.17.3330,17/08/2026,Vara Única da Comarca de São José do Belmonte,7ª CC,Prioridade Legal,True
+0000756-88.2025.8.17.3330,23/08/2026,Vara Única da Comarca de São José do Belmonte,7ª CC,Prioridade Legal,True
 0000943-67.2023.8.17.3330,18/08/2026,Vara Única da Comarca de São José do Belmonte,7ª CC,Sem prioridade,True
 0001658-46.2022.8.17.3330,11/08/2026,Vara Única da Comarca de São José do Belmonte,6ª CCJ,Prioridade Legal,True
 0003678-16.2024.8.17.3370,18/08/2026,Vara Única da Comarca de São José do Belmonte,7ª CC,Prioridade Legal,True
@@ -6450,6 +6478,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000599-27.2021.8.17.3340,18/08/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0000710-74.2022.8.17.3340,21/08/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0000801-04.2021.8.17.3340,06/07/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
+0001032-26.2024.8.17.3340,23/08/2026,1ª Vara da Comarca de São José do Egito,7ª CC,Prioridade Legal,True
 0001167-43.2021.8.17.3340,11/08/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0001184-50.2019.8.17.3340,17/08/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0001399-21.2022.8.17.3340,03/08/2026,1ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
@@ -6458,6 +6487,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000048-18.2019.8.17.3340,06/08/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0000095-55.2020.8.17.3340,19/08/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Sem prioridade,True
 0000124-08.2020.8.17.3340,20/08/2026,2ª Vara da Comarca de São José do Egito,7ª CC,Prioridade Legal,True
+0000198-44.2003.8.17.1340,23/08/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Sem prioridade,True
 0000260-68.2021.8.17.3340,21/07/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0000388-65.2007.8.17.1340,21/07/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
 0000434-82.2018.8.17.3340,18/08/2026,2ª Vara da Comarca de São José do Egito,6ª CCJ,Prioridade Legal,True
@@ -6498,7 +6528,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000202-92.2021.8.17.3040,20/08/2026,Vara Única da Comarca de São João,6ª CC,Prioridade Legal,True
 0000276-45.2021.8.17.3300,18/08/2026,Vara Única da Comarca de São João,5ª CCJ,Prioridade Legal,True
 0000725-61.2025.8.17.3300,13/08/2026,Vara Única da Comarca de São João,6ª CC,Prioridade Legal,True
-0001074-35.2023.8.17.3300,13/08/2026,Vara Única da Comarca de São João,6ª CC,Prioridade Legal,True
 0000398-10.2018.8.17.3350,29/07/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
 0000492-26.2016.8.17.3350,13/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0000702-72.2019.8.17.3350,19/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Sem prioridade,True
@@ -6513,9 +6542,11 @@ processo,data,vara,nucleo,prioridades,pje
 0003476-70.2022.8.17.3350,05/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
 0003625-95.2024.8.17.3350,19/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0003713-02.2025.8.17.3350,27/07/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
+0004112-70.2021.8.17.3350,23/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0004282-37.2024.8.17.3350,04/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
 0004390-37.2022.8.17.3350,19/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Sem prioridade,True
 0005107-15.2023.8.17.3350,20/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
+0005871-98.2023.8.17.3350,23/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0026800-96.2021.8.17.2001,13/08/2026,1ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0000326-18.2021.8.17.3350,17/08/2026,2ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
 0000653-02.2017.8.17.3350,03/08/2026,2ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Prioridade Legal,True
@@ -6541,6 +6572,7 @@ processo,data,vara,nucleo,prioridades,pje
 0003943-44.2025.8.17.3350,14/08/2026,3ª Vara Cível da Comarca de São Lourenço da Mata,5ª CC,Prioridade Legal,True
 0004110-03.2021.8.17.3350,31/07/2026,3ª Vara Cível da Comarca de São Lourenço da Mata,4ª CCJ,Sem prioridade,True
 0001237-80.2025.8.17.5810,21/08/2026,Vara Criminal da Comarca de São Lourenço da Mata,2ª CC,Prioridade Legal,True
+0001772-81.2019.8.17.0810,23/08/2026,Vara Criminal da Comarca de São Lourenço da Mata,2ª CC,Prioridade Legal,True
 0000001-92.1993.8.17.1420,13/08/2026,Vara Única da Comarca de Tabira,6ª CCJ,Sem prioridade,True
 0000063-34.2013.8.17.1420,14/07/2026,Vara Única da Comarca de Tabira,6ª CCJ,Prioridade Legal,True
 0000101-74.2024.8.17.3420,20/08/2026,Vara Única da Comarca de Tabira,6ª CCJ,Prioridade Legal,True
@@ -6576,6 +6608,7 @@ processo,data,vara,nucleo,prioridades,pje
 0000825-85.2024.8.17.3450,18/08/2026,Vara Única da Comarca de Tamandaré,5ª CC,Prioridade Legal,True
 0000838-84.2024.8.17.3450,14/08/2026,Vara Única da Comarca de Tamandaré,5ª CC,Prioridade Legal,True
 0000860-11.2025.8.17.3450,19/08/2026,Vara Única da Comarca de Tamandaré,5ª CC,Prioridade Legal,True
+0000055-33.2022.8.17.3460,23/08/2026,Vara Única da Comarca de Taquaritinga do Norte,5ª CCJ,Prioridade Legal,True
 0000094-26.2016.8.17.1460,21/08/2026,Vara Única da Comarca de Taquaritinga do Norte,6ª CC,Sem prioridade,True
 0000215-24.2023.8.17.3460,28/07/2026,Vara Única da Comarca de Taquaritinga do Norte,PARTIDOR,Prioridade Legal,True
 0000218-86.2017.8.17.3460,12/08/2026,Vara Única da Comarca de Taquaritinga do Norte,6ª CC,Sem prioridade,True
@@ -6638,7 +6671,6 @@ processo,data,vara,nucleo,prioridades,pje
 0000488-46.2025.8.17.3520,18/08/2026,Vara Única da Comarca de Triunfo,7ª CC,Prioridade Legal,True
 0000623-64.2024.8.17.4370,20/08/2026,Vara Única da Comarca de Triunfo,7ª CC,Prioridade Legal,True
 0000735-32.2022.8.17.3520,17/08/2026,Vara Única da Comarca de Triunfo,7ª CC,Sem prioridade,True
-0000810-09.2012.8.17.1520,18/08/2026,Vara Única da Comarca de Triunfo,7ª CC,Sem prioridade,True
 0001026-61.2024.8.17.3520,21/08/2026,Vara Única da Comarca de Triunfo,7ª CC,Prioridade Legal,True
 0000051-18.2020.8.17.3540,15/07/2026,Vara Única da Comarca de Tuparetama,6ª CCJ,Prioridade Legal,True
 0000068-54.2020.8.17.3540,31/07/2026,Vara Única da Comarca de Tuparetama,6ª CCJ,Prioridade Legal,True
@@ -6656,15 +6688,23 @@ processo,data,vara,nucleo,prioridades,pje
 0000653-72.2014.8.17.1550,04/08/2026,Vara Única da Comarca de Venturosa,6ª CCJ,Sem prioridade,True
 0000104-07.2018.8.17.3560,16/08/2026,Vara Única da Comarca de Verdejante,6ª CCJ,Prioridade Legal,True
 0000179-41.2021.8.17.3560,17/08/2026,Vara Única da Comarca de Verdejante,7ª CC,Prioridade Legal,True
+0000218-33.2024.8.17.3560,23/08/2026,Vara Única da Comarca de Verdejante,7ª CC,Prioridade Legal,True
 0000355-59.2025.8.17.7220,21/08/2026,Vara Única da Comarca de Verdejante,7ª CC,Prioridade Legal,True
+0000007-93.2026.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000022-09.2019.8.17.3570,21/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
+0000028-06.2025.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000104-31.2016.8.17.1570,17/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000110-75.2024.8.17.5250,14/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000198-12.2024.8.17.3570,14/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
+0000205-67.2025.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000279-62.2024.8.17.5250,17/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
+0000281-91.2025.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
+0000323-43.2025.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000330-06.2023.8.17.3570,08/08/2026,Vara Única da Comarca de Vertentes,5ª CCJ,Prioridade Legal,True
 0000390-28.2024.8.17.4480,18/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000456-57.2014.8.17.1570,05/08/2026,Vara Única da Comarca de Vertentes,5ª CCJ,Prioridade Legal,True
+0000554-07.2024.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
+0000710-92.2024.8.17.3570,23/08/2026,Vara Única da Comarca de Vertentes,6ª CC,Prioridade Legal,True
 0000090-89.2020.8.17.3580,27/07/2026,Vara Única da Comarca de Vicência,4ª CCJ,Prioridade Legal,True
 0000388-08.2025.8.17.3580,20/08/2026,Vara Única da Comarca de Vicência,5ª CC,Prioridade Legal,True
 0000457-22.2008.8.17.1580,21/08/2026,Vara Única da Comarca de Vicência,5ª CC,Sem prioridade,True

@@ -87,7 +87,7 @@ def ingest(backup_dir=None):
                 print(f"    Tentando conectar ao DW (Tentativa {attempt+1})...", flush=True)
                 with dw_engine.connect() as conn:
                     conn.execute(text("SET client_encoding TO 'UTF8';"))
-                    conn.execute(text("SET statement_timeout = '1800s';"))
+                    conn.execute(text("SET statement_timeout = '120s';"))
                     conn.execute(text("CREATE SCHEMA IF NOT EXISTS bronze;"))
                     conn.commit()
                 print("    [OK] Conectado ao DW.", flush=True)
@@ -111,7 +111,7 @@ def ingest(backup_dir=None):
             
             # 1. Garantir que a tabela final no schema bronze existe
             with dw_engine.connect() as conn:
-                conn.execute(text("SET statement_timeout = '1800s';"))
+                conn.execute(text("SET statement_timeout = '120s';"))
                 if table == "processes":
                     conn.execute(text("""
                         CREATE TABLE IF NOT EXISTS bronze.processes (
@@ -153,6 +153,11 @@ def ingest(backup_dir=None):
                         conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_status ON bronze.processes(status);"))
                         conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_assigned ON bronze.processes(assigned_to_id);"))
                         conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_nucleus ON bronze.processes(nucleus);"))
+                        conn.execute(text("CREATE INDEX IF NOT EXISTS idx_bronze_proc_composite ON bronze.processes(number, entry_date, nucleus);"))
+                        try:
+                            conn.execute(text("CREATE INDEX IF NOT EXISTS idx_public_proc_composite ON public.processes(number, entry_date, nucleus);"))
+                        except Exception:
+                            pass
                         conn.commit()
                     except Exception as e_c:
                         conn.rollback()
@@ -190,7 +195,7 @@ def ingest(backup_dir=None):
             if has_public_table and not backup_dir:
                 print(f"  [OK] Cópia direta SQL rápida detectada (public.{table} -> bronze.{table})...", flush=True)
                 with dw_engine.connect() as conn:
-                    conn.execute(text("SET statement_timeout = '1800s';"))
+                    conn.execute(text("SET statement_timeout = '120s';"))
                     if table == "processes":
                         # Obter colunas reais da public.processes
                         pub_cols = conn.execute(text("SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='processes'")).scalars().all()
@@ -230,11 +235,15 @@ def ingest(backup_dir=None):
                         distinct_checks = " OR ".join([f"bronze.processes.{c} IS DISTINCT FROM EXCLUDED.{c}" for c in upd_cols])
 
                         # Sincronização Incremental Inteligente (Otimizada para Supabase Free Tier):
-                        # 1. Remover do bronze registros que foram excluídos na produção (public)
+                        # 1. Remover do bronze registros que foram excluídos na produção (public) usando NOT EXISTS (Indexável)
                         del_sql = """
-                        DELETE FROM bronze.processes
-                        WHERE (number, entry_date, nucleus) NOT IN (
-                            SELECT number, entry_date, nucleus FROM public.processes
+                        DELETE FROM bronze.processes b
+                        WHERE NOT EXISTS (
+                            SELECT 1 
+                            FROM public.processes p 
+                            WHERE p.number = b.number 
+                              AND p.entry_date = b.entry_date 
+                              AND p.nucleus = b.nucleus
                         );
                         """
                         res_del = conn.execute(text(del_sql))
@@ -252,7 +261,12 @@ def ingest(backup_dir=None):
                         conn.commit()
                         print(f"  [OK] Sync incremental limpo: {res_del.rowcount} apagados, {res_d.rowcount} novos/atualizados.", flush=True)
                     else:
-                        del_sql = f"DELETE FROM bronze.{table} WHERE id NOT IN (SELECT id FROM public.{table});"
+                        del_sql = f"""
+                        DELETE FROM bronze.{table} b
+                        WHERE NOT EXISTS (
+                            SELECT 1 FROM public.{table} p WHERE p.id = b.id
+                        );
+                        """
                         conn.execute(text(del_sql))
                         
                         pub_cols = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name='{table}'")).scalars().all()
@@ -444,6 +458,15 @@ def ingest(backup_dir=None):
                 results.append(True)
                 
         if all(results):
+            # Executar VACUUM ANALYZE ao final da ingestão para otimizar estatísticas e limpar tuplas mortas
+            with dw_engine.connect() as conn:
+                print(f"[{datetime.now()}] Executando VACUUM ANALYZE em bronze.processes para otimizar o DW...", flush=True)
+                try:
+                    conn.execution_options(isolation_level="AUTOCOMMIT").execute(text("VACUUM ANALYZE bronze.processes;"))
+                    print("  [OK] VACUUM ANALYZE concluído com sucesso.", flush=True)
+                except Exception as e_vac:
+                    print(f"  [AVISO] Não foi possível executar VACUUM ANALYZE: {e_vac}", flush=True)
+
             print(f"\n[{datetime.now()}] Ingestão INCREMENTAL concluída com SUCESSO!")
             return True
         else:

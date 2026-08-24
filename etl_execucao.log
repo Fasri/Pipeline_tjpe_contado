@@ -587,3 +587,64 @@ ERRO CRÍTICO NA INGESTÃO INCREMENTAL: (psycopg2.OperationalError) connection to 
 
 [ERRO] Falha na ingestão do DW. Pipeline interrompido para evitar inconsistências.
 [22/08/2026 16:00:40,15] ETL finalizado com codigo de erro 0. 
+C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\.venv\Lib\site-packages\openpyxl\styles\stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn("Workbook contains no default style, apply openpyxl's default")
+=== ETL Tempo Real ===
+
+1/7 - Extraindo relatório...
+Iniciando extração - Download path: C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\data_tempo_real
+Página carregada: https://www.tjpe.jus.br/rhsso/realms/tjpeconnect/protocol/openid-connect/auth?response_type=code&client_id=tjpereports&redirect_uri=https%3A%2F%2Fwww.tjpe.jus.br%2Ftjpereports%2Fxhtml%2Flogin.xhtml&state=ff84e9ef-5e00-4064-9b6c-f2b3eeb188d3&login=true&scope=openid
+Download path: C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\data_tempo_real
+URL após submit: https://www.tjpe.jus.br/rhsso/realms/tjpeconnect/login-actions/authenticate?execution=86865601-c9df-4b14-9337-25a121f00aca&client_id=tjpereports&tab_id=UCLIbuYBdiU
+Código TOTP gerado com sucesso.
+Campo OTP encontrado
+Código TOTP inserido
+Formulário TOTP enviado
+URL atual: https://www.tjpe.jus.br/tjpereports/xhtml/manterRelatorio/executarRelatorio.xhtml
+Botão Exportar XLSX clicado
+Aguardando download na pasta: C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\data_tempo_real
+Download detectado e concluído: ['20260824050242_TJPEReports.xlsx']
+Novos arquivos xlsx: ['20260824050242_TJPEReports.xlsx']
+Fechando navegador...
+Navegador fechado
+Download concluído: ['20260824050242_TJPEReports.xlsx']
+
+2/7 - Transformando dados...
+Arquivos encontrados: ['C:\\Users\\lipea\\Documents\\12_projetos_portifolio\\projeto_etl_contadoria\\data_tempo_real\\20260824050242_TJPEReports.xlsx']
+Arquivo mais recente: C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\data_tempo_real\20260824050242_TJPEReports.xlsx
+Número de colunas no DataFrame: 37
+
+Valores únicos na coluna Núcleo após as substituições:
+<ArrowStringArray>
+[  '4ª CCJ',    '5ª CC',    '2ª CC',   '6ª CCJ',    '7ª CC',    '3ª CC',
+   '5ª CCJ',    '6ª CC', 'PARTIDOR',   '7ª CCJ',   '2ª CCJ',    '4ª CC',
+   '1ª CCJ',   '3ª CCJ',    '1ª CC']
+Length: 15, dtype: str
+Transformação concluída. Arquivo salvo em: C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\data_transform\final_tempo_real.xlsx
+
+3/7 - Carregando para Google Sheets...
+Erro ao atualizar token: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1096241117887-3jf908a7aqlmkolnt94c966gvn4g5pje.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A58833%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fspreadsheets&state=svPTKvauVtSCzjO8yXUfOGdg1fzlTm&code_challenge=VDd_Gm2sXHX8Fc_zQV5y5F1tQHu8BRH3oZfDqAhJAh0&code_challenge_method=S256&access_type=offline&prompt=consent
+Traceback (most recent call last):
+  File "C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\.venv\Lib\site-packages\google_auth_oauthlib\flow.py", line 464, in run_local_server
+    authorization_response = wsgi_app.last_request_uri.replace(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'replace'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\main.py", line 57, in <module>
+    etl_tempo_real()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\main.py", line 36, in etl_tempo_real
+    load_tempo_real()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\src\load_google_tempo_real.py", line 38, in load_tempo_real
+    creds = flow.run_local_server(port=0, access_type="offline", prompt="consent")
+  File "C:\Users\lipea\Documents\12_projetos_portifolio\projeto_etl_contadoria\.venv\Lib\site-packages\google_auth_oauthlib\flow.py", line 468, in run_local_server
+    raise WSGITimeoutError(
+        "Timed out waiting for response from authorization server"
+    ) from e
+google_auth_oauthlib.flow.WSGITimeoutError: Timed out waiting for response from authorization server
+[24/08/2026  5:09:51,32] ETL finalizado com codigo de erro 1. 
