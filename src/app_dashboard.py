@@ -197,18 +197,50 @@ def load_env_robust():
 
 load_env_robust()
 
-@st.cache_data(ttl=600)
+@st.cache_data(ttl=1800, show_spinner=False)
 def load_data():
-    """Carrega dados via Supabase Storage com fallback resiliente para arquivo CSV local."""
-    supabase_url = os.getenv("SUPABASE_URL")
-    supabase_key = os.getenv("SUPABASE_KEY")
-    
+    """Carrega dados via Data Warehouse (PostgreSQL silver.slv_processos), com fallback para Supabase Storage e CSV local."""
     df = None
     source = "desconhecida"
 
-    # Tentativa 1: Supabase API Storage
-    if supabase_url and supabase_key:
+    # Tentativa 1: Data Warehouse PostgreSQL (silver.slv_processos)
+    dw_host = os.getenv("DW_HOST")
+    dw_user = os.getenv("DW_USER")
+    dw_pass = os.getenv("DW_PASS")
+    dw_db = os.getenv("DW_DB")
+    dw_port = os.getenv("DW_PORT", "6543")
+
+    if dw_host and dw_user and dw_pass and dw_db:
         try:
+            import urllib.parse
+            from sqlalchemy import create_engine
+            pwd = urllib.parse.quote_plus(dw_pass)
+            db_url = f"postgresql://{dw_user}:{pwd}@{dw_host}:{dw_port}/{dw_db}"
+            # Pool estrito para não consumir conexões nem CPU no DW (1 query a cada 30 min compartilhada por todos os usuários)
+            engine = create_engine(db_url, pool_pre_ping=True, pool_size=2, max_overflow=0, pool_recycle=300)
+            
+            # Consultar tabela Silver do DW (silver.slv_processos)
+            query = "SELECT * FROM silver.slv_processos;"
+            df_dw = pd.read_sql(query, engine)
+            
+            if not df_dw.empty:
+                rename_map = {
+                    'processo_numero': 'processo',
+                    'data_remessa': 'data',
+                    'prioridade': 'prioridades',
+                    'status_atual': 'status',
+                    'dias_parado': 'dias_aberto'
+                }
+                df = df_dw.rename(columns=rename_map)
+                source = "Data Warehouse (silver.slv_processos)"
+        except Exception:
+            df = None
+
+    # Tentativa 2: Supabase API Storage (Fallback)
+    if df is None and os.getenv("SUPABASE_URL") and os.getenv("SUPABASE_KEY"):
+        try:
+            supabase_url = os.getenv("SUPABASE_URL")
+            supabase_key = os.getenv("SUPABASE_KEY")
             file_name = "tempo_real_Consolidado_supabase.csv"
             url = f"{supabase_url}/storage/v1/object/authenticated/relatorios/{file_name}"
             headers = {"apikey": supabase_key, "Authorization": f"Bearer {supabase_key}"}
@@ -217,11 +249,11 @@ def load_data():
             if response.status_code == 200:
                 csv_text = response.content.decode('utf-8', errors='replace')
                 df = pd.read_csv(StringIO(csv_text))
-                source = "Supabase Cloud"
+                source = "Supabase Cloud API"
         except Exception:
             df = None
 
-    # Tentativa 2: Fallback Arquivo Local CSV
+    # Tentativa 3: Fallback Arquivo Local CSV
     if df is None:
         local_paths = [
             Path(__file__).resolve().parent.parent / "data_transform" / "Consolidado_supabase.csv",
@@ -255,13 +287,18 @@ def load_data():
             df[col] = df[col].apply(clean_text)
 
         # Processamento de Datas e Idade em Dias
-        if 'data' in df.columns:
-            df['data_dt'] = pd.to_datetime(df['data'], format='%d/%m/%Y', dayfirst=True, errors='coerce')
-            df['data_dt'] = df['data_dt'].fillna(pd.to_datetime(df['data'], dayfirst=True, errors='coerce'))
-            hoje = datetime.now()
-            df['dias_aberto'] = (hoje - df['data_dt']).dt.days.fillna(0).astype(int)
+        if 'dias_aberto' not in df.columns or df['dias_aberto'].isnull().all():
+            if 'data' in df.columns:
+                df['data_dt'] = pd.to_datetime(df['data'], format='%d/%m/%Y', dayfirst=True, errors='coerce')
+                df['data_dt'] = df['data_dt'].fillna(pd.to_datetime(df['data'], dayfirst=True, errors='coerce'))
+                hoje = datetime.now()
+                df['dias_aberto'] = (hoje - df['data_dt']).dt.days.fillna(0).astype(int)
+            else:
+                df['dias_aberto'] = 0
         else:
-            df['dias_aberto'] = 0
+            df['dias_aberto'] = df['dias_aberto'].fillna(0).astype(int)
+            if 'data' in df.columns:
+                df['data_dt'] = pd.to_datetime(df['data'], errors='coerce')
 
         # Faixas de SLA
         def categorizar_faixa(dias):
@@ -276,35 +313,41 @@ def load_data():
 
         df['faixa_sla'] = df['dias_aberto'].apply(categorizar_faixa)
 
-        # Mesclar com processos_faltantes_por_nucleo.csv para obter position e priority_position reais
-        faltantes_path = Path(__file__).resolve().parent.parent / "processos_faltantes_por_nucleo.csv"
-        if not faltantes_path.exists():
-            faltantes_path = Path("processos_faltantes_por_nucleo.csv")
+        # Mesclar com processos_faltantes_por_nucleo.csv se posição não veio no DW
+        if ('posicao' not in df.columns and 'position' not in df.columns) or (df.get('posicao') is not None and df['posicao'].isnull().all()):
+            faltantes_path = Path(__file__).resolve().parent.parent / "processos_faltantes_por_nucleo.csv"
+            if not faltantes_path.exists():
+                faltantes_path = Path("processos_faltantes_por_nucleo.csv")
 
-        if faltantes_path.exists():
-            try:
-                sep_char = ';' if ';' in open(faltantes_path, encoding='utf-8', errors='ignore').read(500) else ','
-                df_f = pd.read_csv(faltantes_path, sep=sep_char)
-                if 'number' in df_f.columns:
-                    df_f = df_f.drop_duplicates(subset=['number'])
-                    df = pd.merge(df, df_f[['number', 'position', 'priority_position']], left_on='processo', right_on='number', how='left')
-            except Exception:
-                pass
+            if faltantes_path.exists():
+                try:
+                    sep_char = ';' if ';' in open(faltantes_path, encoding='utf-8', errors='ignore').read(500) else ','
+                    df_f = pd.read_csv(faltantes_path, sep=sep_char)
+                    if 'number' in df_f.columns:
+                        df_f = df_f.drop_duplicates(subset=['number'])
+                        df = pd.merge(df, df_f[['number', 'position', 'priority_position']], left_on='processo', right_on='number', how='left')
+                except Exception:
+                    pass
 
         # Ordenar e calcular Posição Geral e Posição Prioridade
         df = df.sort_values(by='dias_aberto', ascending=False).reset_index(drop=True)
         idx_series = pd.Series(df.index + 1, index=df.index)
 
-        if 'position' in df.columns and not df['position'].isnull().all():
+        if 'posicao' in df.columns and not df['posicao'].isnull().all():
+            df['posicao_geral'] = df['posicao'].fillna(idx_series).astype(int)
+        elif 'position' in df.columns and not df['position'].isnull().all():
             df['posicao_geral'] = df['position'].fillna(idx_series).astype(int)
         else:
             df['posicao_geral'] = idx_series
 
-        if 'priority_position' in df.columns and not df['priority_position'].isnull().all():
-            prio_seq = pd.Series(df.groupby('prioridades', observed=False).cumcount() + 1, index=df.index)
+        if 'posicao_prioridade' in df.columns and not df['posicao_prioridade'].isnull().all():
+            prio_seq = pd.Series(df.groupby('prioridades', observed=False).cumcount() + 1, index=df.index) if 'prioridades' in df.columns else idx_series
+            df['posicao_prioridade'] = df['posicao_prioridade'].fillna(prio_seq).astype(int)
+        elif 'priority_position' in df.columns and not df['priority_position'].isnull().all():
+            prio_seq = pd.Series(df.groupby('prioridades', observed=False).cumcount() + 1, index=df.index) if 'prioridades' in df.columns else idx_series
             df['posicao_prioridade'] = df['priority_position'].fillna(prio_seq).astype(int)
         elif 'prioridades' in df.columns:
-            df['posicao_prioridade'] = df.groupby('prioridades', observed=False).cumcount() + 1
+            df['posicao_prioridade'] = pd.Series(df.groupby('prioridades', observed=False).cumcount() + 1, index=df.index).astype(int)
         else:
             df['posicao_prioridade'] = idx_series
 
@@ -326,11 +369,11 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
-    with st.spinner("Sincronizando base de dados..."):
+    with st.spinner("Sincronizando base de dados do Data Warehouse..."):
         df, data_source = load_data()
 
     if df is None or df.empty:
-        st.error("⚠️ Não foi possível carregar os dados. Verifique a conexão com o Supabase ou os arquivos em `data_transform/`.")
+        st.error("⚠️ Não foi possível carregar os dados. Verifique a conexão com o Data Warehouse ou com o Supabase.")
         return
 
     # Sidebar com Filtros
@@ -563,7 +606,8 @@ def main():
         with f1:
             sel_nuc_prod = st.selectbox("Núcleo", options=["Todos os Núcleos"] + todos_nucleos, key="sel_nuc_prod")
         with f2:
-            calculistas_list = [
+            all_calcs = sorted(df['calculista'].dropna().unique().tolist()) if 'calculista' in df.columns else []
+            calculistas_list = all_calcs if all_calcs else [
                 "Jose Helton De Lima Castro", "Rodrigo Ferreira Borges Da Costa",
                 "Adriana Barbosa Lopes", "Niedja Maria Albuquerque Lopes",
                 "Scheilla Serretti De Castro", "Katia Karina Medeiros Lisbos",
@@ -611,10 +655,15 @@ def main():
 
         with g2:
             st.markdown("#### 💰 Valor das Custas por Núcleo")
-            df_custas_nuc = pd.DataFrame({
-                'Núcleo': ['4ª CC', '5ª CC', '6ª CC', '7ª CC', 'PARTIDOR'],
-                'Valor Custas (R$)': [2000000, 800000, 650000, 680000, 50000]
-            })
+            if 'valor_custas' in df_filtered.columns and 'nucleo' in df_filtered.columns and not df_filtered.empty:
+                df_custas_nuc = df_filtered.groupby('nucleo')['valor_custas'].sum().reset_index()
+                df_custas_nuc.columns = ['Núcleo', 'Valor Custas (R$)']
+            else:
+                df_custas_nuc = pd.DataFrame({
+                    'Núcleo': ['4ª CC', '5ª CC', '6ª CC', '7ª CC', 'PARTIDOR'],
+                    'Valor Custas (R$)': [2000000, 800000, 650000, 680000, 50000]
+                })
+
             fig_custas = px.bar(
                 df_custas_nuc,
                 x='Valor Custas (R$)',
@@ -692,15 +741,22 @@ def main():
         r1, r2 = st.columns(2)
         with r1:
             st.markdown("#### 🥇 Top Calculistas — Analisados")
-            df_calc_ana = pd.DataFrame({
-                '#': [1, 2, 3, 4, 5],
-                'Calculista': [
-                    'Jose Helton De Lima Castro', 'Rodrigo Ferreira Borges Da Costa',
-                    'Adriana Barbosa Lopes', 'Niedja Maria Albuquerque Lopes',
-                    'Scheilla Serretti De Castro'
-                ],
-                'Analisados': [416, 317, 293, 289, 262]
-            })
+            if 'calculista' in df_filtered.columns and not df_filtered.empty:
+                top_calc = df_filtered['calculista'].value_counts().head(5).reset_index()
+                top_calc.columns = ['Calculista', 'Analisados']
+                top_calc['#'] = range(1, len(top_calc) + 1)
+                df_calc_ana = top_calc[['#', 'Calculista', 'Analisados']]
+            else:
+                df_calc_ana = pd.DataFrame({
+                    '#': [1, 2, 3, 4, 5],
+                    'Calculista': [
+                        'Jose Helton De Lima Castro', 'Rodrigo Ferreira Borges Da Costa',
+                        'Adriana Barbosa Lopes', 'Niedja Maria Albuquerque Lopes',
+                        'Scheilla Serretti De Castro'
+                    ],
+                    'Analisados': [416, 317, 293, 289, 262]
+                })
+
             fig_calc_a = px.bar(
                 df_calc_ana,
                 x='Analisados',
@@ -1012,10 +1068,12 @@ def main():
             'nucleo': 'Núcleo',
             'prioridades': 'Prioridade',
             'dias_aberto': 'Dias em Aberto',
-            'faixa_sla': 'Faixa SLA'
+            'faixa_sla': 'Faixa SLA',
+            'calculista': 'Calculista',
+            'status': 'Status'
         }
         
-        cols_existing = [c for c in ['posicao_geral', 'posicao_prioridade', 'processo', 'data', 'vara', 'nucleo', 'prioridades', 'dias_aberto', 'faixa_sla'] if c in df_filtered.columns]
+        cols_existing = [c for c in ['posicao_geral', 'posicao_prioridade', 'processo', 'data', 'vara', 'nucleo', 'prioridades', 'dias_aberto', 'faixa_sla', 'calculista', 'status'] if c in df_filtered.columns]
         
         df_show = df_filtered[cols_existing].rename(columns=cols_map)
         
