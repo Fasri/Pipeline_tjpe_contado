@@ -216,7 +216,6 @@ def load_data():
             from sqlalchemy import create_engine
             pwd = urllib.parse.quote_plus(dw_pass)
             db_url = f"postgresql://{dw_user}:{pwd}@{dw_host}:{dw_port}/{dw_db}"
-            # Pool estrito para não consumir conexões nem CPU no DW (1 query a cada 30 min compartilhada por todos os usuários)
             engine = create_engine(db_url, pool_pre_ping=True, pool_size=2, max_overflow=0, pool_recycle=300)
             
             # Consultar tabela Silver do DW (silver.slv_processos)
@@ -380,9 +379,28 @@ def main():
     st.sidebar.markdown("### 🎛️ Filtros Globais")
     st.sidebar.caption(f"Fonte de Dados: **{data_source}**")
 
+    # Filtro por Status (Com 'Pendente' selecionado por padrão para focar no Acervo Pendente)
+    todos_status = sorted(df['status'].dropna().unique().tolist()) if 'status' in df.columns else []
+    default_status = ['Pendente'] if 'Pendente' in todos_status else todos_status
+    selected_status = st.sidebar.multiselect(
+        "Status do Processo", 
+        options=todos_status, 
+        default=default_status,
+        help="Por padrão exibe o Acervo Pendente (6.369 processos). Selecione outros status para consultar históricos."
+    )
+
     # Filtro por Núcleo
     todos_nucleos = sorted(df['nucleo'].dropna().unique().tolist()) if 'nucleo' in df.columns else []
     selected_nucleos = st.sidebar.multiselect("Núcleo da Contadoria", options=todos_nucleos, default=todos_nucleos)
+
+    # Filtro por Calculista
+    todos_calculistas = sorted([c for c in df['calculista'].dropna().unique().tolist() if str(c).strip() != '']) if 'calculista' in df.columns else []
+    selected_calculistas = st.sidebar.multiselect(
+        "👤 Calculista Responsável", 
+        options=todos_calculistas, 
+        default=[],
+        placeholder="Selecione ou digite o nome..."
+    )
 
     # Filtro por Prioridade
     todas_prioridades = sorted(df['prioridades'].dropna().unique().tolist()) if 'prioridades' in df.columns else []
@@ -411,16 +429,27 @@ def main():
     if st.session_state.get("busca_processo"):
         st.sidebar.button("❌ Limpar filtro de busca", on_click=reset_busca)
 
-    # Aplicar Filtros Globais ao Dataframe
+    # Aplicar Filtros Globais ao Dataframe (Acervo Pendente ou selecionados)
     df_filtered = df.copy()
+    if selected_status and 'status' in df_filtered.columns:
+        df_filtered = df_filtered[df_filtered['status'].isin(selected_status)]
     if selected_nucleos and 'nucleo' in df_filtered.columns:
         df_filtered = df_filtered[df_filtered['nucleo'].isin(selected_nucleos)]
+    if selected_calculistas and 'calculista' in df_filtered.columns:
+        df_filtered = df_filtered[df_filtered['calculista'].isin(selected_calculistas)]
     if selected_prioridades and 'prioridades' in df_filtered.columns:
         df_filtered = df_filtered[df_filtered['prioridades'].isin(selected_prioridades)]
     if selected_faixas and 'faixa_sla' in df_filtered.columns:
         df_filtered = df_filtered[df_filtered['faixa_sla'].isin(selected_faixas)]
     if st.session_state.get("busca_processo"):
         df_filtered = df_filtered[df_filtered['processo'].astype(str).str.contains(st.session_state["busca_processo"], case=False, na=False)]
+
+    # Recalcular posições relativas do acervo pendente filtrado se aplicável
+    if 'Pendente' in selected_status and len(selected_status) == 1:
+        df_filtered = df_filtered.sort_values(by='dias_aberto', ascending=False).reset_index(drop=True)
+        df_filtered['posicao_geral'] = df_filtered.index + 1
+        if 'prioridades' in df_filtered.columns:
+            df_filtered['posicao_prioridade'] = df_filtered.groupby('prioridades', observed=False).cumcount() + 1
 
     # Cálculo dos KPIs Globais
     total_geral = len(df_filtered)
@@ -450,21 +479,23 @@ def main():
                 key="periodo_geral"
             )
 
-        # Filtragem Dinâmica por Período de Data
-        df_periodo = df_filtered.copy()
-        if "data_dt" in df_periodo.columns and not df_periodo.empty:
-            if opcao_periodo == "Últimos 15 dias":
-                df_periodo = df_periodo[df_periodo['dias_aberto'] <= 15]
-            elif opcao_periodo == "Últimos 30 dias":
-                df_periodo = df_periodo[df_periodo['dias_aberto'] <= 30]
-            elif opcao_periodo == "Últimos 60 dias":
-                df_periodo = df_periodo[df_periodo['dias_aberto'] <= 60]
-            elif opcao_periodo == "Ano Atual (2026)":
-                df_periodo = df_periodo[df_periodo['data_dt'].dt.year == 2026]
+        # Base macro sem restrição de status para os cards da visão geral
+        df_macro = df.copy()
+        if selected_nucleos and 'nucleo' in df_macro.columns:
+            df_macro = df_macro[df_macro['nucleo'].isin(selected_nucleos)]
 
-        # Fator de escala dinâmico proporcional ao filtro de período/sidebar
+        if "data_dt" in df_macro.columns and not df_macro.empty:
+            if opcao_periodo == "Últimos 15 dias":
+                df_macro = df_macro[df_macro['dias_aberto'] <= 15]
+            elif opcao_periodo == "Últimos 30 dias":
+                df_macro = df_macro[df_macro['dias_aberto'] <= 30]
+            elif opcao_periodo == "Últimos 60 dias":
+                df_macro = df_macro[df_macro['dias_aberto'] <= 60]
+            elif opcao_periodo == "Ano Atual (2026)":
+                df_macro = df_macro[df_macro['data_dt'].dt.year == 2026]
+
         total_base = len(df) if len(df) > 0 else 1
-        total_atual = len(df_periodo)
+        total_atual = len(df_macro)
         ratio_factor = total_atual / total_base
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -472,11 +503,22 @@ def main():
         c_left, c_right = st.columns([4.2, 5.8])
 
         with c_left:
-            val_recebidos = int(232276 * ratio_factor)
-            val_analisados = int(225907 * ratio_factor)
-            val_pendentes = total_atual if not df_periodo.empty else int(6369 * ratio_factor)
-            val_devolvidos = int(66332 * ratio_factor)
-            val_custas = 239.44 * ratio_factor
+            # Cálculo dos 4 cards executivos da visão geral
+            if 'status' in df_macro.columns and not df_macro.empty:
+                val_pendentes = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
+                val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
+                val_recebidos = len(df_macro)
+                val_analisados = len(df_macro[~df_macro['status'].astype(str).str.lower().str.strip().isin(['pendente'])])
+            else:
+                val_recebidos = int(232276 * ratio_factor)
+                val_analisados = int(225907 * ratio_factor)
+                val_pendentes = int(6369 * ratio_factor)
+                val_devolvidos = int(66332 * ratio_factor)
+
+            if 'valor_custas' in df_macro.columns and df_macro['valor_custas'].sum() > 0:
+                val_custas = df_macro['valor_custas'].sum() / 1e6
+            else:
+                val_custas = 239.44 * ratio_factor
 
             # Matriz de KPIs 2x2
             k_rec, k_ana = st.columns(2)
@@ -500,15 +542,17 @@ def main():
             """.replace(',', 'X').replace('.', ',').replace('X', '.'), unsafe_allow_html=True)
 
         with c_right:
-            st.markdown("#### 🌳 Pendentes por Núcleo")
-            if 'nucleo' in df_periodo.columns and not df_periodo.empty:
-                df_tree_data = df_periodo.groupby('nucleo').size().reset_index(name='Pendentes')
+            st.markdown("#### 🌳 Pendentes por Núcleo (Acervo Real)")
+            df_macro_pend = df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_macro.columns else df_macro
+            
+            if 'nucleo' in df_macro_pend.columns and not df_macro_pend.empty:
+                df_tree_data = df_macro_pend.groupby('nucleo').size().reset_index(name='Pendentes')
             else:
                 base_tree = [
-                    ('1ª CC', 1461), ('7ª CCJ', 825), ('3ª CC', 722), ('1ª CCJ', 573), 
-                    ('2ª CCJ', 570), ('6ª CC', 539), ('6ª CCJ', 344), ('5ª CC', 360), 
-                    ('5ª CCJ', 284), ('4ª CC', 290), ('4ª CCJ', 278), ('7ª CC', 227), 
-                    ('3ª CCJ', 232), ('2ª CC', 128), ('PARTIDOR', 28)
+                    ('1ª CC', 1401), ('7ª CCJ', 781), ('3ª CC', 688), ('1ª CCJ', 560), 
+                    ('2ª CCJ', 558), ('6ª CC', 465), ('6ª CCJ', 326), ('5ª CC', 298), 
+                    ('5ª CCJ', 269), ('4ª CCJ', 267), ('4ª CC', 256), ('3ª CCJ', 198), 
+                    ('7ª CC', 181), ('2ª CC', 98), ('PARTIDOR', 23)
                 ]
                 df_tree_data = pd.DataFrame([
                     {'nucleo': n, 'Pendentes': max(1, int(v * ratio_factor))} for n, v in base_tree
@@ -532,16 +576,16 @@ def main():
             st.plotly_chart(fig_looker_tree, use_container_width=True)
 
             st.markdown("#### 📋 Prioridades")
-            if 'prioridades' in df_periodo.columns and not df_periodo.empty:
-                prio_counts = df_periodo['prioridades'].value_counts().reset_index()
+            if 'prioridades' in df_macro_pend.columns and not df_macro_pend.empty:
+                prio_counts = df_macro_pend['prioridades'].value_counts().reset_index()
                 prio_counts.columns = ['Prioridade', 'Quantidade']
                 prio_counts['#'] = range(1, len(prio_counts) + 1)
                 df_prio_table = prio_counts[['#', 'Prioridade', 'Quantidade']]
             else:
                 base_prio = [
-                    ('Sem prioridade', 127054), ('Prioridade Legal', 75319), 
-                    ('AutoInspeção', 19945), ('Super prioridade', 7822), 
-                    ('Urgente', 1905), ('Ordem superior', 301), ('Corregedoria', 29)
+                    ('Sem prioridade', 1401), ('Prioridade Legal', 4834), 
+                    ('Super prioridade', 132), ('AutoInspeção', 1), 
+                    ('Urgente', 1)
                 ]
                 df_prio_table = pd.DataFrame([
                     {'#': i+1, 'Prioridade': p, 'Quantidade': max(1, int(v * ratio_factor))} 
@@ -571,16 +615,21 @@ def main():
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("#### 📊 Distribuição por Cumprimento")
         
-        base_cumprimento = [
-            ('Cálculo realizado', 154200), ('Devolvido sem parecer', 18450), 
-            ('Devolvido com parecer', 12100), ('Devolvido ref.', 8900), 
-            ('Devolvido outros', 7650), ('Pendente', val_pendentes), 
-            ('Devolvido inst.', 5200), ('Devolvido dil.', 4100), ('Cálculo atualizado', 2850)
-        ]
-        df_cumprimento = pd.DataFrame([
-            {'Status / Cumprimento': s, 'Quantidade': max(1, int(v * ratio_factor)) if s != 'Pendente' else v}
-            for s, v in base_cumprimento
-        ])
+        if 'status' in df_macro.columns and not df_macro.empty:
+            df_cump_real = df_macro['status'].value_counts().head(10).reset_index()
+            df_cump_real.columns = ['Status / Cumprimento', 'Quantidade']
+            df_cumprimento = df_cump_real
+        else:
+            base_cumprimento = [
+                ('Cálculo realizado', 154200), ('Devolvido sem parecer', 18450), 
+                ('Devolvido com parecer', 12100), ('Devolvido ref.', 8900), 
+                ('Devolvido outros', 7650), ('Pendente', val_pendentes), 
+                ('Devolvido inst.', 5200), ('Devolvido dil.', 4100), ('Cálculo atualizado', 2850)
+            ]
+            df_cumprimento = pd.DataFrame([
+                {'Status / Cumprimento': s, 'Quantidade': max(1, int(v * ratio_factor)) if s != 'Pendente' else v}
+                for s, v in base_cumprimento
+            ])
         
         fig_cump = px.bar(
             df_cumprimento,
@@ -601,7 +650,6 @@ def main():
 
     # ABA PRODUTIVIDADE POR NÚCLEO (LOOKER STUDIO DA 2ª FOTO)
     with tab_prod:
-        # Filtros Superiores da Aba
         f1, f2, f3 = st.columns([3, 3, 4])
         with f1:
             sel_nuc_prod = st.selectbox("Núcleo", options=["Todos os Núcleos"] + todos_nucleos, key="sel_nuc_prod")
@@ -620,12 +668,14 @@ def main():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
+        val_acervo_pen = len(df[df['status'].astype(str).str.lower().str.strip() == 'pendente']) if 'status' in df.columns else 6369
+
         # 1. KPIs Superiores
         kp1, kp2, kp3, kp4, kp5 = st.columns(5)
         with kp1:
             st.metric("ANALISADOS", "8.223", delta="↑ 6,4%")
         with kp2:
-            st.metric("ACERVO PENDENTE", f"{total_geral:,}".replace(',', '.') if total_geral != len(df) else "6.369")
+            st.metric("ACERVO PENDENTE", f"{val_acervo_pen:,}".replace(',', '.'))
         with kp3:
             st.metric("DEVOLVIDOS", "2.553", delta="↑ 4,9%")
         with kp4:
@@ -778,15 +828,34 @@ def main():
 
         with r2:
             st.markdown("#### ⏳ Top Calculistas — Pendentes")
-            df_calc_pen = pd.DataFrame({
-                '#': [1, 2, 3, 4, 5],
-                'Calculista': [
-                    'Katia Karina Medeiros Lisbos', 'Rodrigo Falcao Lopes De Lima',
-                    'Maria Simone Nascimento Carreiro', 'Jonas Ferreira Da Paixao',
-                    'Priscilla Goncalves D De Melo'
-                ],
-                'Pendentes': [69, 62, 61, 59, 53]
-            })
+            if 'calculista' in df_filtered.columns and 'status' in df_filtered.columns:
+                df_calc_pend_all = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente']
+                if not df_calc_pend_all.empty:
+                    top_calc_p = df_calc_pend_all['calculista'].value_counts().head(5).reset_index()
+                    top_calc_p.columns = ['Calculista', 'Pendentes']
+                    top_calc_p['#'] = range(1, len(top_calc_p) + 1)
+                    df_calc_pen = top_calc_p[['#', 'Calculista', 'Pendentes']]
+                else:
+                    df_calc_pen = pd.DataFrame({
+                        '#': [1, 2, 3, 4, 5],
+                        'Calculista': [
+                            'Katia Karina Medeiros Lisbos', 'Rodrigo Falcao Lopes De Lima',
+                            'Maria Simone Nascimento Carreiro', 'Jonas Ferreira Da Paixao',
+                            'Priscilla Goncalves D De Melo'
+                        ],
+                        'Pendentes': [69, 62, 61, 59, 53]
+                    })
+            else:
+                df_calc_pen = pd.DataFrame({
+                    '#': [1, 2, 3, 4, 5],
+                    'Calculista': [
+                        'Katia Karina Medeiros Lisbos', 'Rodrigo Falcao Lopes De Lima',
+                        'Maria Simone Nascimento Carreiro', 'Jonas Ferreira Da Paixao',
+                        'Priscilla Goncalves D De Melo'
+                    ],
+                    'Pendentes': [69, 62, 61, 59, 53]
+                })
+
             fig_calc_p = px.bar(
                 df_calc_pen,
                 x='Pendentes',
@@ -851,27 +920,36 @@ def main():
         )
         st.plotly_chart(fig_meta, use_container_width=True)
 
-    # ABA 1 ORIGINAL: VISÃO GERAL ESTRATÉGICA
+    # ABA 1 ORIGINAL: VISÃO GERAL ESTRATÉGICA (FOCADA NO ACERVO PENDENTE)
     with tab1:
-        # Exibição de KPIs Executivos
+        # Garantir filtro exclusivo dos processos PENDENTES para a Visão Geral Estratégica
+        df_tab1 = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_filtered.columns else df_filtered
+        
+        tot_pen = len(df_tab1)
+        tot_sup = len(df_tab1[df_tab1['prioridades'] == 'Super prioridade']) if 'prioridades' in df_tab1.columns else 0
+        tot_leg = len(df_tab1[df_tab1['prioridades'] == 'Prioridade Legal']) if 'prioridades' in df_tab1.columns else 0
+        tot_atr = len(df_tab1[df_tab1['dias_aberto'] >= 30])
+        med_dias = int(df_tab1['dias_aberto'].mean()) if tot_pen > 0 else 0
+
+        # Exibição de KPIs Executivos do Acervo Pendente
         k1, k2, k3, k4, k5 = st.columns(5)
         with k1:
-            st.metric("TOTAL DE PROCESSOS", f"{total_geral:,}".replace(',', '.'))
+            st.metric("ACERVO PENDENTE", f"{tot_pen:,}".replace(',', '.'))
         with k2:
-            st.metric("SUPER PRIORIDADES", f"{total_super:,}".replace(',', '.'))
+            st.metric("SUPER PRIORIDADES", f"{tot_sup:,}".replace(',', '.'))
         with k3:
-            st.metric("PRIORIDADE LEGAL", f"{total_legal:,}".replace(',', '.'))
+            st.metric("PRIORIDADE LEGAL", f"{tot_leg:,}".replace(',', '.'))
         with k4:
-            st.metric("PROCESSOS ≥ 30 DIAS", f"{total_atraso:,}".replace(',', '.'), delta=f"{(total_atraso/total_geral*100):.1f}% do total" if total_geral > 0 else "0%", delta_color="inverse")
+            st.metric("PROCESSOS ≥ 30 DIAS", f"{tot_atr:,}".replace(',', '.'), delta=f"{(tot_atr/tot_pen*100):.1f}% do acervo" if tot_pen > 0 else "0%", delta_color="inverse")
         with k5:
-            st.metric("MÉDIA DE DIAS EM ABERTO", f"{media_dias} dias")
+            st.metric("MÉDIA DE DIAS EM ABERTO", f"{med_dias} dias")
 
         st.markdown("<br>", unsafe_allow_html=True)
         c1, c2 = st.columns([6, 4])
         with c1:
-            st.markdown("#### 🌳 Distribuição Geral de Processos por Núcleo")
-            if 'nucleo' in df_filtered.columns and not df_filtered.empty:
-                df_nucleo = df_filtered.groupby('nucleo').size().reset_index(name='Total')
+            st.markdown("#### 🌳 Distribuição do Acervo Pendente por Núcleo")
+            if 'nucleo' in df_tab1.columns and not df_tab1.empty:
+                df_nucleo = df_tab1.groupby('nucleo').size().reset_index(name='Total')
                 fig_tree = px.treemap(
                     df_nucleo, 
                     path=['nucleo'], 
@@ -888,12 +966,12 @@ def main():
                 )
                 st.plotly_chart(fig_tree, use_container_width=True)
             else:
-                st.info("Sem dados para a combinação de filtros selecionada.")
+                st.info("Sem processos pendentes para a combinação de filtros selecionada.")
 
         with c2:
-            st.markdown("#### 🎯 Proporção de Prioridades")
-            if 'prioridades' in df_filtered.columns and not df_filtered.empty:
-                df_prio = df_filtered['prioridades'].value_counts().reset_index()
+            st.markdown("#### 🎯 Prioridades do Acervo Pendente")
+            if 'prioridades' in df_tab1.columns and not df_tab1.empty:
+                df_prio = df_tab1['prioridades'].value_counts().reset_index()
                 df_prio.columns = ['Prioridade', 'Total']
                 fig_donut = px.pie(
                     df_prio, 
@@ -912,12 +990,13 @@ def main():
                 )
                 st.plotly_chart(fig_donut, use_container_width=True)
 
-    # ABA 2: PRIORIDADES & GARGALOS
+    # ABA 2: PRIORIDADES & GARGALOS (FOCADA EXCLUSIVAMENTE NO ACERVO PENDENTE)
     with tab2:
+        df_tab2 = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_filtered.columns else df_filtered
         col_p1, col_p2 = st.columns(2)
         with col_p1:
-            st.markdown("#### 🚨 Superprioridades por Núcleo")
-            df_super = df_filtered[df_filtered['prioridades'] == 'Super prioridade'] if 'prioridades' in df_filtered.columns else pd.DataFrame()
+            st.markdown("#### 🚨 Superprioridades no Acervo Pendente por Núcleo")
+            df_super = df_tab2[df_tab2['prioridades'] == 'Super prioridade'] if 'prioridades' in df_tab2.columns else pd.DataFrame()
             if not df_super.empty:
                 super_counts = df_super['nucleo'].value_counts().reset_index()
                 super_counts.columns = ['Núcleo', 'Total']
@@ -938,11 +1017,11 @@ def main():
                 )
                 st.plotly_chart(fig_super, use_container_width=True)
             else:
-                st.info("Nenhum processo com Superprioridade encontrado.")
+                st.info("Nenhum processo com Superprioridade no acervo pendente.")
 
         with col_p2:
-            st.markdown("#### ⚖️ Prioridade Legal por Núcleo")
-            df_legal = df_filtered[df_filtered['prioridades'] == 'Prioridade Legal'] if 'prioridades' in df_filtered.columns else pd.DataFrame()
+            st.markdown("#### ⚖️ Prioridade Legal no Acervo Pendente por Núcleo")
+            df_legal = df_tab2[df_tab2['prioridades'] == 'Prioridade Legal'] if 'prioridades' in df_tab2.columns else pd.DataFrame()
             if not df_legal.empty:
                 legal_counts = df_legal['nucleo'].value_counts().reset_index()
                 legal_counts.columns = ['Núcleo', 'Total']
@@ -963,18 +1042,18 @@ def main():
                 )
                 st.plotly_chart(fig_legal, use_container_width=True)
             else:
-                st.info("Nenhum processo com Prioridade Legal encontrado.")
+                st.info("Nenhum processo com Prioridade Legal no acervo pendente.")
 
         st.markdown("---")
-        st.markdown("#### 🏛️ Top 15 Varas mais Sobrecarregadas (Gargalos Críticos)")
-        if 'vara' in df_filtered.columns and not df_filtered.empty:
-            varas_top = df_filtered['vara'].value_counts().head(15).reset_index()
-            varas_top.columns = ['Vara', 'Total Processos']
+        st.markdown("#### 🏛️ Top 15 Varas com Mais Processos Pendentes (Gargalos Críticos)")
+        if 'vara' in df_tab2.columns and not df_tab2.empty:
+            varas_top = df_tab2['vara'].value_counts().head(15).reset_index()
+            varas_top.columns = ['Vara', 'Total Processos Pendentes']
             fig_varas = px.bar(
                 varas_top, 
                 x='Vara', 
-                y='Total Processos', 
-                color='Total Processos',
+                y='Total Processos Pendentes', 
+                color='Total Processos Pendentes',
                 color_continuous_scale='Plasma',
                 text_auto=True
             )
@@ -987,13 +1066,14 @@ def main():
             )
             st.plotly_chart(fig_varas, use_container_width=True)
 
-    # ABA 3: MONITOR DE SLA & ATRASOS
+    # ABA 3: MONITOR DE SLA & ATRASOS (FOCADA EXCLUSIVAMENTE NO ACERVO PENDENTE)
     with tab3:
+        df_tab3 = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_filtered.columns else df_filtered
         s1, s2 = st.columns([5, 5])
         with s1:
-            st.markdown("#### ⏳ Distribuição por Faixa de Idade (SLA)")
-            if 'faixa_sla' in df_filtered.columns and not df_filtered.empty:
-                sla_counts = df_filtered['faixa_sla'].value_counts().reindex(faixas_ordenadas, fill_value=0).reset_index()
+            st.markdown("#### ⏳ Distribuição por Faixa de Idade (SLA dos Pendentes)")
+            if 'faixa_sla' in df_tab3.columns and not df_tab3.empty:
+                sla_counts = df_tab3['faixa_sla'].value_counts().reindex(faixas_ordenadas, fill_value=0).reset_index()
                 sla_counts.columns = ['Faixa SLA', 'Quantidade']
                 fig_sla = px.bar(
                     sla_counts, 
@@ -1018,8 +1098,8 @@ def main():
                 st.plotly_chart(fig_sla, use_container_width=True)
 
         with s2:
-            st.markdown("#### 📊 Concentração de Atrasos (≥ 30 Dias) por Núcleo")
-            df_atrasados = df_filtered[df_filtered['dias_aberto'] >= 30]
+            st.markdown("#### 📊 Concentração de Atrasos (≥ 30 Dias) nos Pendentes por Núcleo")
+            df_atrasados = df_tab3[df_tab3['dias_aberto'] >= 30]
             if not df_atrasados.empty:
                 atraso_nucleo = df_atrasados['nucleo'].value_counts().reset_index()
                 atraso_nucleo.columns = ['Núcleo', 'Atrasados']
@@ -1039,26 +1119,24 @@ def main():
                 )
                 st.plotly_chart(fig_atr_nuc, use_container_width=True)
             else:
-                st.success("🎉 Nenhum processo com atraso igual ou superior a 30 dias nos filtros selecionados!")
+                st.success("🎉 Nenhum processo pendente com atraso igual ou superior a 30 dias nos filtros selecionados!")
 
-    # ABA 4: CENTRAL DE PROCESSOS & EXPORTAÇÃO
+    # ABA 4: CENTRAL DE PROCESSOS & EXPORTAÇÃO (FOCADA NO ACERVO PENDENTE)
     with tab4:
-        st.markdown("#### 📋 Listagem Detalhada de Processos")
+        st.markdown("#### 📋 Listagem Detalhada do Acervo Pendente")
         
         col_actions1, col_actions2 = st.columns([8, 2])
         with col_actions1:
-            st.caption(f"Mostrando **{len(df_filtered):,}** registros ordenados pelos processos com maior tempo em aberto.")
+            st.caption(f"Exibindo **{len(df_filtered):,}** processos pendentes ordenados por Posição Geral e Posição Prioridade na fila.")
         with col_actions2:
-            # Botão de Exportação CSV
             csv_data = df_filtered.to_csv(index=False).encode('utf-8')
             st.download_button(
                 label="📥 Exportar CSV",
                 data=csv_data,
-                file_name=f"contadoria_tjpe_{datetime.now().strftime('%Y%m%d_%H%M')}.csv",
+                file_name=f"acervo_pendente_tjpe_{datetime.now().strftime('%Y%m%d_%H%M')}.csv",
                 mime="text/csv"
             )
 
-        # Mapeamento e exibição de Posição Geral e Posição Prioridade
         cols_map = {
             'posicao_geral': 'Posição Geral',
             'posicao_prioridade': 'Posição Prioridade',
