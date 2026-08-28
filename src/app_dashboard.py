@@ -223,14 +223,7 @@ def load_data():
             df_dw = pd.read_sql(query, engine)
             
             if not df_dw.empty:
-                rename_map = {
-                    'processo_numero': 'processo',
-                    'data_remessa': 'data',
-                    'prioridade': 'prioridades',
-                    'status_atual': 'status',
-                    'dias_parado': 'dias_aberto'
-                }
-                df = df_dw.rename(columns=rename_map)
+                df = df_dw
                 source = "Data Warehouse (silver.slv_processos)"
         except Exception:
             df = None
@@ -269,6 +262,35 @@ def load_data():
                     continue
 
     if df is not None:
+        # Padronização universal e normalização de colunas
+        rename_map = {
+            'processo_numero': 'processo',
+            'number': 'processo',
+            'data_remessa': 'data',
+            'entry_date': 'data',
+            'prioridade': 'prioridades',
+            'priority': 'prioridades',
+            'status_atual': 'status',
+            'dias_parado': 'dias_aberto',
+            'calculista': 'calculista',
+            'calculista_nome': 'calculista',
+            'assigned_to': 'calculista',
+            'assigned_to_id': 'calculista',
+            'nucleus': 'nucleo',
+            'court': 'vara'
+        }
+        col_rename_dict = {}
+        for c in df.columns:
+            c_str = str(c).strip()
+            c_lower = c_str.lower()
+            if c_lower in rename_map:
+                col_rename_dict[c] = rename_map[c_lower]
+            elif c_str in rename_map:
+                col_rename_dict[c] = rename_map[c_str]
+            else:
+                col_rename_dict[c] = c_lower
+        df = df.rename(columns=col_rename_dict)
+
         # Tratamento de Encoding
         def clean_text(val):
             if pd.isna(val) or not isinstance(val, str):
@@ -409,7 +431,24 @@ def main():
         st.sidebar.button("❌ Limpar filtro de busca", on_click=reset_busca)
 
     # 3. Filtro por Calculista Responsável
-    todos_calculistas = sorted([c for c in df['calculista'].dropna().unique().tolist() if str(c).strip() != '']) if 'calculista' in df.columns else []
+    if 'calculista' in df.columns:
+        raw_calcs = [str(c).strip() for c in df['calculista'].dropna().unique().tolist() if str(c).strip() not in ['', 'nan', 'None', 'null']]
+        todos_calculistas = sorted(raw_calcs)
+    else:
+        todos_calculistas = []
+
+    # Fallback com lista completa de calculistas se a base vier sem calculistas preenchidos
+    if not todos_calculistas:
+        todos_calculistas = sorted([
+            "Adriana Barbosa Lopes", "Ana Paula", "Andrew Lou", "Brenton Raf",
+            "Caroline E", "Cynthia Elis", "Danielle Ma", "Dayane Co", "Elidiane Rib",
+            "Gustavo M", "Igor Lisboa", "Joao Batist", "Joelma Alv", "Jonas Ferreira Da Paixao",
+            "Jose Helton De Lima Castro", "Jose Ricard", "Jullieta Bea", "Katia Karina Medeiros Lisbos",
+            "Maria Auxili", "Maria Do C", "Maria Simone Nascimento Carreiro", "Niedja Maria Albuquerque Lopes",
+            "Priscilla Goncalves D De Melo", "Ramon Go", "Rayssa Rob", "Rodrigo Falcao Lopes De Lima",
+            "Rodrigo Ferreira Borges Da Costa", "Scheilla Serretti De Castro", "Valeria Per", "Veruska Ma"
+        ])
+
     selected_calculistas = st.sidebar.multiselect(
         "👤 Calculista Responsável", 
         options=todos_calculistas, 
