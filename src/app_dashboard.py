@@ -521,7 +521,7 @@ def main():
     tab_geral, tab_prod, tab1, tab2, tab3, tab4 = st.tabs([
         "🏛️ Informações Gerais", 
         "📈 Produtividade por Núcleo",
-        "📊 Visão Geral Estratégica", 
+        "📊 Visão Geral Estratégica dos Processos Pendentes", 
         "⚖️ Prioridades & Gargalos", 
         "⏱️ Monitor de Tempo & Atrasos", 
         "📋 Central de Processos"
