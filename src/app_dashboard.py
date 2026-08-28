@@ -545,13 +545,17 @@ def main():
     # Base Macro (Filtros Laterais exceto Status, para Visão Geral e Produtividade)
     df_macro = df.copy()
     if selected_nucleos and 'nucleo' in df_macro.columns:
-        df_macro = df_macro[df_macro['nucleo'].isin(selected_nucleos)]
+        sel_nuc = [str(n).strip().lower() for n in selected_nucleos]
+        df_macro = df_macro[df_macro['nucleo'].astype(str).str.strip().str.lower().isin(sel_nuc)]
     if selected_calculistas and 'calculista' in df_macro.columns:
-        df_macro = df_macro[df_macro['calculista'].isin(selected_calculistas)]
+        sel_calc = [str(c).strip().lower() for c in selected_calculistas]
+        df_macro = df_macro[df_macro['calculista'].astype(str).str.strip().str.lower().isin(sel_calc)]
     if selected_prioridades and 'prioridades' in df_macro.columns:
-        df_macro = df_macro[df_macro['prioridades'].isin(selected_prioridades)]
+        sel_prio = [str(p).strip().lower() for p in selected_prioridades]
+        df_macro = df_macro[df_macro['prioridades'].astype(str).str.strip().str.lower().isin(sel_prio)]
     if selected_faixas and 'faixa_sla' in df_macro.columns:
-        df_macro = df_macro[df_macro['faixa_sla'].isin(selected_faixas)]
+        sel_faixas = [str(f).strip().lower() for f in selected_faixas]
+        df_macro = df_macro[df_macro['faixa_sla'].astype(str).str.strip().str.lower().isin(sel_faixas)]
     if opcao_periodo_sidebar != "Todo o Período" and 'data_dt' in df_macro.columns:
         df_macro = df_macro[
             (df_macro['data_dt'].dt.date >= start_date) & 
@@ -563,7 +567,8 @@ def main():
     # Base Filtrada (Aplica também o Filtro por Status selecionado)
     df_filtered = df_macro.copy()
     if selected_status and 'status' in df_filtered.columns:
-        df_filtered = df_filtered[df_filtered['status'].isin(selected_status)]
+        sel_stat = [str(s).strip().lower() for s in selected_status]
+        df_filtered = df_filtered[df_filtered['status'].astype(str).str.strip().str.lower().isin(sel_stat)]
 
     # Recalcular posições relativas do acervo pendente filtrado se aplicável
     if 'Pendente' in selected_status and len(selected_status) == 1:
@@ -598,21 +603,21 @@ def main():
         st.markdown("<br>", unsafe_allow_html=True)
         
         # 1. Cálculo das métricas macro
-        if 'status' in df_macro.columns and not df_macro.empty:
+        if 'status' in df_macro.columns:
             val_pendentes = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
             val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
             val_recebidos = len(df_macro)
             val_analisados = len(df_macro[~df_macro['status'].astype(str).str.lower().str.strip().isin(['pendente'])])
         else:
-            val_recebidos = int(232276 * ratio_factor)
-            val_analisados = int(225907 * ratio_factor)
-            val_pendentes = int(6369 * ratio_factor)
-            val_devolvidos = int(66332 * ratio_factor)
+            val_recebidos = 0
+            val_analisados = 0
+            val_pendentes = 0
+            val_devolvidos = 0
 
-        if 'valor_custas' in df_macro.columns and df_macro['valor_custas'].sum() > 0:
+        if 'valor_custas' in df_macro.columns:
             val_custas = df_macro['valor_custas'].sum() / 1e6
         else:
-            val_custas = 239.44 * ratio_factor
+            val_custas = 0.0
 
         # Topo: 5 Cards de KPIs Executivos perfeitamente equilibrados em linha
         k1, k2, k3, k4, k5 = st.columns(5)
@@ -637,18 +642,12 @@ def main():
             st.markdown("#### 🌳 Pendentes por Núcleo (Acervo Real)")
             df_macro_pend = df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_macro.columns else df_macro
             
-            if 'nucleo' in df_macro_pend.columns and not df_macro_pend.empty:
+            if 'nucleo' in df_macro_pend.columns:
                 df_tree_data = df_macro_pend.groupby('nucleo').size().reset_index(name='Pendentes')
+                if df_tree_data.empty:
+                    df_tree_data = pd.DataFrame([{'nucleo': 'Sem pendentes', 'Pendentes': 0}])
             else:
-                base_tree = [
-                    ('1ª CC', 1401), ('7ª CCJ', 781), ('3ª CC', 688), ('1ª CCJ', 560), 
-                    ('2ª CCJ', 558), ('6ª CC', 465), ('6ª CCJ', 326), ('5ª CC', 298), 
-                    ('5ª CCJ', 269), ('4ª CCJ', 267), ('4ª CC', 256), ('3ª CCJ', 198), 
-                    ('7ª CC', 181), ('2ª CC', 98), ('PARTIDOR', 23)
-                ]
-                df_tree_data = pd.DataFrame([
-                    {'nucleo': n, 'Pendentes': max(1, int(v * ratio_factor))} for n, v in base_tree
-                ])
+                df_tree_data = pd.DataFrame([{'nucleo': 'Sem pendentes', 'Pendentes': 0}])
 
             fig_looker_tree = px.treemap(
                 df_tree_data,
@@ -669,21 +668,15 @@ def main():
 
         with c_right:
             st.markdown("#### 📋 Prioridades")
-            if 'prioridades' in df_macro_pend.columns and not df_macro_pend.empty:
+            if 'prioridades' in df_macro_pend.columns:
                 prio_counts = df_macro_pend['prioridades'].value_counts().reset_index()
                 prio_counts.columns = ['Prioridade', 'Quantidade']
                 prio_counts['#'] = range(1, len(prio_counts) + 1)
                 df_prio_table = prio_counts[['#', 'Prioridade', 'Quantidade']]
+                if df_prio_table.empty:
+                    df_prio_table = pd.DataFrame([{'#': 1, 'Prioridade': 'Sem registros', 'Quantidade': 0}])
             else:
-                base_prio = [
-                    ('Sem prioridade', 1401), ('Prioridade Legal', 4834), 
-                    ('Super prioridade', 132), ('AutoInspeção', 1), 
-                    ('Urgente', 1)
-                ]
-                df_prio_table = pd.DataFrame([
-                    {'#': i+1, 'Prioridade': p, 'Quantidade': max(1, int(v * ratio_factor))} 
-                    for i, (p, v) in enumerate(base_prio)
-                ])
+                df_prio_table = pd.DataFrame([{'#': 1, 'Prioridade': 'Sem registros', 'Quantidade': 0}])
 
             fig_prio_bar = px.bar(
                 df_prio_table,
@@ -744,24 +737,24 @@ def main():
     # ABA PRODUTIVIDADE POR NÚCLEO (LOOKER STUDIO DA 2ª FOTO)
     with tab_prod:
         # Cálculo dos KPIs de Produtividade baseados no filtro global
-        if 'status' in df_macro.columns and not df_macro.empty:
+        if 'status' in df_macro.columns:
             val_analisados = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() != 'pendente'])
             val_acervo_pen = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
             val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
         else:
-            val_analisados = 8223
-            val_acervo_pen = 6369
-            val_devolvidos = 2553
+            val_analisados = 0
+            val_acervo_pen = 0
+            val_devolvidos = 0
 
-        if 'prioridades' in df_macro.columns and not df_macro.empty:
-            val_prioridades = len(df_macro[df_macro['prioridades'].isin(['Super prioridade', 'Prioridade Legal'])])
+        if 'prioridades' in df_macro.columns:
+            val_prioridades = len(df_macro[df_macro['prioridades'].astype(str).str.strip().str.lower().isin(['super prioridade', 'prioridade legal'])])
         else:
-            val_prioridades = 4968
+            val_prioridades = 0
 
-        if 'valor_custas' in df_macro.columns and not df_macro.empty and df_macro['valor_custas'].sum() > 0:
+        if 'valor_custas' in df_macro.columns:
             val_custas = df_macro['valor_custas'].sum()
         else:
-            val_custas = 7994093.58
+            val_custas = 0.0
 
         # 1. KPIs Superiores
         kp1, kp2, kp3, kp4, kp5 = st.columns(5)
