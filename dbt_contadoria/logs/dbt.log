@@ -34454,3 +34454,368 @@ drop table if exists "postgres"."gold"."gld_processos_pendentes__dbt_backup" cas
 [0m05:50:47.899240 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000266A9494730>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000266A93AB6E0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000266A89BD4D0>]}
 [0m05:50:47.899878 [debug] [MainThread]: Flushing usage events
 [0m05:50:49.423176 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m06:40:06.610385 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029346C7D400>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000293435D7390>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029347723610>]}
+
+
+============================== 06:40:06.619566 | e3399e07-02f8-4c4f-9b68-36ee07a74ef1 ==============================
+[0m06:40:06.619566 [info ] [MainThread]: Running with dbt=1.11.8
+[0m06:40:06.621018 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'dbt_contadoria', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'use_colors': 'True', 'invocation_command': 'dbt run --profiles-dir dbt_contadoria --project-dir dbt_contadoria', 'use_experimental_parser': 'False', 'log_path': 'dbt_contadoria\\logs'}
+[0m06:40:06.998175 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029347144C30>]}
+[0m06:40:07.073052 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029348EF8C00>]}
+[0m06:40:07.075700 [info ] [MainThread]: Registered adapter: postgres=1.10.0
+[0m06:40:07.693256 [debug] [MainThread]: checksum: 7d524ac048c2100769df89d592e662e060a73ca564e31bd9c2a37efdfe8d8ab6, vars: {}, profile: , target: , version: 1.11.8
+[0m06:40:10.281189 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m06:40:10.281655 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m06:40:10.281947 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m06:40:10.286584 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.dbt_contadoria.bronze
+[0m06:40:10.341615 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002934932EA50>]}
+[0m06:40:10.503325 [debug] [MainThread]: Wrote artifact WritableManifest to dbt_contadoria\target\manifest.json
+[0m06:40:10.506766 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt_contadoria\target\semantic_manifest.json
+[0m06:40:10.535636 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002934638D8B0>]}
+[0m06:40:10.536460 [info ] [MainThread]: Found 2 models, 1 test, 6 sources, 466 macros
+[0m06:40:10.537765 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029348FD4590>]}
+[0m06:40:10.540923 [info ] [MainThread]: 
+[0m06:40:10.541599 [info ] [MainThread]: Concurrency: 2 threads (target='dev')
+[0m06:40:10.542113 [info ] [MainThread]: 
+[0m06:40:10.542850 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m06:40:10.548243 [debug] [ThreadPool]: Acquiring new postgres connection 'list_postgres'
+[0m06:40:10.566192 [debug] [ThreadPool]: Acquiring new postgres connection 'list_postgres'
+[0m06:40:15.012035 [debug] [ThreadPool]: Using postgres connection "list_postgres"
+[0m06:40:15.012654 [debug] [ThreadPool]: Using postgres connection "list_postgres"
+[0m06:40:15.013342 [debug] [ThreadPool]: On list_postgres: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "connection_name": "list_postgres"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m06:40:15.013985 [debug] [ThreadPool]: On list_postgres: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "connection_name": "list_postgres"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m06:40:15.014487 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m06:40:15.014936 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m06:40:16.424670 [debug] [ThreadPool]: SQL status: SELECT 133 in 1.410 seconds
+[0m06:40:16.427926 [debug] [ThreadPool]: SQL status: SELECT 133 in 1.413 seconds
+[0m06:40:16.430674 [debug] [ThreadPool]: On list_postgres: Close
+[0m06:40:16.433165 [debug] [ThreadPool]: On list_postgres: Close
+[0m06:40:16.435768 [debug] [ThreadPool]: Acquiring new postgres connection 'list_postgres_gold'
+[0m06:40:16.442330 [debug] [ThreadPool]: Using postgres connection "list_postgres_gold"
+[0m06:40:16.442775 [debug] [ThreadPool]: On list_postgres_gold: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "connection_name": "list_postgres_gold"} */
+select
+      'postgres' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'gold'
+    union all
+    select
+      'postgres' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'gold'
+    union all
+    select
+      'postgres' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'gold'
+  
+[0m06:40:16.443259 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m06:40:16.444147 [debug] [ThreadPool]: Acquiring new postgres connection 'list_postgres_silver'
+[0m06:40:16.446673 [debug] [ThreadPool]: Using postgres connection "list_postgres_silver"
+[0m06:40:16.448155 [debug] [ThreadPool]: On list_postgres_silver: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "connection_name": "list_postgres_silver"} */
+select
+      'postgres' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'silver'
+    union all
+    select
+      'postgres' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'silver'
+    union all
+    select
+      'postgres' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'silver'
+  
+[0m06:40:16.448770 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m06:40:17.517579 [debug] [ThreadPool]: SQL status: SELECT 1 in 1.069 seconds
+[0m06:40:17.519064 [debug] [ThreadPool]: SQL status: SELECT 1 in 1.076 seconds
+[0m06:40:17.522322 [debug] [ThreadPool]: On list_postgres_silver: ROLLBACK
+[0m06:40:17.525153 [debug] [ThreadPool]: On list_postgres_gold: ROLLBACK
+[0m06:40:17.648905 [debug] [ThreadPool]: On list_postgres_silver: Close
+[0m06:40:17.650150 [debug] [ThreadPool]: On list_postgres_gold: Close
+[0m06:40:17.661555 [debug] [MainThread]: Using postgres connection "master"
+[0m06:40:17.662201 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "connection_name": "master"} */
+select distinct
+        dependent_namespace.nspname as dependent_schema,
+        dependent_class.relname as dependent_name,
+        referenced_namespace.nspname as referenced_schema,
+        referenced_class.relname as referenced_name
+
+    -- Query for views: views are entries in pg_class with an entry in pg_rewrite, but we avoid
+    -- a seq scan on pg_rewrite by leveraging the fact there is an "internal" row in pg_depend for
+    -- the view...
+    from pg_class as dependent_class
+    join pg_namespace as dependent_namespace on dependent_namespace.oid = dependent_class.relnamespace
+    join pg_depend as dependent_depend on dependent_depend.refobjid = dependent_class.oid
+        and dependent_depend.classid = 'pg_rewrite'::regclass
+        and dependent_depend.refclassid = 'pg_class'::regclass
+        and dependent_depend.deptype = 'i'
+
+    -- ... and via pg_depend (that has a row per column, hence the need for "distinct" above, and
+    -- making sure to exclude the internal row to avoid a view appearing to depend on itself)...
+    join pg_depend as joining_depend on joining_depend.objid = dependent_depend.objid
+        and joining_depend.classid = 'pg_rewrite'::regclass
+        and joining_depend.refclassid = 'pg_class'::regclass
+        and joining_depend.refobjid != dependent_depend.refobjid
+
+    -- ... we can find the tables they query from in pg_class, but excluding system tables. Note we
+    -- don't need need to exclude _dependent_ system tables, because they only query from other
+    -- system tables, and so are automatically excluded by excluding _referenced_ system tables
+    join pg_class as referenced_class on referenced_class.oid = joining_depend.refobjid
+    join pg_namespace as referenced_namespace on referenced_namespace.oid = referenced_class.relnamespace
+        and referenced_namespace.nspname != 'information_schema'
+        and referenced_namespace.nspname not like 'pg\_%'
+
+    order by
+        dependent_schema, dependent_name, referenced_schema, referenced_name;
+[0m06:40:17.662722 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m06:40:19.286038 [debug] [MainThread]: SQL status: SELECT 2 in 1.623 seconds
+[0m06:40:19.290379 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000293496DE5B0>]}
+[0m06:40:19.291091 [debug] [MainThread]: On master: ROLLBACK
+[0m06:40:19.605916 [debug] [MainThread]: On master: COMMIT
+[0m06:40:19.607186 [debug] [MainThread]: Using postgres connection "master"
+[0m06:40:19.608398 [debug] [MainThread]: On master: COMMIT
+[0m06:40:19.816278 [debug] [MainThread]: SQL status: COMMIT in 0.207 seconds
+[0m06:40:19.817642 [debug] [MainThread]: On master: Close
+[0m06:40:19.842195 [debug] [Thread-1 (]: Began running node model.dbt_contadoria.slv_processos
+[0m06:40:19.842840 [info ] [Thread-1 (]: 1 of 2 START sql table model silver.slv_processos .............................. [RUN]
+[0m06:40:19.843697 [debug] [Thread-1 (]: Acquiring new postgres connection 'model.dbt_contadoria.slv_processos'
+[0m06:40:19.844205 [debug] [Thread-1 (]: Began compiling node model.dbt_contadoria.slv_processos
+[0m06:40:19.853434 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_contadoria.slv_processos"
+[0m06:40:19.854789 [debug] [Thread-1 (]: Began executing node model.dbt_contadoria.slv_processos
+[0m06:40:19.900846 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_contadoria.slv_processos"
+[0m06:40:19.902237 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:19.902956 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+
+  
+    
+
+  create  table "postgres"."silver"."slv_processos__dbt_tmp"
+  
+  
+    as
+  
+  (
+    
+
+WITH base_processos AS (
+    SELECT * FROM "postgres"."bronze"."processes"
+),
+base_users AS (
+    SELECT * FROM "postgres"."bronze"."users"
+),
+base_status AS (
+    SELECT * FROM "postgres"."bronze"."status"
+)
+
+SELECT
+    p.position AS posicao,
+    p.priority_position AS posicao_prioridade,
+    p.number AS processo_numero,
+    p.entry_date AS data_remessa,
+    u.name AS Calculista,  -- Substituindo ID pelo Nome (coluna 'name' em users)
+    p.status AS status_atual,   -- Usando a coluna 'status' diretamente de processes
+    COALESCE(p.pje, true) AS pje,
+    
+    -- Lógica da Coluna Meta
+    CASE 
+        WHEN p.status IN (
+            'Cálculo atualizado', 
+            'Cálculo realizado', 
+            'Devolvido: ausência de documentos para os cálculos', 
+            'Devolvido: ausência de parâmetros', 
+            'Devolvido: Beneficiário da Justiça Gratuita', 
+            'Devolvido: Custas Satisfeitas', 
+            'Devolvido: esclarecimento realizado', 
+            'Partilha Realizada'
+        ) THEN 1
+        ELSE 0
+    END AS meta,
+    
+    -- Cálculo de Dias Parado
+    CASE 
+        WHEN p.status = 'Pendente' THEN CURRENT_DATE - p.entry_date::date
+        ELSE p.completion_date::date - p.entry_date::date
+    END AS dias_parado,
+    
+    p.court AS vara,
+    p.nucleus AS nucleo,
+    p.priority AS prioridade,
+    p.completion_date AS data_conclusao,
+    p.valor_custas,
+    p.observacao,
+    p.created_at,
+    COALESCE(p.updated_at, NOW()) AS updated_at
+
+FROM base_processos p
+LEFT JOIN base_users u ON p.assigned_to_id = u.id  -- Corrigido para assigned_to_id
+  );
+  
+[0m06:40:19.903664 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m06:40:37.527220 [debug] [Thread-1 (]: SQL status: SELECT 233363 in 17.623 seconds
+[0m06:40:37.542637 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:37.543086 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+alter table "postgres"."silver"."slv_processos" rename to "slv_processos__dbt_backup"
+[0m06:40:37.731120 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.187 seconds
+[0m06:40:37.736548 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:37.737513 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+alter table "postgres"."silver"."slv_processos__dbt_tmp" rename to "slv_processos"
+[0m06:40:37.844885 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.106 seconds
+[0m06:40:37.849731 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:37.850192 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+
+        CREATE INDEX IF NOT EXISTS idx_slv_processos_status ON "postgres"."silver"."slv_processos" (status_atual)
+      
+[0m06:40:38.005177 [debug] [Thread-1 (]: SQL status: CREATE INDEX in 0.154 seconds
+[0m06:40:38.009812 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:38.010736 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+
+        CREATE INDEX IF NOT EXISTS idx_slv_processos_calculista ON "postgres"."silver"."slv_processos" (calculista)
+      
+[0m06:40:38.118312 [debug] [Thread-1 (]: SQL status: CREATE INDEX in 0.107 seconds
+[0m06:40:38.122875 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:38.123933 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+
+        CREATE INDEX IF NOT EXISTS idx_slv_processos_nucleo ON "postgres"."silver"."slv_processos" (nucleo)
+      
+[0m06:40:38.254246 [debug] [Thread-1 (]: SQL status: CREATE INDEX in 0.129 seconds
+[0m06:40:38.259144 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:38.260237 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+
+        CREATE INDEX IF NOT EXISTS idx_slv_processos_vara ON "postgres"."silver"."slv_processos" (vara)
+      
+[0m06:40:38.365613 [debug] [Thread-1 (]: SQL status: CREATE INDEX in 0.104 seconds
+[0m06:40:38.391196 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: COMMIT
+[0m06:40:38.391679 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:38.392035 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: COMMIT
+[0m06:40:38.510038 [debug] [Thread-1 (]: SQL status: COMMIT in 0.117 seconds
+[0m06:40:38.521114 [debug] [Thread-1 (]: Applying DROP to: "postgres"."silver"."slv_processos__dbt_backup"
+[0m06:40:38.525435 [debug] [Thread-1 (]: Using postgres connection "model.dbt_contadoria.slv_processos"
+[0m06:40:38.525851 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.slv_processos"} */
+drop table if exists "postgres"."silver"."slv_processos__dbt_backup" cascade
+[0m06:40:38.805771 [debug] [Thread-1 (]: SQL status: DROP TABLE in 0.279 seconds
+[0m06:40:38.812448 [debug] [Thread-1 (]: On model.dbt_contadoria.slv_processos: Close
+[0m06:40:38.816437 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002934957EBD0>]}
+[0m06:40:38.818182 [info ] [Thread-1 (]: 1 of 2 OK created sql table model silver.slv_processos ......................... [[32mSELECT 233363[0m in 18.97s]
+[0m06:40:38.819547 [debug] [Thread-1 (]: Finished running node model.dbt_contadoria.slv_processos
+[0m06:40:38.820506 [debug] [Thread-2 (]: Began running node model.dbt_contadoria.gld_processos_pendentes
+[0m06:40:38.821170 [info ] [Thread-2 (]: 2 of 2 START sql table model gold.gld_processos_pendentes ...................... [RUN]
+[0m06:40:38.822321 [debug] [Thread-2 (]: Acquiring new postgres connection 'model.dbt_contadoria.gld_processos_pendentes'
+[0m06:40:38.822904 [debug] [Thread-2 (]: Began compiling node model.dbt_contadoria.gld_processos_pendentes
+[0m06:40:38.829554 [debug] [Thread-2 (]: Writing injected SQL for node "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:38.831641 [debug] [Thread-2 (]: Began executing node model.dbt_contadoria.gld_processos_pendentes
+[0m06:40:38.836138 [debug] [Thread-2 (]: Writing runtime sql for node "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:38.839558 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:38.840686 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+
+  
+    
+
+  create  table "postgres"."gold"."gld_processos_pendentes__dbt_tmp"
+  
+  
+    as
+  
+  (
+    
+
+SELECT *
+FROM "postgres"."silver"."slv_processos"
+WHERE status_atual = 'Pendente'
+  );
+  
+[0m06:40:38.841677 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m06:40:43.446923 [debug] [Thread-2 (]: SQL status: SELECT 6634 in 4.605 seconds
+[0m06:40:43.459102 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:43.459599 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+alter table "postgres"."gold"."gld_processos_pendentes" rename to "gld_processos_pendentes__dbt_backup"
+[0m06:40:43.769291 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.309 seconds
+[0m06:40:43.775106 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:43.775514 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+alter table "postgres"."gold"."gld_processos_pendentes__dbt_tmp" rename to "gld_processos_pendentes"
+[0m06:40:43.921653 [debug] [Thread-2 (]: SQL status: ALTER TABLE in 0.145 seconds
+[0m06:40:43.926403 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:43.926917 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+
+        CREATE INDEX IF NOT EXISTS idx_gld_processos_calculista ON "postgres"."gold"."gld_processos_pendentes" (calculista)
+      
+[0m06:40:44.044947 [debug] [Thread-2 (]: SQL status: CREATE INDEX in 0.117 seconds
+[0m06:40:44.050025 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:44.050996 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+
+        CREATE INDEX IF NOT EXISTS idx_gld_processos_nucleo ON "postgres"."gold"."gld_processos_pendentes" (nucleo)
+      
+[0m06:40:44.176383 [debug] [Thread-2 (]: SQL status: CREATE INDEX in 0.124 seconds
+[0m06:40:44.180997 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:44.181906 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+
+        CREATE INDEX IF NOT EXISTS idx_gld_processos_vara ON "postgres"."gold"."gld_processos_pendentes" (vara)
+      
+[0m06:40:44.289132 [debug] [Thread-2 (]: SQL status: CREATE INDEX in 0.106 seconds
+[0m06:40:44.292589 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: COMMIT
+[0m06:40:44.293525 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:44.294387 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: COMMIT
+[0m06:40:44.418340 [debug] [Thread-2 (]: SQL status: COMMIT in 0.123 seconds
+[0m06:40:44.422356 [debug] [Thread-2 (]: Applying DROP to: "postgres"."gold"."gld_processos_pendentes__dbt_backup"
+[0m06:40:44.422961 [debug] [Thread-2 (]: Using postgres connection "model.dbt_contadoria.gld_processos_pendentes"
+[0m06:40:44.423347 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "contadoria_dw", "target_name": "dev", "node_id": "model.dbt_contadoria.gld_processos_pendentes"} */
+drop table if exists "postgres"."gold"."gld_processos_pendentes__dbt_backup" cascade
+[0m06:40:44.719189 [debug] [Thread-2 (]: SQL status: DROP TABLE in 0.295 seconds
+[0m06:40:44.723279 [debug] [Thread-2 (]: On model.dbt_contadoria.gld_processos_pendentes: Close
+[0m06:40:44.725259 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'e3399e07-02f8-4c4f-9b68-36ee07a74ef1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029349572E60>]}
+[0m06:40:44.726738 [info ] [Thread-2 (]: 2 of 2 OK created sql table model gold.gld_processos_pendentes ................. [[32mSELECT 6634[0m in 5.90s]
+[0m06:40:44.728371 [debug] [Thread-2 (]: Finished running node model.dbt_contadoria.gld_processos_pendentes
+[0m06:40:44.730204 [debug] [MainThread]: On master: COMMIT
+[0m06:40:44.730743 [debug] [MainThread]: Using postgres connection "master"
+[0m06:40:44.731120 [debug] [MainThread]: On master: COMMIT
+[0m06:40:44.731480 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m06:40:45.746492 [debug] [MainThread]: SQL status: COMMIT in 1.015 seconds
+[0m06:40:45.747931 [debug] [MainThread]: On master: Close
+[0m06:40:45.749890 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m06:40:45.750561 [debug] [MainThread]: Connection 'list_postgres' was properly closed.
+[0m06:40:45.750997 [debug] [MainThread]: Connection 'list_postgres' was properly closed.
+[0m06:40:45.751296 [debug] [MainThread]: Connection 'list_postgres_gold' was properly closed.
+[0m06:40:45.751577 [debug] [MainThread]: Connection 'list_postgres_silver' was properly closed.
+[0m06:40:45.751867 [debug] [MainThread]: Connection 'model.dbt_contadoria.slv_processos' was properly closed.
+[0m06:40:45.752116 [debug] [MainThread]: Connection 'model.dbt_contadoria.gld_processos_pendentes' was properly closed.
+[0m06:40:45.752471 [info ] [MainThread]: 
+[0m06:40:45.752959 [info ] [MainThread]: Finished running 2 table models in 0 hours 0 minutes and 35.21 seconds (35.21s).
+[0m06:40:45.754368 [debug] [MainThread]: Command end result
+[0m06:40:45.789979 [debug] [MainThread]: Wrote artifact WritableManifest to dbt_contadoria\target\manifest.json
+[0m06:40:45.793249 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt_contadoria\target\semantic_manifest.json
+[0m06:40:45.802747 [debug] [MainThread]: Wrote artifact RunExecutionResult to dbt_contadoria\target\run_results.json
+[0m06:40:45.803393 [info ] [MainThread]: 
+[0m06:40:45.804330 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m06:40:45.805111 [info ] [MainThread]: 
+[0m06:40:45.805872 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=2
+[0m06:40:45.807924 [debug] [MainThread]: Command `dbt run` succeeded at 06:40:45.807575 after 39.57 seconds
+[0m06:40:45.808843 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002934989C690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000293497B75C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029348E6D4D0>]}
+[0m06:40:45.809455 [debug] [MainThread]: Flushing usage events
+[0m06:40:48.002412 [debug] [MainThread]: An error was encountered while trying to flush usage events

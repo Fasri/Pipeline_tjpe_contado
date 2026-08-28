@@ -4,7 +4,7 @@ import os
 import requests
 from io import StringIO
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
@@ -379,42 +379,21 @@ def main():
     st.sidebar.markdown("### 🎛️ Filtros Globais")
     st.sidebar.caption(f"Fonte de Dados: **{data_source}**")
 
-    # Filtro por Status (Com 'Pendente' selecionado por padrão para focar no Acervo Pendente)
+    # 1. Filtro por Cumprimento / Status do Processo
     todos_status = sorted(df['status'].dropna().unique().tolist()) if 'status' in df.columns else []
     default_status = ['Pendente'] if 'Pendente' in todos_status else todos_status
     selected_status = st.sidebar.multiselect(
-        "Status do Processo", 
+        "📊 Status / Cumprimento", 
         options=todos_status, 
         default=default_status,
         help="Por padrão exibe o Acervo Pendente (6.369 processos). Selecione outros status para consultar históricos."
     )
 
-    # Filtro por Núcleo
-    todos_nucleos = sorted(df['nucleo'].dropna().unique().tolist()) if 'nucleo' in df.columns else []
-    selected_nucleos = st.sidebar.multiselect("Núcleo da Contadoria", options=todos_nucleos, default=todos_nucleos)
-
-    # Filtro por Calculista
-    todos_calculistas = sorted([c for c in df['calculista'].dropna().unique().tolist() if str(c).strip() != '']) if 'calculista' in df.columns else []
-    selected_calculistas = st.sidebar.multiselect(
-        "👤 Calculista Responsável", 
-        options=todos_calculistas, 
-        default=[],
-        placeholder="Selecione ou digite o nome..."
-    )
-
-    # Filtro por Prioridade
-    todas_prioridades = sorted(df['prioridades'].dropna().unique().tolist()) if 'prioridades' in df.columns else []
-    selected_prioridades = st.sidebar.multiselect("Nível de Prioridade", options=todas_prioridades, default=todas_prioridades)
-
-    # Filtro por Faixa de SLA
-    faixas_ordenadas = ["< 15 dias", "15 a 30 dias", "31 a 60 dias", "> 60 dias (Crítico)"]
-    selected_faixas = st.sidebar.multiselect("Faixa de SLA (Dias em Aberto)", options=faixas_ordenadas, default=faixas_ordenadas)
-
     # Callback para limpar a busca de forma segura no Streamlit
     def reset_busca():
         st.session_state["busca_processo"] = ""
 
-    # Busca por número do processo com botão de limpar
+    # 2. Busca por número do processo com botão de limpar
     col_input, col_clear_btn = st.sidebar.columns([0.78, 0.22])
     with col_input:
         busca_processo = st.text_input(
@@ -429,20 +408,100 @@ def main():
     if st.session_state.get("busca_processo"):
         st.sidebar.button("❌ Limpar filtro de busca", on_click=reset_busca)
 
-    # Aplicar Filtros Globais ao Dataframe (Acervo Pendente ou selecionados)
-    df_filtered = df.copy()
+    # 3. Filtro por Calculista Responsável
+    todos_calculistas = sorted([c for c in df['calculista'].dropna().unique().tolist() if str(c).strip() != '']) if 'calculista' in df.columns else []
+    selected_calculistas = st.sidebar.multiselect(
+        "👤 Calculista Responsável", 
+        options=todos_calculistas, 
+        default=[],
+        placeholder="Selecione ou digite o nome..."
+    )
+
+    # 4. Filtro Temporal de Tempo (Presets & Calendário)
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 📅 Filtro de Tempo / Período")
+    
+    opcao_periodo_sidebar = st.sidebar.selectbox(
+        "Selecione o Período",
+        options=["Todo o Período", "Hoje", "1 Mês", "Ano Atual", "Personalizado (Calendário)"],
+        index=0,
+        help="Escolha um período pré-definido ou use o calendário para filtrar por intervalo de datas."
+    )
+
+    hoje_date = datetime.now().date()
+    if 'data_dt' in df.columns and not df['data_dt'].dropna().empty:
+        min_date_base = df['data_dt'].min().date()
+        max_date_base = df['data_dt'].max().date()
+        if max_date_base < hoje_date:
+            max_date_base = hoje_date
+    else:
+        min_date_base = date(2020, 1, 1)
+        max_date_base = hoje_date
+
+    if opcao_periodo_sidebar == "Hoje":
+        start_date, end_date = hoje_date, hoje_date
+    elif opcao_periodo_sidebar == "1 Mês":
+        start_date, end_date = hoje_date - timedelta(days=30), hoje_date
+    elif opcao_periodo_sidebar == "Ano Atual":
+        start_date, end_date = date(hoje_date.year, 1, 1), hoje_date
+    elif opcao_periodo_sidebar == "Personalizado (Calendário)":
+        dates_selected = st.sidebar.date_input(
+            "🗓️ Escolha as datas (Inicial e Final):",
+            value=(min_date_base, max_date_base),
+            min_value=min_date_base,
+            max_value=max_date_base,
+            format="DD/MM/YYYY"
+        )
+        if isinstance(dates_selected, (tuple, list)) and len(dates_selected) == 2:
+            start_date, end_date = dates_selected[0], dates_selected[1]
+        elif isinstance(dates_selected, (tuple, list)) and len(dates_selected) == 1:
+            start_date, end_date = dates_selected[0], dates_selected[0]
+        else:
+            start_date, end_date = min_date_base, max_date_base
+    else:
+        start_date, end_date = min_date_base, max_date_base
+
+    if opcao_periodo_sidebar != "Todo o Período":
+        st.sidebar.caption(f"📌 Intervalo: **{start_date.strftime('%d/%m/%Y')}** a **{end_date.strftime('%d/%m/%Y')}**")
+
+    # 5. Outros Filtros Globais (Núcleo, Prioridade, Faixa SLA)
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### ⚙️ Outros Filtros")
+
+    # Filtro por Núcleo
+    todos_nucleos = sorted(df['nucleo'].dropna().unique().tolist()) if 'nucleo' in df.columns else []
+    selected_nucleos = st.sidebar.multiselect("Núcleo da Contadoria", options=todos_nucleos, default=todos_nucleos)
+
+    # Filtro por Prioridade
+    todas_prioridades = sorted(df['prioridades'].dropna().unique().tolist()) if 'prioridades' in df.columns else []
+    selected_prioridades = st.sidebar.multiselect("Nível de Prioridade", options=todas_prioridades, default=todas_prioridades)
+
+    # Filtro por Faixa de SLA
+    faixas_ordenadas = ["< 15 dias", "15 a 30 dias", "31 a 60 dias", "> 60 dias (Crítico)"]
+    selected_faixas = st.sidebar.multiselect("Faixa de SLA (Dias em Aberto)", options=faixas_ordenadas, default=faixas_ordenadas)
+
+    # Base Macro (Filtros Laterais exceto Status, para Visão Geral e Produtividade)
+    df_macro = df.copy()
+    if selected_nucleos and 'nucleo' in df_macro.columns:
+        df_macro = df_macro[df_macro['nucleo'].isin(selected_nucleos)]
+    if selected_calculistas and 'calculista' in df_macro.columns:
+        df_macro = df_macro[df_macro['calculista'].isin(selected_calculistas)]
+    if selected_prioridades and 'prioridades' in df_macro.columns:
+        df_macro = df_macro[df_macro['prioridades'].isin(selected_prioridades)]
+    if selected_faixas and 'faixa_sla' in df_macro.columns:
+        df_macro = df_macro[df_macro['faixa_sla'].isin(selected_faixas)]
+    if opcao_periodo_sidebar != "Todo o Período" and 'data_dt' in df_macro.columns:
+        df_macro = df_macro[
+            (df_macro['data_dt'].dt.date >= start_date) & 
+            (df_macro['data_dt'].dt.date <= end_date)
+        ]
+    if st.session_state.get("busca_processo"):
+        df_macro = df_macro[df_macro['processo'].astype(str).str.contains(st.session_state["busca_processo"], case=False, na=False)]
+
+    # Base Filtrada (Aplica também o Filtro por Status selecionado)
+    df_filtered = df_macro.copy()
     if selected_status and 'status' in df_filtered.columns:
         df_filtered = df_filtered[df_filtered['status'].isin(selected_status)]
-    if selected_nucleos and 'nucleo' in df_filtered.columns:
-        df_filtered = df_filtered[df_filtered['nucleo'].isin(selected_nucleos)]
-    if selected_calculistas and 'calculista' in df_filtered.columns:
-        df_filtered = df_filtered[df_filtered['calculista'].isin(selected_calculistas)]
-    if selected_prioridades and 'prioridades' in df_filtered.columns:
-        df_filtered = df_filtered[df_filtered['prioridades'].isin(selected_prioridades)]
-    if selected_faixas and 'faixa_sla' in df_filtered.columns:
-        df_filtered = df_filtered[df_filtered['faixa_sla'].isin(selected_faixas)]
-    if st.session_state.get("busca_processo"):
-        df_filtered = df_filtered[df_filtered['processo'].astype(str).str.contains(st.session_state["busca_processo"], case=False, na=False)]
 
     # Recalcular posições relativas do acervo pendente filtrado se aplicável
     if 'Pendente' in selected_status and len(selected_status) == 1:
@@ -470,78 +529,49 @@ def main():
 
     # ABA INFORMAÇÕES GERAIS (ESTILO LOOKER STUDIO DA 1ª FOTO)
     with tab_geral:
-        col_per, _ = st.columns([4, 6])
-        with col_per:
-            opcao_periodo = st.selectbox(
-                "🗓️ Selecionar período", 
-                options=["Geral (Todo o Período)", "Últimos 15 dias", "Últimos 30 dias", "Últimos 60 dias", "Ano Atual (2026)"], 
-                index=0,
-                key="periodo_geral"
-            )
-
-        # Base macro sem restrição de status para os cards da visão geral
-        df_macro = df.copy()
-        if selected_nucleos and 'nucleo' in df_macro.columns:
-            df_macro = df_macro[df_macro['nucleo'].isin(selected_nucleos)]
-
-        if "data_dt" in df_macro.columns and not df_macro.empty:
-            if opcao_periodo == "Últimos 15 dias":
-                df_macro = df_macro[df_macro['dias_aberto'] <= 15]
-            elif opcao_periodo == "Últimos 30 dias":
-                df_macro = df_macro[df_macro['dias_aberto'] <= 30]
-            elif opcao_periodo == "Últimos 60 dias":
-                df_macro = df_macro[df_macro['dias_aberto'] <= 60]
-            elif opcao_periodo == "Ano Atual (2026)":
-                df_macro = df_macro[df_macro['data_dt'].dt.year == 2026]
-
         total_base = len(df) if len(df) > 0 else 1
         total_atual = len(df_macro)
         ratio_factor = total_atual / total_base
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        c_left, c_right = st.columns([4.2, 5.8])
+        # 1. Cálculo das métricas macro
+        if 'status' in df_macro.columns and not df_macro.empty:
+            val_pendentes = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
+            val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
+            val_recebidos = len(df_macro)
+            val_analisados = len(df_macro[~df_macro['status'].astype(str).str.lower().str.strip().isin(['pendente'])])
+        else:
+            val_recebidos = int(232276 * ratio_factor)
+            val_analisados = int(225907 * ratio_factor)
+            val_pendentes = int(6369 * ratio_factor)
+            val_devolvidos = int(66332 * ratio_factor)
+
+        if 'valor_custas' in df_macro.columns and df_macro['valor_custas'].sum() > 0:
+            val_custas = df_macro['valor_custas'].sum() / 1e6
+        else:
+            val_custas = 239.44 * ratio_factor
+
+        # Topo: 5 Cards de KPIs Executivos perfeitamente equilibrados em linha
+        k1, k2, k3, k4, k5 = st.columns(5)
+        with k1:
+            st.metric("RECEBIDOS", f"{val_recebidos:,}".replace(',', '.'))
+        with k2:
+            st.metric("ANALISADOS", f"{val_analisados:,}".replace(',', '.'))
+        with k3:
+            st.metric("PENDENTES", f"{val_pendentes:,}".replace(',', '.'))
+        with k4:
+            st.metric("DEVOLVIDOS", f"{val_devolvidos:,}".replace(',', '.'))
+        with k5:
+            val_custas_str = f"R$ {val_custas:,.2f} mi".replace(',', 'X').replace('.', ',').replace('X', '.')
+            st.metric("VALOR TOTAL DEVIDO", val_custas_str)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Meio: 2 Colunas simétricas (Treemap de Pendentes Lado a Lado com Prioridades)
+        c_left, c_right = st.columns([5.5, 4.5])
 
         with c_left:
-            # Cálculo dos 4 cards executivos da visão geral
-            if 'status' in df_macro.columns and not df_macro.empty:
-                val_pendentes = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
-                val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
-                val_recebidos = len(df_macro)
-                val_analisados = len(df_macro[~df_macro['status'].astype(str).str.lower().str.strip().isin(['pendente'])])
-            else:
-                val_recebidos = int(232276 * ratio_factor)
-                val_analisados = int(225907 * ratio_factor)
-                val_pendentes = int(6369 * ratio_factor)
-                val_devolvidos = int(66332 * ratio_factor)
-
-            if 'valor_custas' in df_macro.columns and df_macro['valor_custas'].sum() > 0:
-                val_custas = df_macro['valor_custas'].sum() / 1e6
-            else:
-                val_custas = 239.44 * ratio_factor
-
-            # Matriz de KPIs 2x2
-            k_rec, k_ana = st.columns(2)
-            with k_rec:
-                st.metric("RECEBIDOS", f"{val_recebidos:,}".replace(',', '.'))
-            with k_ana:
-                st.metric("ANALISADOS", f"{val_analisados:,}".replace(',', '.'))
-            
-            k_pen, k_dev = st.columns(2)
-            with k_pen:
-                st.metric("PENDENTES", f"{val_pendentes:,}".replace(',', '.'))
-            with k_dev:
-                st.metric("DEVOLVIDOS", f"{val_devolvidos:,}".replace(',', '.'))
-
-            # Card grande em destaque (Valor Total Devido)
-            st.markdown(f"""
-                <div class="metric-big-card">
-                    <div class="metric-big-title">Valor Total Devido - Custas</div>
-                    <div class="metric-big-val">R$ {val_custas:,.2f} mi</div>
-                </div>
-            """.replace(',', 'X').replace('.', ',').replace('X', '.'), unsafe_allow_html=True)
-
-        with c_right:
             st.markdown("#### 🌳 Pendentes por Núcleo (Acervo Real)")
             df_macro_pend = df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_macro.columns else df_macro
             
@@ -571,10 +601,11 @@ def main():
                 plot_bgcolor='rgba(0,0,0,0)',
                 coloraxis_showscale=False,
                 margin=dict(t=10, b=10, l=10, r=10),
-                height=310
+                height=340
             )
             st.plotly_chart(fig_looker_tree, use_container_width=True)
 
+        with c_right:
             st.markdown("#### 📋 Prioridades")
             if 'prioridades' in df_macro_pend.columns and not df_macro_pend.empty:
                 prio_counts = df_macro_pend['prioridades'].value_counts().reset_index()
@@ -607,7 +638,7 @@ def main():
                 coloraxis_showscale=False,
                 yaxis=dict(autorange="reversed"),
                 margin=dict(t=10, b=10, l=10, r=10),
-                height=250
+                height=340
             )
             fig_prio_bar.update_traces(texttemplate='%{text:,}', textposition='outside')
             st.plotly_chart(fig_prio_bar, use_container_width=True)
@@ -650,38 +681,38 @@ def main():
 
     # ABA PRODUTIVIDADE POR NÚCLEO (LOOKER STUDIO DA 2ª FOTO)
     with tab_prod:
-        f1, f2, f3 = st.columns([3, 3, 4])
-        with f1:
-            sel_nuc_prod = st.selectbox("Núcleo", options=["Todos os Núcleos"] + todos_nucleos, key="sel_nuc_prod")
-        with f2:
-            all_calcs = sorted(df['calculista'].dropna().unique().tolist()) if 'calculista' in df.columns else []
-            calculistas_list = all_calcs if all_calcs else [
-                "Jose Helton De Lima Castro", "Rodrigo Ferreira Borges Da Costa",
-                "Adriana Barbosa Lopes", "Niedja Maria Albuquerque Lopes",
-                "Scheilla Serretti De Castro", "Katia Karina Medeiros Lisbos",
-                "Rodrigo Falcao Lopes De Lima", "Maria Simone Nascimento Carreiro",
-                "Jonas Ferreira Da Paixao", "Priscilla Goncalves D De Melo"
-            ]
-            sel_calc = st.selectbox("Calculista", options=["Todos os Calculistas"] + calculistas_list, key="sel_calc")
-        with f3:
-            periodo_prod = st.selectbox("Período de Análise", options=["1 de ago. de 2026 - 26 de ago. de 2026", "Últimos 30 dias", "Ano Atual (2026)"], key="periodo_prod")
+        # Cálculo dos KPIs de Produtividade baseados no filtro global
+        if 'status' in df_macro.columns and not df_macro.empty:
+            val_analisados = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() != 'pendente'])
+            val_acervo_pen = len(df_macro[df_macro['status'].astype(str).str.lower().str.strip() == 'pendente'])
+            val_devolvidos = len(df_macro[df_macro['status'].astype(str).str.contains('Devolvido', case=False, na=False)])
+        else:
+            val_analisados = 8223
+            val_acervo_pen = 6369
+            val_devolvidos = 2553
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        if 'prioridades' in df_macro.columns and not df_macro.empty:
+            val_prioridades = len(df_macro[df_macro['prioridades'].isin(['Super prioridade', 'Prioridade Legal'])])
+        else:
+            val_prioridades = 4968
 
-        val_acervo_pen = len(df[df['status'].astype(str).str.lower().str.strip() == 'pendente']) if 'status' in df.columns else 6369
+        if 'valor_custas' in df_macro.columns and not df_macro.empty and df_macro['valor_custas'].sum() > 0:
+            val_custas = df_macro['valor_custas'].sum()
+        else:
+            val_custas = 7994093.58
 
         # 1. KPIs Superiores
         kp1, kp2, kp3, kp4, kp5 = st.columns(5)
         with kp1:
-            st.metric("ANALISADOS", "8.223", delta="↑ 6,4%")
+            st.metric("ANALISADOS", f"{val_analisados:,}".replace(',', '.'))
         with kp2:
             st.metric("ACERVO PENDENTE", f"{val_acervo_pen:,}".replace(',', '.'))
         with kp3:
-            st.metric("DEVOLVIDOS", "2.553", delta="↑ 4,9%")
+            st.metric("DEVOLVIDOS", f"{val_devolvidos:,}".replace(',', '.'))
         with kp4:
-            st.metric("PRIORIDADES", "4.968")
+            st.metric("PRIORIDADES", f"{val_prioridades:,}".replace(',', '.'))
         with kp5:
-            st.metric("VALOR DAS CUSTAS", "R$ 7.994.093,58", delta="↑ 10,4%")
+            st.metric("VALOR DAS CUSTAS", f"R$ {val_custas:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.'))
 
         st.markdown("<br>", unsafe_allow_html=True)
 
