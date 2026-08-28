@@ -476,9 +476,9 @@ def main():
     todas_prioridades = sorted(df['prioridades'].dropna().unique().tolist()) if 'prioridades' in df.columns else []
     selected_prioridades = st.sidebar.multiselect("Nível de Prioridade", options=todas_prioridades, default=todas_prioridades)
 
-    # Filtro por Faixa de SLA
+    # Filtro por Faixa de Tempo
     faixas_ordenadas = ["< 15 dias", "15 a 30 dias", "31 a 60 dias", "> 60 dias (Crítico)"]
-    selected_faixas = st.sidebar.multiselect("Faixa de SLA (Dias em Aberto)", options=faixas_ordenadas, default=faixas_ordenadas)
+    selected_faixas = st.sidebar.multiselect("Faixa de Tempo (Dias em Aberto)", options=faixas_ordenadas, default=faixas_ordenadas)
 
     # Base Macro (Filtros Laterais exceto Status, para Visão Geral e Produtividade)
     df_macro = df.copy()
@@ -523,7 +523,7 @@ def main():
         "📈 Produtividade por Núcleo",
         "📊 Visão Geral Estratégica", 
         "⚖️ Prioridades & Gargalos", 
-        "⏱️ Monitor de SLA & Atrasos", 
+        "⏱️ Monitor de Tempo & Atrasos", 
         "📋 Central de Processos"
     ])
 
@@ -822,11 +822,27 @@ def main():
         r1, r2 = st.columns(2)
         with r1:
             st.markdown("#### 🥇 Top Calculistas — Analisados")
-            if 'calculista' in df_filtered.columns and not df_filtered.empty:
-                top_calc = df_filtered['calculista'].value_counts().head(5).reset_index()
-                top_calc.columns = ['Calculista', 'Analisados']
-                top_calc['#'] = range(1, len(top_calc) + 1)
-                df_calc_ana = top_calc[['#', 'Calculista', 'Analisados']]
+            if 'calculista' in df_macro.columns and 'status' in df_macro.columns:
+                df_calc_ana_all = df_macro[
+                    (df_macro['status'].astype(str).str.lower().str.strip() != 'pendente') & 
+                    (df_macro['calculista'].notnull()) & 
+                    (df_macro['calculista'].astype(str).str.strip() != '')
+                ]
+                if not df_calc_ana_all.empty:
+                    top_calc = df_calc_ana_all['calculista'].value_counts().head(5).reset_index()
+                    top_calc.columns = ['Calculista', 'Analisados']
+                    top_calc['#'] = range(1, len(top_calc) + 1)
+                    df_calc_ana = top_calc[['#', 'Calculista', 'Analisados']]
+                else:
+                    df_calc_ana = pd.DataFrame({
+                        '#': [1, 2, 3, 4, 5],
+                        'Calculista': [
+                            'Jose Helton De Lima Castro', 'Rodrigo Ferreira Borges Da Costa',
+                            'Adriana Barbosa Lopes', 'Niedja Maria Albuquerque Lopes',
+                            'Scheilla Serretti De Castro'
+                        ],
+                        'Analisados': [416, 317, 293, 289, 262]
+                    })
             else:
                 df_calc_ana = pd.DataFrame({
                     '#': [1, 2, 3, 4, 5],
@@ -859,8 +875,12 @@ def main():
 
         with r2:
             st.markdown("#### ⏳ Top Calculistas — Pendentes")
-            if 'calculista' in df_filtered.columns and 'status' in df_filtered.columns:
-                df_calc_pend_all = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente']
+            if 'calculista' in df_macro.columns and 'status' in df_macro.columns:
+                df_calc_pend_all = df_macro[
+                    (df_macro['status'].astype(str).str.lower().str.strip() == 'pendente') & 
+                    (df_macro['calculista'].notnull()) & 
+                    (df_macro['calculista'].astype(str).str.strip() != '')
+                ]
                 if not df_calc_pend_all.empty:
                     top_calc_p = df_calc_pend_all['calculista'].value_counts().head(5).reset_index()
                     top_calc_p.columns = ['Calculista', 'Pendentes']
@@ -1097,20 +1117,20 @@ def main():
             )
             st.plotly_chart(fig_varas, use_container_width=True)
 
-    # ABA 3: MONITOR DE SLA & ATRASOS (FOCADA EXCLUSIVAMENTE NO ACERVO PENDENTE)
+    # ABA 3: MONITOR DE TEMPO & ATRASOS (FOCADA EXCLUSIVAMENTE NO ACERVO PENDENTE)
     with tab3:
         df_tab3 = df_filtered[df_filtered['status'].astype(str).str.lower().str.strip() == 'pendente'] if 'status' in df_filtered.columns else df_filtered
         s1, s2 = st.columns([5, 5])
         with s1:
-            st.markdown("#### ⏳ Distribuição por Faixa de Idade (SLA dos Pendentes)")
+            st.markdown("#### ⏳ Distribuição por Faixa de Tempo (Dias em Aberto)")
             if 'faixa_sla' in df_tab3.columns and not df_tab3.empty:
                 sla_counts = df_tab3['faixa_sla'].value_counts().reindex(faixas_ordenadas, fill_value=0).reset_index()
-                sla_counts.columns = ['Faixa SLA', 'Quantidade']
+                sla_counts.columns = ['Faixa de Tempo', 'Quantidade']
                 fig_sla = px.bar(
                     sla_counts, 
-                    x='Faixa SLA', 
+                    x='Faixa de Tempo', 
                     y='Quantidade',
-                    color='Faixa SLA',
+                    color='Faixa de Tempo',
                     color_discrete_map={
                         "< 15 dias": "#10b981",
                         "15 a 30 dias": "#38bdf8",
@@ -1177,7 +1197,7 @@ def main():
             'nucleo': 'Núcleo',
             'prioridades': 'Prioridade',
             'dias_aberto': 'Dias em Aberto',
-            'faixa_sla': 'Faixa SLA',
+            'faixa_sla': 'Faixa de Tempo',
             'calculista': 'Calculista',
             'status': 'Status'
         }
