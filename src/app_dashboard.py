@@ -222,9 +222,29 @@ def load_data():
             query = "SELECT * FROM silver.slv_processos;"
             df_dw = pd.read_sql(query, engine)
             
+            # Consultar nomes oficiais da tabela users do DW (public.users ou bronze.users)
+            users_map = {}
+            dw_users_names = []
+            for u_table in ["public.users", "bronze.users"]:
+                try:
+                    df_u = pd.read_sql(f"SELECT id::text AS id, name FROM {u_table} WHERE name IS NOT NULL AND TRIM(name) != '';", engine)
+                    if not df_u.empty:
+                        users_map = dict(zip(df_u['id'], df_u['name']))
+                        dw_users_names = sorted([str(n).strip() for n in df_u['name'].unique() if str(n).strip()])
+                        break
+                except Exception:
+                    continue
+
             if not df_dw.empty:
                 df = df_dw
                 source = "Data Warehouse (silver.slv_processos)"
+                if users_map:
+                    if 'assigned_to_id' in df.columns:
+                        df['calculista'] = df['assigned_to_id'].astype(str).map(users_map).fillna(df.get('calculista', ''))
+                    elif 'calculista' in df.columns:
+                        df['calculista'] = df['calculista'].astype(str).map(users_map).fillna(df['calculista'])
+                if dw_users_names:
+                    st.session_state["dw_users_names"] = dw_users_names
         except Exception:
             df = None
 
@@ -430,14 +450,17 @@ def main():
     if st.session_state.get("busca_processo"):
         st.sidebar.button("❌ Limpar filtro de busca", on_click=reset_busca)
 
-    # 3. Filtro por Calculista Responsável
+    # 3. Filtro por Calculista Responsável (Utiliza os nomes da tabela users do DW)
+    dw_names = st.session_state.get("dw_users_names", [])
     if 'calculista' in df.columns:
-        raw_calcs = [str(c).strip() for c in df['calculista'].dropna().unique().tolist() if str(c).strip() not in ['', 'nan', 'None', 'null']]
-        todos_calculistas = sorted(raw_calcs)
+        raw_calcs = [str(c).strip() for c in df['calculista'].dropna().unique().tolist() if str(c).strip() not in ['', 'nan', 'None', 'null', '0']]
+        todos_calculistas = sorted(list(set(raw_calcs + dw_names)))
+    elif dw_names:
+        todos_calculistas = sorted(list(set(dw_names)))
     else:
         todos_calculistas = []
 
-    # Fallback com lista completa de calculistas se a base vier sem calculistas preenchidos
+    # Fallback com lista completa de calculistas se nenhuma fonte retornar nomes
     if not todos_calculistas:
         todos_calculistas = sorted([
             "Adriana Barbosa Lopes", "Ana Paula", "Andrew Lou", "Brenton Raf",
