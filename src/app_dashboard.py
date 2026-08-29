@@ -327,6 +327,27 @@ def load_data():
         for col in df.select_dtypes(include=['object']).columns:
             df[col] = df[col].apply(clean_text)
 
+        # Garantir presença de colunas fundamentais
+        if 'status' not in df.columns or df['status'].isnull().all():
+            df['status'] = 'Pendente'
+        else:
+            df['status'] = df['status'].fillna('Pendente')
+
+        if 'calculista' not in df.columns:
+            df['calculista'] = ''
+        else:
+            df['calculista'] = df['calculista'].fillna('')
+
+        if 'valor_custas' not in df.columns:
+            df['valor_custas'] = 0.0
+        else:
+            df['valor_custas'] = pd.to_numeric(df['valor_custas'], errors='coerce').fillna(0.0)
+
+        if 'prioridades' not in df.columns or df['prioridades'].isnull().all():
+            df['prioridades'] = 'Sem prioridade'
+        else:
+            df['prioridades'] = df['prioridades'].fillna('Sem prioridade')
+
         # Processamento de Datas e Idade em Dias
         if 'dias_aberto' not in df.columns or df['dias_aberto'].isnull().all():
             if 'data' in df.columns:
@@ -463,13 +484,17 @@ def main():
     # Fallback com lista completa de calculistas se nenhuma fonte retornar nomes
     if not todos_calculistas:
         todos_calculistas = sorted([
-            "Adriana Barbosa Lopes", "Ana Paula", "Andrew Lou", "Brenton Raf",
-            "Caroline E", "Cynthia Elis", "Danielle Ma", "Dayane Co", "Elidiane Rib",
-            "Gustavo M", "Igor Lisboa", "Joao Batist", "Joelma Alv", "Jonas Ferreira Da Paixao",
-            "Jose Helton De Lima Castro", "Jose Ricard", "Jullieta Bea", "Katia Karina Medeiros Lisbos",
-            "Maria Auxili", "Maria Do C", "Maria Simone Nascimento Carreiro", "Niedja Maria Albuquerque Lopes",
-            "Priscilla Goncalves D De Melo", "Ramon Go", "Rayssa Rob", "Rodrigo Falcao Lopes De Lima",
-            "Rodrigo Ferreira Borges Da Costa", "Scheilla Serretti De Castro", "Valeria Per", "Veruska Ma"
+            "Adriana Barbosa Lopes", "Adriana Magalhaes Lima Rolim", "Amanda Carolina Cavalcanti Lopes",
+            "Ana Paula Alice Da Silva Santos", "Andrew Lourival Tavares Da Silva", "Aryane Cristina Lins Dos Santos",
+            "Brenton Rafaelo Macedo Neves", "Caroline Ester Gomes De Santana", "Cynthia Elisama Silva Da Costa",
+            "Danielle Maria Araujo De Sa", "Dayane Coutinho De Lima", "Elidiane Ribeiro Da Silva",
+            "Gustavo Mendonca De Souza", "Igor Lisboa De Melo", "Joao Batista Da Silva Filho",
+            "Joelma Alves De Albuquerque", "Jonas Ferreira Da Paixao", "Jose Helton De Lima Castro",
+            "Jose Ricardo Alves Da Silva", "Jullieta Beatriz Bezerra De Lima", "Katia Karina Medeiros Lisboa",
+            "Maria Auxiliadora Soares De Brito", "Maria Do Carmo Alves Dos Santos", "Maria Simone Nascimento Carreiro",
+            "Niedja Maria Albuquerque Lopes", "Priscilla Goncalves D De Melo", "Ramon Gomes De Sa",
+            "Rayssa Roberta Silva Cavalcante", "Rodrigo Falcao Lopes De Lima", "Rodrigo Ferreira Borges Da Costa",
+            "Scheilla Serretti De Castro", "Valeria Pereira De Sa", "Veruska Maria Da Silva"
         ])
 
     selected_calculistas = st.sidebar.multiselect(
