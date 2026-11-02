@@ -18,6 +18,7 @@ SELECT
     u.name AS Calculista,  -- Substituindo ID pelo Nome (coluna 'name' em users)
     p.status AS status_atual,   -- Usando a coluna 'status' diretamente de processes
     COALESCE(p.pje, true) AS pje,
+    COALESCE(p.inconsistencia_tempo_real, false) AS inconsistencia_tempo_real,
     
     -- Lógica da Coluna Meta
     CASE 

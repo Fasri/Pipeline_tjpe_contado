@@ -25,6 +25,11 @@ def get_val(row, keys, default=""):
             return row[key]
     return default
 
+def is_2cc(nucleus_str: str) -> bool:
+    """Verifica se o núcleo corresponde à 2ª CC (2ª Contadoria de Custas)."""
+    clean = str(nucleus_str or "").strip().upper()
+    return clean in ["2ª CC", "2ªCC", "2 CC", "2CC"]
+
 def backup_database():
     """
     Faz o backup completo de todas as tabelas e views expostas no banco (Supabase)
@@ -150,10 +155,45 @@ def sync_database_from_storage():
         df = pd.read_csv(TEMP_FILE)
         print(f"Arquivo lido. Encontradas {len(df)} linhas.")
 
+        # 2.1. Buscar processos que já estão pendentes no banco para a 2ª CC
+        print("Consultando processos pendentes da 2ª CC no banco de dados...")
+        pending_2cc_db = set()
+        page_size = 1000
+        start = 0
+        while True:
+            try:
+                res = (
+                    supabase.table("processes")
+                    .select("number")
+                    .in_("nucleus", ["2ª CC", "2ªCC", "2 CC", "2CC"])
+                    .ilike("status", "Pendente%")
+                    .range(start, start + page_size - 1)
+                    .execute()
+                )
+                data = res.data or []
+                if not data:
+                    break
+                for item in data:
+                    num = str(item.get("number") or "").strip()
+                    if num:
+                        pending_2cc_db.add(num)
+                if len(data) < page_size:
+                    break
+                start += page_size
+            except Exception as e:
+                print(f"  [AVISO] Erro ao carregar processos pendentes da 2ª CC: {e}")
+                break
+
+        print(f"Total de processos pendentes da 2ª CC no banco: {len(pending_2cc_db)}")
+
         # 3. Preparar dados para inserção
         to_insert = []
-        existing_set = set() # Evitar duplicados no mesmo arquivo
+        candidates_2cc = {}  # {number: item_data} para 2ª CC, mantendo a data de entrada mais antiga
+        existing_set = set() # Evitar duplicados no mesmo arquivo para os demais núcleos
+        file_numbers_set = set()
+        file_composite_keys = set()
         intra_file_skipped = 0
+        skipped_2cc_pending = 0
         
         for _, row in df.iterrows():
             number = str(get_val(row, ['processo', 'Processo', 'numero', 'Número'], "")).strip()
@@ -173,15 +213,10 @@ def sync_database_from_storage():
             if not number or not entry_date:
                 continue
 
-            identifier = f"{number}|{entry_date}|{nucleus}"
-            if identifier in existing_set:
-                intra_file_skipped += 1
-                continue
-                
-            existing_set.add(identifier)
+            file_numbers_set.add(number)
+            file_composite_keys.add(f"{number}|{entry_date}|{nucleus}")
 
-            # Mapeamento para o banco
-            to_insert.append({
+            item_data = {
                 "number": number,
                 "entry_date": entry_date,
                 "court": str(get_val(row, ['vara', 'Vara', 'Juízo'], "")).strip(),
@@ -192,11 +227,37 @@ def sync_database_from_storage():
                 "valor_custas": float(get_val(row, ['valor_custas', 'Custas'], 0)),
                 "observacao": str(get_val(row, ['observacao', 'Nota'], "")).strip(),
                 "pje": True,
+                "inconsistencia_tempo_real": False,
                 "created_at": datetime.now().isoformat()
-            })
+            }
 
-        # Conjunto de números de processos presentes no arquivo baixado
-        file_numbers_set = set(item["number"] for item in to_insert if item.get("number"))
+            if is_2cc(nucleus):
+                # Regra 2ª CC: se o processo já estiver pendente no sistema, não deve ser incluído
+                if number in pending_2cc_db:
+                    skipped_2cc_pending += 1
+                    continue
+
+                # Regra 2ª CC no arquivo: manter a ocorrência com data de entrada mais antiga
+                if number in candidates_2cc:
+                    intra_file_skipped += 1
+                    if entry_date < candidates_2cc[number]["entry_date"]:
+                        candidates_2cc[number] = item_data
+                else:
+                    candidates_2cc[number] = item_data
+            else:
+                identifier = f"{number}|{entry_date}|{nucleus}"
+                if identifier in existing_set:
+                    intra_file_skipped += 1
+                    continue
+                existing_set.add(identifier)
+                to_insert.append(item_data)
+
+        # Adiciona processos selecionados da 2ª CC
+        if candidates_2cc:
+            to_insert.extend(candidates_2cc.values())
+
+        if skipped_2cc_pending > 0:
+            print(f"  [2ª CC] {skipped_2cc_pending} registros ignorados por já estarem com status Pendente no banco.")
 
         # 4. Inserir no banco em blocos (upsert)
         inserted_count = 0
@@ -237,7 +298,7 @@ def sync_database_from_storage():
         start = 0
         while True:
             try:
-                res = supabase.table("processes").select("id, number, status, pje").ilike("status", "Pendente%").range(start, start + page_size - 1).execute()
+                res = supabase.table("processes").select("id, number, status, pje, inconsistencia_tempo_real").ilike("status", "Pendente%").range(start, start + page_size - 1).execute()
                 data = res.data or []
                 if not data:
                     break
@@ -281,6 +342,70 @@ def sync_database_from_storage():
                 except Exception as e:
                     print(f"  [AVISO] Erro ao atualizar pje=True no lote: {e}")
 
+        # 4.6. Sincronizar campo 'inconsistencia_tempo_real' no banco
+        # Regra: True se (processo, data, nucleo) está no arquivo Tempo Real E o status no banco NÃO é Pendente.
+        # False em todos os demais casos.
+        print("Sincronizando campo 'inconsistencia_tempo_real' nos processos...")
+        all_non_pending_db = []
+        start = 0
+        while True:
+            try:
+                res = supabase.table("processes").select("id, number, entry_date, nucleus, status, inconsistencia_tempo_real").not_.ilike("status", "Pendente%").range(start, start + page_size - 1).execute()
+                data = res.data or []
+                if not data:
+                    break
+                all_non_pending_db.extend(data)
+                if len(data) < page_size:
+                    break
+                start += page_size
+            except Exception as fetch_err:
+                print(f"  [AVISO] Erro ao carregar processos não pendentes do banco para sincronização 'inconsistencia_tempo_real': {fetch_err}")
+                break
+
+        ids_inconsistencia_true = []
+        ids_inconsistencia_false = []
+
+        # Analisa processos que NÃO estão pendentes no banco
+        for p in all_non_pending_db:
+            p_id = p.get("id")
+            p_num = str(p.get("number") or "").strip()
+            p_date = str(p.get("entry_date") or "").strip()[:10]
+            p_nuc = str(p.get("nucleus") or "").strip()
+            curr_inc = p.get("inconsistencia_tempo_real")
+
+            comp_key = f"{p_num}|{p_date}|{p_nuc}"
+            in_file = comp_key in file_composite_keys
+
+            if in_file and curr_inc is not True:
+                ids_inconsistencia_true.append(p_id)
+            elif not in_file and curr_inc is not False:
+                ids_inconsistencia_false.append(p_id)
+
+        # Analisa processos pendentes (devem ter inconsistencia_tempo_real = False sempre)
+        for p in all_pending_db:
+            p_id = p.get("id")
+            curr_inc = p.get("inconsistencia_tempo_real")
+            if curr_inc is True:
+                ids_inconsistencia_false.append(p_id)
+
+        if ids_inconsistencia_false:
+            print(f"  -> Atualizando inconsistencia_tempo_real=False para {len(ids_inconsistencia_false)} processos...")
+            for b in range(0, len(ids_inconsistencia_false), 100):
+                batch = ids_inconsistencia_false[b:b+100]
+                try:
+                    supabase.table("processes").update({"inconsistencia_tempo_real": False}).in_("id", batch).execute()
+                except Exception as e:
+                    print(f"  [AVISO] Erro ao atualizar inconsistencia_tempo_real=False no lote: {e}")
+
+        if ids_inconsistencia_true:
+            print(f"  -> [ALERTA] Encontradas {len(ids_inconsistencia_true)} inconsistências (concluído/não pendente no banco, mas presente no arquivo Tempo Real)! Atualizando inconsistencia_tempo_real=True...")
+            for b in range(0, len(ids_inconsistencia_true), 100):
+                batch = ids_inconsistencia_true[b:b+100]
+                try:
+                    supabase.table("processes").update({"inconsistencia_tempo_real": True}).in_("id", batch).execute()
+                except Exception as e:
+                    print(f"  [AVISO] Erro ao atualizar inconsistencia_tempo_real=True no lote: {e}")
+
         if to_insert:
             # 5. Registrar na Auditoria
             if SYSTEM_USER_ID:
@@ -294,6 +419,7 @@ def sync_database_from_storage():
                             "attempted": len(to_insert),
                             "new_inserted": inserted_count,
                             "intra_file_skipped": intra_file_skipped,
+                            "skipped_2cc_pending": skipped_2cc_pending,
                         },
                     }).execute()
                 except Exception as audit_err:

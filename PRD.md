@@ -53,6 +53,14 @@ Interface Streamlit que apresente:
 ### RF05: Chatbot com Consciência de Dados
 Assistente virtual que utiliza RAG (Retrieval-Augmented Generation) para responder perguntas sobre o estado atual do acervo baseado nos dados do DW e do Google Sheets.
 
+### RF06: Sincronização do Banco de Produção e Auditoria (`db_sync`)
+O pipeline deve sincronizar a base transacional (`processes`) a partir dos dados do Storage, realizando:
+- Backup de segurança automático pré-sincronização.
+- Upsert em lotes (batching) com controle de duplicidades.
+- Atualização dinâmica da flag `pje` (sinalizando se o processo ainda consta na fila do PJe).
+- Monitoramento e marcação de inconsistências temporais (`inconsistencia_tempo_real`).
+- Registro detalhado de cada execução na tabela `audit_logs`.
+
 ## 6. Requisitos Não Funcionais (RNF)
 
 ### RNF01: Performance em Hardware Limitado
@@ -67,10 +75,22 @@ O processo de ingestão deve realizar verificação de Checksum (contagem de lin
 ### RNF04: Localização
 Todos os timestamps e visualizações devem respeitar o fuso horário de Brasília/Recife e o formato de data brasileiro (DD/MM/YYYY).
 
-## 7. Fluxo de Dados (Data Flow)
+## 7. Regras de Negócio (RN)
+
+### RN01: Unicidade e Controle de Pendências Exclusivo da 2ª CC (2ª Contadoria de Custas)
+- **Escopo:** Aplica-se exclusivamente aos processos da **2ª CC**. Os demais núcleos mantêm a estratégia padrão de unicidade baseada na chave composta `(number, entry_date, nucleus)`.
+- **Bloqueio por Pendência Ativa:** Quando um processo da 2ª CC já possuir registro com status `Pendente` no sistema (`status` iniciado por `"Pendente%"`), qualquer nova ocorrência com o mesmo número de processo — mesmo que venha com data de entrada/remessa diferente — **não deve ser incluída** no banco de dados.
+- **Ciclo de Vida / Conclusão:** O bloqueio restringe-se ao período em que o processo permanece pendente. Caso o processo já esteja com status Concluído (ou outro status finalizado) no sistema e surja no arquivo com uma nova remessa/data, a inclusão é realizada normalmente.
+- **Desduplicação Intra-Arquivo (Data Mais Antiga):** Caso o relatório diário do PJe traga múltiplas linhas do mesmo processo para a 2ª CC com datas de entrada distintas, o pipeline preserva obrigatoriamente a ocorrência com a **data de entrada mais antiga** (menor valor cronológico).
+- **Rastreabilidade e Sincronização de Status:**
+  - Os processos da 2ª CC ignorados por pendência ativa são contabilizados nos logs e gravados na tabela `audit_logs` no atributo `skipped_2cc_pending`.
+  - O mapeamento geral de processos do arquivo (`file_numbers_set`) preserva esses registros para que a sincronização da flag `pje` continue indicando corretamente que o processo permanece ativo no tribunal.
+
+## 8. Fluxo de Dados (Data Flow)
 1. **TJPE Reports** -> Selenium (Extração) -> `xlsx` local.
 2. `xlsx` -> Pandas (Transformação Inicial) -> `csv` local.
 3. `csv` -> Supabase Storage (Backup) + Google Sheets (Espelhamento).
-4. `csv` -> Supabase Postgres (**Bronze Layer** - Replace).
-5. **Bronze** -> dbt run (**Silver/Gold Layers** - Table/View).
-6. **Silver/Gold** -> Dashboard / Chatbot.
+4. `csv` -> Supabase Postgres (**db_sync** com aplicação de regras de negócio como RN01).
+5. `csv` -> Supabase Postgres (**Bronze Layer** - Data Warehouse).
+6. **Bronze** -> dbt run (**Silver/Gold Layers** - Table/View).
+7. **Silver/Gold** -> Dashboard / Chatbot.

@@ -94,10 +94,16 @@ def ingest(backup_dir=None):
                 break
             except Exception as e:
                 err_str = str(e)
-                if "EAUTHQUERY" in err_str or "connection to database not available" in err_str:
+                is_paused = (
+                    "EAUTHQUERY" in err_str
+                    or "connection to database not available" in err_str
+                    or "server didn't return client encoding" in err_str
+                    or "SSL connection has been closed unexpectedly" in err_str
+                )
+                if is_paused:
                     proj_ref = DW_USER.split('.')[-1] if DW_USER and '.' in DW_USER else DW_USER
                     print(f"    [ERRO SUPABASE] A instância do PostgreSQL no Supabase (projeto DW: {proj_ref}) está PAUSADA ou indisponível.", flush=True)
-                    print(f"    -> SOLUÇÃO: Acesse o painel do Supabase (https://supabase.com/dashboard/project/{proj_ref}) e clique em 'Restore project' para reativar o banco de dados.", flush=True)
+                    print(f"    -> SOLUÇÃO: Acesse https://supabase.com/dashboard/project/{proj_ref} e clique em 'Restore project'.", flush=True)
                 if attempt == max_conn_retries - 1:
                     raise e
                 print(f"    [AVISO] Falha na conexão inicial ({e}). Tentando novamente em 5s... ({attempt+1}/{max_conn_retries})")
@@ -129,13 +135,26 @@ def ingest(backup_dir=None):
                             valor_custas NUMERIC,
                             observacao TEXT,
                             pje BOOLEAN DEFAULT TRUE,
+                            inconsistencia_tempo_real BOOLEAN DEFAULT FALSE,
                             created_at TIMESTAMPTZ DEFAULT NOW(),
                             updated_at TIMESTAMPTZ DEFAULT NOW()
                         );
                     """))
-                    # Garantir que assigned_to_id seja TEXT em tabelas pré-existentes
+                    # Garantir que assigned_to_id seja TEXT e que inconsistencia_tempo_real exista em tabelas pré-existentes
                     try:
                         conn.execute(text("ALTER TABLE bronze.processes ALTER COLUMN assigned_to_id TYPE TEXT;"))
+                        conn.commit()
+                    except Exception:
+                        conn.rollback()
+
+                    try:
+                        conn.execute(text("ALTER TABLE bronze.processes ADD COLUMN IF NOT EXISTS inconsistencia_tempo_real BOOLEAN DEFAULT FALSE;"))
+                        conn.commit()
+                    except Exception:
+                        conn.rollback()
+
+                    try:
+                        conn.execute(text("ALTER TABLE public.processes ADD COLUMN IF NOT EXISTS inconsistencia_tempo_real BOOLEAN DEFAULT FALSE;"))
                         conn.commit()
                     except Exception:
                         conn.rollback()

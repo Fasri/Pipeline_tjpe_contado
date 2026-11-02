@@ -3,10 +3,10 @@ contadoria_dw:
   outputs:
     dev:
       type: postgres
-      host: aws-1-sa-east-1.pooler.supabase.com
-      user: postgres.owpqwkntxojqnpyfebal
-      password: "Nk6/4Q-_Aq8ukW!"
-      port: 5432
+      host: aws-0-us-east-1.pooler.supabase.com
+      user: postgres.unutnwmwyyeiuvqlvgkm
+      password: "xM.E.H8tF$iz!@z"
+      port: 6543
       dbname: postgres
       schema: public
       threads: 2

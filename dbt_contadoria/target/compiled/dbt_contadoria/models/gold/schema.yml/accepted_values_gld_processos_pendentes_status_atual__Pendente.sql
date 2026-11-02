@@ -8,7 +8,7 @@ with all_values as (
         status_atual as value_field,
         count(*) as n_records
 
-    from "postgres"."public_gold"."gld_processos_pendentes"
+    from "postgres"."gold"."gld_processos_pendentes"
     group by status_atual
 
 )

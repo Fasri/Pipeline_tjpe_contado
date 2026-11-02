@@ -288,6 +288,8 @@ def load_data():
             'number': 'processo',
             'data_remessa': 'data',
             'entry_date': 'data',
+            'completion_date': 'data_conclusao',
+            'data_conclusao': 'data_conclusao',
             'prioridade': 'prioridades',
             'priority': 'prioridades',
             'status_atual': 'status',
@@ -349,6 +351,10 @@ def load_data():
             df['prioridades'] = df['prioridades'].fillna('Sem prioridade')
 
         # Processamento de Datas e Idade em Dias
+        if 'data_conclusao' in df.columns:
+            df['data_conclusao_dt'] = pd.to_datetime(df['data_conclusao'], format='%d/%m/%Y', dayfirst=True, errors='coerce')
+            df['data_conclusao_dt'] = df['data_conclusao_dt'].fillna(pd.to_datetime(df['data_conclusao'], dayfirst=True, errors='coerce'))
+
         if 'dias_aberto' not in df.columns or df['dias_aberto'].isnull().all():
             if 'data' in df.columns:
                 df['data_dt'] = pd.to_datetime(df['data'], format='%d/%m/%Y', dayfirst=True, errors='coerce')
@@ -799,20 +805,56 @@ def main():
         # 2. Primeira Linha de Gráficos: Linha Diária + Barras Custas por Núcleo
         g1, g2 = st.columns([6, 4])
         with g1:
-            st.markdown("#### 📈 Evolução Diária de Processos")
-            dates = [f"{d} de ago." for d in range(1, 27)]
-            values = [480, 510, 460, 490, 440, 50, 60, 570, 520, 500, 420, 30, 560, 540, 500, 510, 450, 20, 30, 540, 520, 490, 470, 10, 20, 530]
-            df_line = pd.DataFrame({'Data': dates, 'Processos': values})
-            fig_line = px.line(df_line, x='Data', y='Processos', markers=True, color_discrete_sequence=['#38bdf8'])
-            fig_line.update_traces(line=dict(width=3), marker=dict(size=7))
-            fig_line.update_layout(
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                xaxis_tickangle=-45,
-                margin=dict(t=20, b=40, l=10, r=10),
-                height=320
-            )
-            st.plotly_chart(fig_line, use_container_width=True)
+            st.markdown("#### 📈 Evolução Diária de Processos Analisados")
+            df_analisados = df_macro[df_macro['status'].astype(str).str.lower().str.strip() != 'pendente'].copy()
+            
+            # Identificar a coluna de data para os analisados
+            if 'data_conclusao_dt' in df_analisados.columns and df_analisados['data_conclusao_dt'].notnull().any():
+                df_analisados['data_plot'] = df_analisados['data_conclusao_dt'].fillna(df_analisados.get('data_dt'))
+            elif 'data_dt' in df_analisados.columns and df_analisados['data_dt'].notnull().any():
+                df_analisados['data_plot'] = df_analisados['data_dt']
+            elif 'data' in df_analisados.columns:
+                df_analisados['data_plot'] = pd.to_datetime(df_analisados['data'], dayfirst=True, errors='coerce')
+            else:
+                df_analisados['data_plot'] = pd.NaT
+
+            df_analisados_valid = df_analisados.dropna(subset=['data_plot'])
+
+            if not df_analisados_valid.empty:
+                df_daily = (
+                    df_analisados_valid
+                    .groupby(df_analisados_valid['data_plot'].dt.date)
+                    .size()
+                    .reset_index(name='Processos Analisados')
+                )
+                df_daily = df_daily.rename(columns={'data_plot': 'Data'})
+                df_daily = df_daily.sort_values(by='Data')
+                df_daily['Data_Str'] = pd.to_datetime(df_daily['Data']).dt.strftime('%d/%m/%Y')
+
+                fig_line = px.line(
+                    df_daily, 
+                    x='Data_Str', 
+                    y='Processos Analisados', 
+                    markers=True, 
+                    color_discrete_sequence=['#38bdf8']
+                )
+                fig_line.update_traces(
+                    line=dict(width=3), 
+                    marker=dict(size=7),
+                    hovertemplate="<b>Data:</b> %{x}<br><b>Analisados:</b> %{y:,}<extra></extra>"
+                )
+                fig_line.update_layout(
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    xaxis_title=None,
+                    yaxis_title="Total Analisados",
+                    xaxis_tickangle=-45,
+                    margin=dict(t=20, b=40, l=10, r=10),
+                    height=320
+                )
+                st.plotly_chart(fig_line, use_container_width=True)
+            else:
+                st.info("Nenhum processo analisado encontrado para os filtros e período selecionados.")
 
         with g2:
             st.markdown("#### 💰 Valor das Custas por Núcleo")
@@ -1006,50 +1048,7 @@ def main():
             )
             st.plotly_chart(fig_calc_p, use_container_width=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
 
-        # 5. Quarta Seção: Comparativo de Metas por Calculista
-        st.markdown("#### 🎯 Meta Esperada vs Meta Realizada por Calculista")
-        calculistas_meta = [
-            "Niedja Maria", "Maria Auxili", "Joelma Alv", "Rodrigo Fer", "Andrew Lou",
-            "Maria Do C", "Caroline E", "Adriana Bar", "Scheilla Ser", "Veruska Ma",
-            "Joao Batist", "Dayane Co", "Rayssa Rob", "Elidiane Rib", "Ana Paula",
-            "Brenton Raf", "Jullieta Bea", "Jose Ricard", "Gustavo M", "Jose Helto",
-            "Danielle Ma", "Ramon Go", "Igor Lisboa", "Cynthia Elis", "Valeria Per"
-        ]
-        meta_esp = [200] * len(calculistas_meta)
-        meta_real = [285, 250, 190, 315, 205, 215, 290, 235, 195, 215, 170, 198, 118, 150, 202, 210, 350, 230, 150, 175, 150, 170, 190, 175, 180]
-
-        df_meta = pd.DataFrame({
-            'Calculista': calculistas_meta,
-            'Meta Esperada': meta_esp,
-            'Meta Realizada': meta_real
-        })
-
-        fig_meta = go.Figure()
-        fig_meta.add_trace(go.Bar(
-            x=df_meta['Calculista'],
-            y=df_meta['Meta Esperada'],
-            name='Meta Esperada',
-            marker_color='#0284c7'
-        ))
-        fig_meta.add_trace(go.Bar(
-            x=df_meta['Calculista'],
-            y=df_meta['Meta Realizada'],
-            name='Meta Realizada',
-            marker_color='#38bdf8'
-        ))
-
-        fig_meta.update_layout(
-            barmode='group',
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            xaxis_tickangle=-45,
-            margin=dict(t=20, b=60, l=10, r=10),
-            height=400,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-        )
-        st.plotly_chart(fig_meta, use_container_width=True)
 
     # ABA 1 ORIGINAL: VISÃO GERAL ESTRATÉGICA (FOCADA NO ACERVO PENDENTE)
     with tab1:

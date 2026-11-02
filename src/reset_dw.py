@@ -179,7 +179,9 @@ def reset_dw_from_production():
         with dw_engine.connect() as conn:
             brz_cols = conn.execute(text(f"SELECT column_name FROM information_schema.columns WHERE table_schema='bronze' AND table_name='{table}'")).scalars().all()
             
-        valid_cols = [c for c in df_data.columns if c in brz_cols]
+        # Exclui 'id' apenas para processes (SERIAL); demais tabelas usam id TEXT como PK
+        exclude_id = table == 'processes'
+        valid_cols = [c for c in df_data.columns if c in brz_cols and not (c == 'id' and exclude_id)]
         df_to_insert = df_data[valid_cols].copy()
         
         df_to_insert.to_sql(

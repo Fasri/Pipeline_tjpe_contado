@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: slv_processos
+    description: "Tabela silver com todos os processos consolidados, métricas de tempo e flags de status"
+    columns:
+      - name: processo_numero
+        description: "Número único do processo no tribunal"
+      - name: data_remessa
+        description: "Data de entrada do processo na tarefa"
+      - name: nucleo
+        description: "Núcleo / Contadoria responsável"
+      - name: status_atual
+        description: "Status atual do processo"
+      - name: pje
+        description: "Indica se o processo pendente está ativo no arquivo PJe baixado"
+      - name: inconsistencia_tempo_real
+        description: "Indica se o processo consta no arquivo Tempo Real mas seu status no banco NÃO é Pendente"
