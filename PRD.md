@@ -86,6 +86,12 @@ Todos os timestamps e visualizações devem respeitar o fuso horário de Brasíl
   - Os processos da 2ª CC ignorados por pendência ativa são contabilizados nos logs e gravados na tabela `audit_logs` no atributo `skipped_2cc_pending`.
   - O mapeamento geral de processos do arquivo (`file_numbers_set`) preserva esses registros para que a sincronização da flag `pje` continue indicando corretamente que o processo permanece ativo no tribunal.
 
+### RN02: Bloqueio de Varas Criminais no Núcleo Partidor
+- **Escopo:** Aplica-se exclusivamente aos processos do núcleo **Partidor** (`PARTIDOR`).
+- **Critério de Bloqueio:** Processos em que a vara/unidade judiciária (`court`) contenha o termo `"criminal"` (busca *case-insensitive*) **não devem ser adicionados ao banco de dados** (`processes`).
+- **Aplicação:** O filtro atua especificamente nas novas inserções executadas pela rotina de sincronização (`db_sync.py`), sem afetar registros pretéritos já existentes.
+- **Rastreabilidade:** O total de processos criminais descartados no Partidor é exibido nos logs de execução e registrado na tabela de auditoria (`audit_logs`) pelo campo `skipped_partidor_criminal`.
+
 ## 8. Fluxo de Dados (Data Flow)
 1. **TJPE Reports** -> Selenium (Extração) -> `xlsx` local.
 2. `xlsx` -> Pandas (Transformação Inicial) -> `csv` local.

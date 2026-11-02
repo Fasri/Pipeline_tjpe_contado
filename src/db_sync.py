@@ -30,6 +30,10 @@ def is_2cc(nucleus_str: str) -> bool:
     clean = str(nucleus_str or "").strip().upper()
     return clean in ["2ª CC", "2ªCC", "2 CC", "2CC"]
 
+def is_partidor(nucleus_str: str) -> bool:
+    """Verifica se o núcleo corresponde ao Partidor."""
+    return str(nucleus_str or "").strip().upper() == "PARTIDOR"
+
 def backup_database():
     """
     Faz o backup completo de todas as tabelas e views expostas no banco (Supabase)
@@ -194,6 +198,7 @@ def sync_database_from_storage():
         file_composite_keys = set()
         intra_file_skipped = 0
         skipped_2cc_pending = 0
+        skipped_partidor_criminal = 0
         
         for _, row in df.iterrows():
             number = str(get_val(row, ['processo', 'Processo', 'numero', 'Número'], "")).strip()
@@ -213,13 +218,20 @@ def sync_database_from_storage():
             if not number or not entry_date:
                 continue
 
+            court = str(get_val(row, ['vara', 'Vara', 'Juízo'], "")).strip()
+
             file_numbers_set.add(number)
             file_composite_keys.add(f"{number}|{entry_date}|{nucleus}")
+
+            # Regra Partidor: não adicionar ao banco varas que contenham 'criminal' no nome
+            if is_partidor(nucleus) and "criminal" in court.lower():
+                skipped_partidor_criminal += 1
+                continue
 
             item_data = {
                 "number": number,
                 "entry_date": entry_date,
-                "court": str(get_val(row, ['vara', 'Vara', 'Juízo'], "")).strip(),
+                "court": court,
                 "nucleus": nucleus,
                 "priority": str(get_val(row, ['prioridades', 'prioridade', 'Prioridade'], "2-Sem prioridade")).strip(), 
                 "status": "Pendente",
@@ -258,6 +270,9 @@ def sync_database_from_storage():
 
         if skipped_2cc_pending > 0:
             print(f"  [2ª CC] {skipped_2cc_pending} registros ignorados por já estarem com status Pendente no banco.")
+
+        if skipped_partidor_criminal > 0:
+            print(f"  [PARTIDOR] {skipped_partidor_criminal} registros ignorados por pertencerem a varas criminais.")
 
         # 4. Inserir no banco em blocos (upsert)
         inserted_count = 0
@@ -420,6 +435,7 @@ def sync_database_from_storage():
                             "new_inserted": inserted_count,
                             "intra_file_skipped": intra_file_skipped,
                             "skipped_2cc_pending": skipped_2cc_pending,
+                            "skipped_partidor_criminal": skipped_partidor_criminal,
                         },
                     }).execute()
                 except Exception as audit_err:
